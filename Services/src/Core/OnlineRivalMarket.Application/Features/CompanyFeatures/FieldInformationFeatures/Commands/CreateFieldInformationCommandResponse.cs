@@ -1,0 +1,2 @@
+﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Commands;
+public sealed record  CreateFieldInformationCommandResponse(string Message = "Alan Bilgileri Komut Yanıtı Oluşturuldu");

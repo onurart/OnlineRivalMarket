@@ -1,0 +1,76 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34607.119
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{885DD679-E818-410D-860B-BAA2C38EA9B5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{77CD4DA8-6935-4DD2-B156-9DA5F3CA9AFE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{50D7BAF4-D1A1-4D48-A07F-922C49E90394}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{61BD4AE3-1FB6-4B15-BDE3-1E1AC08B7817}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineRivalMarket.Application", "Services\src\Core\OnlineRivalMarket.Application\OnlineRivalMarket.Application.csproj", "{E12FED40-5D13-4285-834A-BF013B3CFDB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineRivalMarket.Domain", "Services\src\Core\OnlineRivalMarket.Domain\OnlineRivalMarket.Domain.csproj", "{D35EC671-FCA1-4780-8F04-D8FBFCC77539}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineRivalMarket.Presentation", "Services\src\External\OnlineRivalMarket.Presentation\OnlineRivalMarket.Presentation.csproj", "{50552A80-44A7-44EA-BC9A-C852F9F51295}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineRivalMarket.Infrasturcture", "Services\src\External\OnlineRivalMarket.Infrasturcture\OnlineRivalMarket.Infrasturcture.csproj", "{0D80A794-B3A1-4BF6-A4A9-BE381101647C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineRivalMarket.Persistance", "Services\src\External\OnlineRivalMarket.Persistance\OnlineRivalMarket.Persistance.csproj", "{A889896C-2620-443C-93DF-4799395784B1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{02E45F0A-3B9D-40C3-9A37-EB94E15042D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineRivalMarket.WebApi", "WebApi\OnlineRivalMarket.WebApi\OnlineRivalMarket.WebApi.csproj", "{2A45F22F-CD3B-42DA-BFE3-50E8A0DF3B91}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E12FED40-5D13-4285-834A-BF013B3CFDB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E12FED40-5D13-4285-834A-BF013B3CFDB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E12FED40-5D13-4285-834A-BF013B3CFDB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E12FED40-5D13-4285-834A-BF013B3CFDB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D35EC671-FCA1-4780-8F04-D8FBFCC77539}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D35EC671-FCA1-4780-8F04-D8FBFCC77539}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D35EC671-FCA1-4780-8F04-D8FBFCC77539}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D35EC671-FCA1-4780-8F04-D8FBFCC77539}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50552A80-44A7-44EA-BC9A-C852F9F51295}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50552A80-44A7-44EA-BC9A-C852F9F51295}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50552A80-44A7-44EA-BC9A-C852F9F51295}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50552A80-44A7-44EA-BC9A-C852F9F51295}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D80A794-B3A1-4BF6-A4A9-BE381101647C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D80A794-B3A1-4BF6-A4A9-BE381101647C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D80A794-B3A1-4BF6-A4A9-BE381101647C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D80A794-B3A1-4BF6-A4A9-BE381101647C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A889896C-2620-443C-93DF-4799395784B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A889896C-2620-443C-93DF-4799395784B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A889896C-2620-443C-93DF-4799395784B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A889896C-2620-443C-93DF-4799395784B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A45F22F-CD3B-42DA-BFE3-50E8A0DF3B91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A45F22F-CD3B-42DA-BFE3-50E8A0DF3B91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A45F22F-CD3B-42DA-BFE3-50E8A0DF3B91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A45F22F-CD3B-42DA-BFE3-50E8A0DF3B91}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{77CD4DA8-6935-4DD2-B156-9DA5F3CA9AFE} = {885DD679-E818-410D-860B-BAA2C38EA9B5}
+		{50D7BAF4-D1A1-4D48-A07F-922C49E90394} = {77CD4DA8-6935-4DD2-B156-9DA5F3CA9AFE}
+		{61BD4AE3-1FB6-4B15-BDE3-1E1AC08B7817} = {77CD4DA8-6935-4DD2-B156-9DA5F3CA9AFE}
+		{E12FED40-5D13-4285-834A-BF013B3CFDB9} = {50D7BAF4-D1A1-4D48-A07F-922C49E90394}
+		{D35EC671-FCA1-4780-8F04-D8FBFCC77539} = {50D7BAF4-D1A1-4D48-A07F-922C49E90394}
+		{50552A80-44A7-44EA-BC9A-C852F9F51295} = {61BD4AE3-1FB6-4B15-BDE3-1E1AC08B7817}
+		{0D80A794-B3A1-4BF6-A4A9-BE381101647C} = {61BD4AE3-1FB6-4B15-BDE3-1E1AC08B7817}
+		{A889896C-2620-443C-93DF-4799395784B1} = {61BD4AE3-1FB6-4B15-BDE3-1E1AC08B7817}
+		{2A45F22F-CD3B-42DA-BFE3-50E8A0DF3B91} = {02E45F0A-3B9D-40C3-9A37-EB94E15042D5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DA08820B-1A23-452D-ADC4-A8CB4D0D8272}
+	EndGlobalSection
+EndGlobal

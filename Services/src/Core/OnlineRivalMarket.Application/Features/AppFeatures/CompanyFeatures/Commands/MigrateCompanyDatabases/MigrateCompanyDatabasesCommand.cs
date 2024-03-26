@@ -1,0 +1,3 @@
+﻿using OnlineRivalMarket.Application.Messaging;
+namespace OnlineRivalMarket.Application.Features.AppFeatures.CompanyFeatures.Commands.MigrateCompanyDatabase;
+public sealed record MigrateCompanyDatabasesCommand() : ICommand<MigrateCompanyDatabasesCommandResponse>;

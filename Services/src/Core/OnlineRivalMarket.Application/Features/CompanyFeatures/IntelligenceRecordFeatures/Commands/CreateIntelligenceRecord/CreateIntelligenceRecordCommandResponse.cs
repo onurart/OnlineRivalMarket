@@ -1,0 +1,2 @@
+﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Commands.CreateIntelligenceRecord;
+public sealed record CreateIntelligenceRecordCommandResponse(string Message ="İstihbarat Oluşturuldu");
