@@ -8,14 +8,18 @@ using System.Threading.Tasks;
 namespace OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Commands.CreateCampaign;
 public sealed record CreateCampaignCommand
                                          (
-                                           string ? CompetitorsId,
-                                           string ? BrandId,
-                                           string ? CategoryId,
+                                           string? CompetitorId,
+
+                                           string? ProductId,
+
                                            DateTime? StartTime,
+
                                            DateTime? EndTime,
+
                                            string? Description,
+
                                            string? ImageUrl,
-                                            string? CompanyId
-                                         ) :  ICommand<CreateCampaignCommandResponse>;
-            
-        
+
+                                           string? CompanyId
+                                         ) : ICommand<CreateCampaignCommandResponse>;
+

@@ -26,7 +26,7 @@ namespace OnlineRivalMarket.Application.Features.CompanyFeatures.CompetitorsFeat
 
         public async Task<CreateCompetitorsCommandResponse> Handle(CreateCompetitorsCommand request, CancellationToken cancellationToken)
         {
-            Competitorses createBrand = await _competitorService.CreateCompetitorsAsync(request, cancellationToken);
+            Competitor createBrand = await _competitorService.CreateCompetitorsAsync(request, cancellationToken);
             string userId = _apiService.GetUserIdByToken();
             Logs log = new()
             {

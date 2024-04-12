@@ -11,6 +11,7 @@ using OnlineRivalMarket.Application.Features.CompanyFeatures.ProductFeatures.Com
 using OnlineRivalMarket.Domain.AppEntities;
 using OnlineRivalMarket.Domain.AppEntities.Identity;
 using OnlineRivalMarket.Domain.CompanyEntities;
+using OnlineRivalMarket.Domain.Dtos.HomeTopDto;
 
 namespace OnlineRivalMarket.Persistance.Mapping
 {
@@ -19,7 +20,7 @@ namespace OnlineRivalMarket.Persistance.Mapping
         public MappingProfile()
         {
 
-            CreateMap<CreateCompetitorsCommand, Competitorses>();
+            CreateMap<CreateCompetitorsCommand, Competitor>();
             CreateMap<CreateCampaignCommand, Campaigns>();
             CreateMap<CreateCategoryCommand, Category>();
             CreateMap<CreateProductCommand, Product>();
@@ -28,6 +29,8 @@ namespace OnlineRivalMarket.Persistance.Mapping
             CreateMap<CreateIntelligenceRecordCommand, IntelligenceRecord>();
 
 
+
+            CreateMap<Campaigns, HomeTopCampaignDto>();
             CreateMap<CreateCompanyCommand, Company>();
             CreateMap<CreateRoleCommand, AppRole>();
         }

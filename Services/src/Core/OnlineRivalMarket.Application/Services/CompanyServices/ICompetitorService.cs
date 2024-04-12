@@ -5,7 +5,7 @@ namespace OnlineRivalMarket.Application.Services.CompanyServices
 {
     public  interface ICompetitorService
     {
-        Task<Competitorses> CreateCompetitorsAsync(CreateCompetitorsCommand requset, CancellationToken cancellationToken);
-        Task<IList<Competitorses>> GetAllCompetitorsAsync(string companyId);
+        Task<Competitor> CreateCompetitorsAsync(CreateCompetitorsCommand requset, CancellationToken cancellationToken);
+        Task<IList<Competitor>> GetAllCompetitorsAsync(string companyId);
     }
 }

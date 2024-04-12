@@ -14,6 +14,8 @@ namespace OnlineRivalMarket.Persistance.Constans
         public static string Campaing = nameof(Campaing);
         public static string Category = nameof(Category);
         public static string Product = nameof(Product);
+        public static string VehicleType = nameof(VehicleType);
+        public static string VehicleGroup = nameof(VehicleGroup);
         public static string Brand = nameof(Brand);
         public static string Sales = nameof(Sales);
         public static string Logs = nameof(Logs);

@@ -1,12 +1,7 @@
-﻿using OnlineRivalMarket.Application.Messaging;
+﻿using Microsoft.AspNetCore.Identity;
+using OnlineRivalMarket.Application.Messaging;
 using OnlineRivalMarket.Application.Services.AppServices;
 using OnlineRivalMarket.Domain.AppEntities.Identity;
-using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnlineRivalMarket.Application.Features.AppFeatures.AuthFeatures.Commands.CreateUser
 {

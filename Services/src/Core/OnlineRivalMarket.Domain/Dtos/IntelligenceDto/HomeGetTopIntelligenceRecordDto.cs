@@ -4,7 +4,7 @@
     {
         public string? ProductId { get; set; }
         public string? ProductName { get; set; }
-        public string? CompetitorsId { get; set; }
+        public string? CompetitorId { get; set; }
         public string? CompetitorsesName { get; set; }
         public string? CategoryId { get; set; }
         public string? CategoryName { get; set; }

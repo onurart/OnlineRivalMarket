@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OnlineRivalMarket.Persistance.Repositories.CompanyDbContext.CompetitorsRepository
 {
-    public sealed class CompetitorsCommandRepository : CompanyDbCommandRepository<Competitorses>, ICompetitorCommandRepository
+    public sealed class CompetitorsCommandRepository : CompanyDbCommandRepository<Competitor>, ICompetitorCommandRepository
     {
     }
 }

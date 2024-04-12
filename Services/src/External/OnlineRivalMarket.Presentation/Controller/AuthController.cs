@@ -1,14 +1,15 @@
-﻿using OnlineRivalMarket.Presentation.Abstraction;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using OnlineRivalMarket.Application.Features.AppFeatures.AuthFeatures.Commands.ChangePassword;
 using OnlineRivalMarket.Application.Features.AppFeatures.AuthFeatures.Commands.CreateUser;
+using OnlineRivalMarket.Application.Features.AppFeatures.AuthFeatures.Commands.CreateUserAll;
 using OnlineRivalMarket.Application.Features.AppFeatures.AuthFeatures.Commands.GetTokenByRefreshToken;
 using OnlineRivalMarket.Application.Features.AppFeatures.AuthFeatures.Commands.Login;
 using OnlineRivalMarket.Application.Features.AppFeatures.AuthFeatures.Queries.GetAllUser;
 using OnlineRivalMarket.Application.Features.AppFeatures.AuthFeatures.Queries.GetMainRolesByUserId;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using OnlineRivalMarket.Presentation.Abstraction;
 namespace OnlineRivalMarket.Presentation.Controller;
 
 public class AuthController : ApiController
@@ -50,6 +51,13 @@ public class AuthController : ApiController
         CreateUserCommandResponse response = await _mediator.Send(request);
         return Ok(response);
     }
+    [HttpPost("[action]")]
+    public async Task<IActionResult> CreateAllUser(CreateUserAllCommand request)
+    {
+        CreateUserAllCommandResponse response = await _mediator.Send(request);
+        return Ok(response);
+    }
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
     [HttpGet("[action]")]
     public async Task<IActionResult> GetAllUser()
     {

@@ -5,21 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace OnlineRivalMarket.Domain.CompanyEntities;
 public class IntelligenceRecord : Entity
 {
-    [ForeignKey(nameof(CompetitorsId))]
-    public string? CompetitorsId { get; set; }
-    public Competitorses? Competitorses { get; set; }
-
-
-    [ForeignKey(nameof(BrandId))]
-    public string? BrandId { get; set; }
-    public Brand? Brand { get; set; }
-
-
-
-    [ForeignKey(nameof(CategoryId))]
-    public string? CategoryId { get; set; }
-    public Category? Category { get; set; }
-
+    [ForeignKey(nameof(CompetitorId))]
+    public string? CompetitorId { get; set; }
+    public Competitor? Competitor { get; set; }
 
 
     [ForeignKey(nameof(ProductId))]
@@ -31,8 +19,7 @@ public class IntelligenceRecord : Entity
     public string? ImageUrl { get; set; }
     public string? Location { get; set; }
     public Region? Region { get; set; }
-    public string? VehicleType { get; set; }
-    public string? VehicleGroup { get; set; }
+
     public string? FieldFeedback { get; set; }
     public string? Explanation { get; set; }
     public decimal? CurrencyTl { get; set; }

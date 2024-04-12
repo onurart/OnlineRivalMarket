@@ -1,4 +1,4 @@
-﻿    using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Commands;
 using OnlineRivalMarket.Application.Services.CompanyServices;
@@ -7,12 +7,6 @@ using OnlineRivalMarket.Domain.CompanyEntities;
 using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.FieldInformationRepository;
 using OnlineRivalMarket.Domain.UnitOfWorks;
 using OnlineRivalMarket.Persistance.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace OnlineRivalMarket.Persistance.Services.CompanyServices
 {
     public sealed class FieldInformationService : IFieldInformationService
@@ -23,7 +17,6 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
         private readonly IContextService _contextService;
         private readonly IMapper _mapper;
         private CompanyDbContext _context;
-
         public FieldInformationService(IFieldInformationCommandRepository commandRepository, IFieldInformationQueryRepository queryRepository, ICompanyDbUnitOfWork unitOfWork, IContextService contextService, IMapper mapper)
         {
             _commandRepository = commandRepository;
@@ -32,7 +25,6 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
             _contextService = contextService;
             _mapper = mapper;
         }
-
         public async Task<FieldInformation> CreateFieldInformationAsync(CreateFieldInformationCommand requset, CancellationToken cancellationToken)
         {
             _context = (CompanyDbContext)_contextService.CreateDbContextInstance(requset.companyId);
@@ -43,7 +35,6 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return fieldInformation;
         }
-
         public async Task<IList<FieldInformation>> GetAllFieldInformationAsync(string companyId)
         {
             _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId); ;

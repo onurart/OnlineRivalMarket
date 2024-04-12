@@ -9,7 +9,7 @@ namespace OnlineRivalMarket.Application.Services.CompanyServices
         Task<Campaigns> CreateCampaignAsync(CreateCampaignCommand request, CancellationToken cancellationToken);
         Task<IList<Campaigns>> GetAllAsync(string companyId);
         Task UpdateAsync(Campaigns product, string companyId);
-        Task<IList<Campaigns>> HomeTopGetAllDtoAsync(string companyId);
+        Task<IList<HomeTopCampaignDto>> HomeTopGetAllDtoAsync(string companyId);
 
     }
 }

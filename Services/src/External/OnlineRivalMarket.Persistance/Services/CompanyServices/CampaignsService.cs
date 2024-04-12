@@ -11,6 +11,7 @@ using OnlineRivalMarket.Domain.Dtos.HomeTopDto;
 using OnlineRivalMarket.Persistance.Repositories.CompanyDbContext.CampaignRepository;
 using OnlineRivalMarket.Domain.Dtos;
 using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.ProductRepositories;
+using System.Collections.Immutable;
 namespace OnlineRivalMarket.Persistance.Services.CompanyServices
 {
     public sealed class CampaignsService : ICampaignService
@@ -33,6 +34,11 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
             _mapper = mapper;
             _queryProductRepository = queryProductRepository;
         }
+      
+        
+        
+        
+        
         public async Task<Campaigns> CreateCampaignAsync(CreateCampaignCommand request, CancellationToken cancellationToken)
         {
             _context = (CompanyDbContext)_contextService.CreateDbContextInstance(request.CompanyId);
@@ -43,7 +49,11 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
             await _commandRepository.AddAsync(campaigns, cancellationToken);
             await _companyDbUnitOfWork.SaveChangesAsync(cancellationToken);
             return campaigns;
-        }
+            }
+        
+        
+        
+        
         public async Task<IList<Campaigns>> GetAllAsync(string companyId)
         {
             _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
@@ -51,51 +61,106 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
             return await _queryRepository.GetAll().AsNoTracking().ToListAsync();
         }
 
-        public async Task<IList<Campaigns>> HomeTopGetAllDtoAsync(string companyId)
+        public async Task<IList<HomeTopCampaignDto>> HomeTopGetAllDtoAsync(string companyId)
         {
-            _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
-            _queryRepository.SetDbContextInstance(_context);
-            return await _queryRepository.GetAll().AsNoTracking().OrderBy(c => c.CreatedDate).Take(5).ToListAsync();
             //_context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
             //_queryRepository.SetDbContextInstance(_context);
+            //_queryProductRepository.SetDbContextInstance(_context);
+            //var prodcustrel = await _queryRepository.GetAll().Include("Competitor").Include("Product").ToListAsync();
+            //var product = await _queryProductRepository.GetAll().Include("Category").Include("Brand").ToListAsync();
 
-            //var result = await _queryRepository.GetAll()
-            //    .Include(pc => pc.Competitors)
-            //    .Include(pc => pc.Brand)
-            //    .Include(pc => pc.Category)
-            //    .Take(5)
-            //    .ToListAsync();
+            //var joinedData = (from pc in prodcustrel
+            //                  join p in product on pc.ProductId equals p.Id
+            //                  orderby pc.CreatedDate descending
+            //                  select new HomeTopCampaignDto
+            //                  {
+            //                      CompetitorId = pc.CompetitorId,
+            //                      CompetitorsesName = pc.Competitor.Name,
 
-            //var dto = result.Select(pc => new HomeTopCampaignDto
+            //                      BrandId = p.BrandId,
+            //                      BrandName = p.Brand.Name,
+
+            //                      CategoryId = p.CategoryId,
+            //                      CategoryName = p.Category.Name,
+
+            //                      ProductId = pc.Product.Id,
+            //                      ProductName = pc.Product.ProductName,
+                                  
+            //                      Description = pc.Description,    
+            //                      StartTime = pc.StartTime,
+            //                      ImageUrl = pc.ImageUrl,
+            //                      EndTime=pc.EndTime
+            //                  }).ToList();
+
+            //List<HomeTopCampaignDto> dto = new();
+            //foreach (var item in joinedData)
             //{
-            //    CompetitorsId = pc.CompetitorsId,
-            //    CompetitorName = pc.Competitors.Name,
-            //    BrandId = pc.BrandId,
-            //    BrandName = pc.Brand.Name,
-            //    CategoryId = pc.CategoryId,
-            //    CategoryName = pc.Category.Name,
-            //    Description = pc.Description,
-            //    ImageUrl = pc.ImageUrl
-            //}).ToList();
-
-            //List<HomeTopCampaignDto> dtoList = new();
-            //foreach (var item in result)
-            //{
-            //    dtoList.Add(new HomeTopCampaignDto()
+            //    dto.Add(new HomeTopCampaignDto()
             //    {
+            //        CompetitorId = item.CompetitorId,
+            //        CompetitorsesName = item.CompetitorsesName,
+
             //        BrandId = item.BrandId,
-            //        CompetitorName = item.Competitors.Name,
-            //        CompetitorsId = item.CompetitorsId,
-            //        CreatedDate = item.CreatedDate,
+            //        BrandName = item.BrandName,
+
+            //        CategoryId = item.CategoryId,
+            //        CategoryName = item.CategoryName,
+
+            //        ProductId = item.ProductId,
+            //        ProductName = item.ProductName,
+
             //        Description = item.Description,
-            //        ImageUrl = item.ImageUrl,
-            //        StartTime = item.StartTime,
             //        EndTime = item.EndTime,
-            //        BrandName = item.Brand.Name,
+            //       ImageUrl = item.ImageUrl,
+            //       StartTime = item.StartTime
+
             //    });
             //}
-            //dtoList.AddRange(dto); // dto'daki öğeleri dtoList'e ekleyin
-            //return dtoList.OrderBy(x => x.CreatedDate).Take(5).ToList();
+            //return dto.ToList();
+            _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
+            _queryRepository.SetDbContextInstance(_context);
+            _queryProductRepository.SetDbContextInstance(_context);
+            var prodcustrel = await _queryRepository.GetAll().Include("Competitor").Include("Product").ToListAsync();
+            var product = await _queryProductRepository.GetAll().Include("Category").Include("Brand").ToListAsync();
+
+            var joinedData = (from pc in prodcustrel
+                              join p in product on pc.ProductId equals p.Id
+                              orderby pc.CreatedDate descending
+                              select new HomeTopCampaignDto
+                              {
+                                  CompetitorId = pc.CompetitorId,
+                                  // CompetitorsesName = pc.Competitors != null ? pc.Competitors.Name : null,
+                                  BrandId = p.BrandId,
+                                  BrandName = p.Brand.Name,
+                                  CategoryId = p.CategoryId,
+                                  CategoryName = p.Category.Name,
+                                  ProductId = p.Id,
+                                  ProductName = p.ProductName,
+                                  Description = pc.Description,
+
+                                  ImageUrl = pc.ImageUrl,
+                              }).Take(5).ToList();
+
+            List<HomeTopCampaignDto> dto = new();
+            foreach (var item in joinedData)
+            {
+                dto.Add(new HomeTopCampaignDto()
+                {
+                    CompetitorId = item.CompetitorId,
+                    CompetitorsesName = item.CompetitorsesName,
+                    BrandId = item.BrandId,
+                    BrandName = item.BrandName,
+                    CategoryId = item.CategoryId,
+                    CategoryName = item.CategoryName,
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    ImageUrl = item.ImageUrl,
+                    Description = item.Description
+
+                });
+            }
+            return dto;
+
         }
 
         public async Task UpdateAsync(Campaigns product, string companyId)

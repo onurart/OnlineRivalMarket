@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OnlineRivalMarket.Domain.Repositories.CompanyDbContext.CompetitorRepository
 {
-    public interface ICompetitorCommandRepository : ICompanyDbCommandRepository<Competitorses>
+    public interface ICompetitorCommandRepository : ICompanyDbCommandRepository<Competitor>
     {
     }
 }

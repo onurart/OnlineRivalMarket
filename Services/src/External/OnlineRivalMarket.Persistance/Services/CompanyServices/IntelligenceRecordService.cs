@@ -52,21 +52,36 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
             _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
             _queryRepository.SetDbContextInstance(_context);
             _queryProductRepository.SetDbContextInstance(_context);
-            var prodcustrel = await _queryRepository.GetAll().Include("Competitorses").Include("Product").ToListAsync();
-            var product = await _queryProductRepository.GetAll().Include("Category").Include("Brand").ToListAsync();
+            var prodcustrel = await _queryRepository.GetAll().Include("Competitor").Include("Product").ToListAsync();
+            var product = await _queryProductRepository.GetAll().Include("VehicleType").Include("VehicleGrup").Include("Brand").Include("Category").ToListAsync();
 
             var joinedData = from pc in prodcustrel
                              join p in product on pc.ProductId equals p.Id
                              select new IntelligenceRecordDto
                              {
-                                 CompetitorsId = pc.CompetitorsId,
-                                 CompetitorsesName = pc.Competitorses != null ? pc.Competitorses.Name : null,
+                                 CompetitorId = pc.CompetitorId,
+                                 CompetitorName = pc.Competitor != null ? pc.Competitor.Name : null,
+                                 
                                  BrandId = p.BrandId,
-                                 BrandName = p.Brand.Name,
+                                 BrandName = p.Brand != null ? p.Brand.Name : null,
+                                 
+                                 
                                  CategoryId = p.CategoryId,
-                                 CategoryName = p.Category.Name,
+                                 CategoryName = p.Category != null ? p.Category.Name : null, // Assuming Category is still available in Product
+                                 
+                                 
                                  ProductId = p.Id,
-                                 ProductName = p.Name,
+                                 ProductName = p.ProductName,
+                                
+                                 VehicleTypeId = p.VehicleTypeId,
+                                 VehicleGroupName = p.VehicleGrup != null ? p.VehicleGrup.Name : null,
+                                 
+
+                                 VehicleGroupId = p.VehicleGroupId,
+                                 VehicleTypeName = p.VehicleType != null ? p.VehicleType.Name : null,
+                                 
+                                 
+                                 
                                  Explanation = pc.Explanation,
                                  RakipTl = pc.RakipTl,
                                  RakipEuro = pc.RakipEuro,
@@ -78,17 +93,15 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
                                  Description = pc.Description,
                                  FieldFeedback = pc.FieldFeedback,
                                  Location = pc.Location,
-                                 VehicleGroup = pc.VehicleGroup,
-                                 VehicleType = pc.VehicleType,
                              };
 
-            List<IntelligenceRecordDto> dto = new();
+            List<IntelligenceRecordDto> dto = new List<IntelligenceRecordDto>();
             foreach (var item in joinedData)
             {
                 dto.Add(new IntelligenceRecordDto()
                 {
-                    CompetitorsId = item.CompetitorsId,
-                    CompetitorsesName = item.CompetitorsesName,
+                    CompetitorId = item.CompetitorId,
+                    CompetitorName = item.CompetitorName,
                     BrandId = item.BrandId,
                     BrandName = item.BrandName,
                     CategoryId = item.CategoryId,
@@ -103,19 +116,19 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
                     CurrencyTl = item.CurrencyTl,
                     CurrencyEuro = item.CurrencyEuro,
                     CurrencyDolor = item.CurrencyDolor,
-                    VehicleType = item.VehicleType,
-                    VehicleGroup = item.VehicleGroup,
+                    VehicleTypeName = item.VehicleTypeName,
+                    VehicleGroupName = item.VehicleGroupName,
                     Region = item.Region,
                     Location = item.Location,
                     IntelligenceType = item.IntelligenceType,
                     FieldFeedback = item.FieldFeedback,
-                    Description = item.Description
-
+                    Description = item.Description,
                 });
             }
 
             return dto;
-        }   
+        }
+
 
 
         public async Task<IList<IntelligenceRecordDto>> HomeGetTopIntelligenceRecordAsync(string companyId)
@@ -124,22 +137,22 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
             _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
             _queryRepository.SetDbContextInstance(_context);
             _queryProductRepository.SetDbContextInstance(_context);
-            var prodcustrel = await _queryRepository.GetAll().Include("Competitorses").Include("Product").ToListAsync();
-            var product = await _queryProductRepository.GetAll().Include("Category").Include("Brand").ToListAsync();
+            var prodcustrel = await _queryRepository.GetAll().Include("Competitor").Include("Product").ToListAsync();
+            var product = await _queryProductRepository.GetAll().Include("VehicleType").Include("VehicleGrup").Include("Brand").Include("Category").ToListAsync();
 
             var joinedData = (from pc in prodcustrel
                               join p in product on pc.ProductId equals p.Id
                               orderby pc.CreatedDate descending
                               select new IntelligenceRecordDto
                               {
-                                  CompetitorsId = pc.CompetitorsId,
-                                  CompetitorsesName = pc.Competitorses != null ? pc.Competitorses.Name : null,
+                                  CompetitorId = pc.CompetitorId,
+                                  CompetitorName = pc.Competitor != null ? pc.Competitor.Name : null,
                                   BrandId = p.BrandId,
                                   BrandName = p.Brand.Name,
                                   CategoryId = p.CategoryId,
                                   CategoryName = p.Category.Name,
                                   ProductId = p.Id,
-                                  ProductName = p.Name,
+                                  ProductName = p.ProductName,
                                   Description = pc.Description,
                                   RakipTl = pc.RakipTl,
                                   RakipEuro = pc.RakipEuro,
@@ -150,17 +163,18 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
                                   CurrencyDolor = pc.CurrencyDolor,
                                   FieldFeedback = pc.FieldFeedback,
                                   Location = pc.Location,
-                                  VehicleGroup = pc.VehicleGroup,
-                                  VehicleType = pc.VehicleType,
-                              }).Take(5).ToList();
+                                  VehicleGroupId = pc.Product.VehicleGrup.Name,
+                                  VehicleTypeId = pc.Product.VehicleType.Name,
+                                  Explanation = pc.Explanation,
+                              }).Take(2).ToList();
 
             List<IntelligenceRecordDto> dto = new();
             foreach (var item in joinedData)
             {
                 dto.Add(new IntelligenceRecordDto()
                 {
-                    CompetitorsId = item.CompetitorsId,
-                    CompetitorsesName = item.CompetitorsesName,
+                    CompetitorId = item.CompetitorId,
+                    CompetitorName = item.CompetitorName,
                     BrandId = item.BrandId,
                     BrandName = item.BrandName,
                     CategoryId = item.CategoryId,
@@ -174,8 +188,8 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
                     CurrencyTl = item.CurrencyTl,
                     CurrencyEuro = item.CurrencyEuro,
                     CurrencyDolor = item.CurrencyDolor,
-                    VehicleType = item.VehicleType,
-                    VehicleGroup = item.VehicleGroup,
+                    VehicleTypeName = item.VehicleTypeName,
+                    VehicleGroupName = item.VehicleGroupName,
                     Region = item.Region,
                     Location = item.Location,
                     IntelligenceType = item.IntelligenceType,

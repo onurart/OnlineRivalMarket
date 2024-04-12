@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OnlineRivalMarket.Domain.Repositories.CompanyDbContext.CompetitorRepository
 {
-    public interface ICompetitorQueryRepository : ICompanyDbQueryRepository<Competitorses>
+    public interface ICompetitorQueryRepository : ICompanyDbQueryRepository<Competitor>
     {
     }
 }

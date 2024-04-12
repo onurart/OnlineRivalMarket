@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.CompetitorsFeatures.Command.CreateCompetitors;
+using OnlineRivalMarket.Application.Features.CompanyFeatures.CompetitorsFeatures.Queries.GetAllCompetitors;
 using OnlineRivalMarket.Presentation.Abstraction;
 namespace OnlineRivalMarket.Presentation.Controller;
 [Authorize(AuthenticationSchemes = "Bearer")]
@@ -18,8 +19,8 @@ public class CompetitorsesController : ApiController
     [HttpGet("[action]/{companyid}")]
     public async Task<IActionResult> GetAllCompetitor(string companyid)
     {
-        GetAllCampaignQuery request = new(companyid);
-        GetAllCampaignQueryResponse response = await _mediator.Send(request);
+        GetAllCompetitorsQuery request = new(companyid);
+         GetAllCompetitorsQueryResponse response = await _mediator.Send(request);
         return Ok(response);
     }
 }

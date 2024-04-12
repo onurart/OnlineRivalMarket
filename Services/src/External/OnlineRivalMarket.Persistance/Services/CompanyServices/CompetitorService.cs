@@ -29,12 +29,12 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
             _mapper = mapper;
         }
 
-        public async Task<OnlineRivalMarket.Domain.CompanyEntities.Competitorses> CreateCompetitorsAsync(CreateCompetitorsCommand requset, CancellationToken cancellationToken)
+        public async Task<OnlineRivalMarket.Domain.CompanyEntities.Competitor> CreateCompetitorsAsync(CreateCompetitorsCommand requset, CancellationToken cancellationToken)
         {
             _context = (CompanyDbContext)_contextService.CreateDbContextInstance(requset.companyId);
             _commandRepository.SetDbContextInstance(_context);
             _unitOfWork.SetDbContextInstance(_context);
-            OnlineRivalMarket.Domain.CompanyEntities.Competitorses competitorses = _mapper.Map<OnlineRivalMarket.Domain.CompanyEntities.Competitorses>(requset);
+            OnlineRivalMarket.Domain.CompanyEntities.Competitor competitorses = _mapper.Map<OnlineRivalMarket.Domain.CompanyEntities.Competitor>(requset);
             competitorses.Id = Guid.NewGuid().ToString();
             await _commandRepository.AddAsync(competitorses, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
@@ -42,7 +42,7 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
             return competitorses;
         }
 
-        public async Task<IList<Competitorses>> GetAllCompetitorsAsync(string companyId)
+        public async Task<IList<Competitor>> GetAllCompetitorsAsync(string companyId)
         {
             _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
             _queryRepository.SetDbContextInstance(_context);

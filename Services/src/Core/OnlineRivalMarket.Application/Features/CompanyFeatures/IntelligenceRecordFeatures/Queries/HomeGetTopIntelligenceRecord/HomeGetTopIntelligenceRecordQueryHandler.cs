@@ -1,10 +1,5 @@
 ﻿using MediatR;
 using OnlineRivalMarket.Application.Services.CompanyServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.HomeGetTopIntelligenceRecord
 {
