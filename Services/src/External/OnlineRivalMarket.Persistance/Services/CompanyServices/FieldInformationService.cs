@@ -27,13 +27,14 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
         }
         public async Task<FieldInformation> CreateFieldInformationAsync(CreateFieldInformationCommand requset, CancellationToken cancellationToken)
         {
-            _context = (CompanyDbContext)_contextService.CreateDbContextInstance(requset.companyId);
+            _context = (CompanyDbContext)_contextService.CreateDbContextInstance(requset.CompanyId);
             _commandRepository.SetDbContextInstance(_context);
             _unitOfWork.SetDbContextInstance(_context);
-            FieldInformation fieldInformation = _mapper.Map<FieldInformation>(requset);
-            fieldInformation.Id = Guid.NewGuid().ToString();
+            FieldInformation record = _mapper.Map<FieldInformation>(requset);
+            record.Id = Guid.NewGuid().ToString();
+            await _commandRepository.AddAsync(record, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
-            return fieldInformation;
+            return record;
         }
         public async Task<IList<FieldInformation>> GetAllFieldInformationAsync(string companyId)
         {

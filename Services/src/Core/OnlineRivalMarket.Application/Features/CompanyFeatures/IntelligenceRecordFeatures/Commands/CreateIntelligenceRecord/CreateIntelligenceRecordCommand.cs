@@ -5,7 +5,7 @@ namespace OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRec
 public sealed record CreateIntelligenceRecordCommand
                                                   (
                                                         string? CompanyId,
-                                                        string? CompetitorsId,
+                                                        string? CompetitorId,
                                                         string? ProductId,
                                                         IntelligenceType Specieses,
                                                         string? Description,

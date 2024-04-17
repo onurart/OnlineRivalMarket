@@ -34,6 +34,11 @@ using OnlineRivalMarket.Persistance.Repositories.CompanyDbContext.IntelligenceRe
 using OnlineRivalMarket.Domain.CompanyEntities;
 using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.FieldInformationRepository;
 using OnlineRivalMarket.Persistance.Repositories.CompanyDbContext.FieldInformationRepository;
+using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.VehicleGroupRepository;
+using OnlineRivalMarket.Persistance.Repositories.CompanyDbContext;
+using OnlineRivalMarket.Persistance.Repositories.CompanyDbContext.SalesRepository;
+using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.VehicleTypeRepository;
+using OnlineRivalMarket.Persistance.Repositories.CompanyDbContext.VehicleTypeRepository;
 
 namespace OnlineRivalMarket.WebApi.Configurations
 {
@@ -57,7 +62,8 @@ namespace OnlineRivalMarket.WebApi.Configurations
             services.AddScoped<IBrandService, BrandService>();
             services.AddScoped<ICampaignService, CampaignsService>();
             services.AddScoped<IFieldInformationService, FieldInformationService>();
-
+            services.AddScoped<IVehicleGroupService, VehicleGroupService>();
+            services.AddScoped<IVehicleTypeService, VehicleTypeService>();
 
             #endregion
 
@@ -93,6 +99,12 @@ namespace OnlineRivalMarket.WebApi.Configurations
             
             services.AddScoped<IFieldInformationCommandRepository, FieldInformationCommandRepository>();
             services.AddScoped<IFieldInformationQueryRepository, FieldInformationQueryRepository>();
+            services.AddScoped<IVehicleGroupCommandRepository, VehicleGroupCommandRepository>();
+            services.AddScoped<IVehicleGroupQueryRepository, VehicleGroupQueryRepository>();
+
+            services.AddScoped<IVehicleTypeCommandRepository, VehicleTypeCommandRepository>();
+            services.AddScoped<IVehicleTypeQuertRepository, VehicleTypeQueryRepository>();
+
 
 
             services.AddHttpClient();

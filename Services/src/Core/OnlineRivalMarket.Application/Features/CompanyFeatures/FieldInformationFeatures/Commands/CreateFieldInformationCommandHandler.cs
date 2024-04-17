@@ -24,12 +24,12 @@ namespace OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformatio
             Logs log = new()
             {
                 Id = Guid.NewGuid().ToString(),
-                TableName = nameof(Brand),
+                TableName = nameof(FieldInformation),
                 Progress = "Create",
                 UserId = userId,
                 Data = JsonConvert.SerializeObject(newFieldInformation)
             };
-            await _logService.AddAsync(log, request.companyId);
+            await _logService.AddAsync(log, request.CompanyId);
             return new();
         }
     }

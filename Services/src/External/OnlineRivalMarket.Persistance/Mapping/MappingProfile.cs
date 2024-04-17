@@ -8,6 +8,8 @@ using OnlineRivalMarket.Application.Features.CompanyFeatures.CompetitorsFeatures
 using OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Commands;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Commands.CreateIntelligenceRecord;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.ProductFeatures.Commands.CreateProduct;
+using OnlineRivalMarket.Application.Features.CompanyFeatures.VehicleGroupFeaures.Commands.CreateVehicleGroup;
+using OnlineRivalMarket.Application.Features.CompanyFeatures.VehicleTypeFeaures.Commands.CreateVehicleType;
 using OnlineRivalMarket.Domain.AppEntities;
 using OnlineRivalMarket.Domain.AppEntities.Identity;
 using OnlineRivalMarket.Domain.CompanyEntities;
@@ -27,6 +29,8 @@ namespace OnlineRivalMarket.Persistance.Mapping
             CreateMap<CreateBrandCommand, Brand>();
             CreateMap<CreateFieldInformationCommand, FieldInformation>();
             CreateMap<CreateIntelligenceRecordCommand, IntelligenceRecord>();
+            CreateMap<CreateVehicleGroupCommand, VehicleGroup>();
+            CreateMap<CreateVehicleTypeCommand, VehicleType>();
 
 
 

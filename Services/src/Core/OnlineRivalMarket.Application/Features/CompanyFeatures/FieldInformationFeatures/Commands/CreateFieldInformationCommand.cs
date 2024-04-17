@@ -13,6 +13,6 @@ namespace OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformatio
                                                        string Description,
                                                        string Location,
                                                        string Source,
-                                                       string companyId,
+                                                       string CompanyId,
                                                        DateTime Date
                                                        ) : ICommand<CreateFieldInformationCommandResponse>;

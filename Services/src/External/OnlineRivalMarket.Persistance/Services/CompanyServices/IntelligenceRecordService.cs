@@ -59,7 +59,8 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
                              join p in product on pc.ProductId equals p.Id
                              select new IntelligenceRecordDto
                              {
-                                 CompetitorId = pc.CompetitorId,
+                               //CompetitorId = pc.CompetitorId,
+                                 CompetitorId =pc.CompetitorId,
                                  CompetitorName = pc.Competitor != null ? pc.Competitor.Name : null,
                                  
                                  BrandId = p.BrandId,
@@ -163,10 +164,13 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
                                   CurrencyDolor = pc.CurrencyDolor,
                                   FieldFeedback = pc.FieldFeedback,
                                   Location = pc.Location,
-                                  VehicleGroupId = pc.Product.VehicleGrup.Name,
-                                  VehicleTypeId = pc.Product.VehicleType.Name,
+                                  VehicleGroupId = pc.Product.VehicleGrup.Id,
+                                  VehicleGroupName = pc.Product.VehicleGrup.Name,
+
+                                  VehicleTypeId = pc.Product.VehicleType.Id,
+                                  VehicleTypeName = pc.Product.VehicleType.Name,
                                   Explanation = pc.Explanation,
-                              }).Take(2).ToList();
+                              }).Take(5).ToList();
 
             List<IntelligenceRecordDto> dto = new();
             foreach (var item in joinedData)

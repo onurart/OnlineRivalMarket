@@ -4,12 +4,6 @@ using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Com
 using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries.HomeTopGetAll;
 using OnlineRivalMarket.Presentation.Abstraction;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace OnlineRivalMarket.Presentation.Controller
 {
     public class CampaignController : ApiController

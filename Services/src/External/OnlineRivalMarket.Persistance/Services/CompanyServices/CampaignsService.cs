@@ -34,10 +34,6 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
             _mapper = mapper;
             _queryProductRepository = queryProductRepository;
         }
-      
-        
-        
-        
         
         public async Task<Campaigns> CreateCampaignAsync(CreateCampaignCommand request, CancellationToken cancellationToken)
         {
@@ -50,10 +46,7 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
             await _companyDbUnitOfWork.SaveChangesAsync(cancellationToken);
             return campaigns;
             }
-        
-        
-        
-        
+             
         public async Task<IList<Campaigns>> GetAllAsync(string companyId)
         {
             _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
@@ -129,7 +122,7 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
                               select new HomeTopCampaignDto
                               {
                                   CompetitorId = pc.CompetitorId,
-                                  // CompetitorsesName = pc.Competitors != null ? pc.Competitors.Name : null,
+                                  CompetitorsesName = pc.Competitor != null ? pc.Competitor.Name : null,
                                   BrandId = p.BrandId,
                                   BrandName = p.Brand.Name,
                                   CategoryId = p.CategoryId,
@@ -137,6 +130,8 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
                                   ProductId = p.Id,
                                   ProductName = p.ProductName,
                                   Description = pc.Description,
+                                  EndTime = pc.EndTime,
+                                  StartTime= pc.StartTime,
 
                                   ImageUrl = pc.ImageUrl,
                               }).Take(5).ToList();
@@ -155,7 +150,10 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
                     ProductId = item.ProductId,
                     ProductName = item.ProductName,
                     ImageUrl = item.ImageUrl,
-                    Description = item.Description
+                    Description = item.Description,
+                    StartTime = item.StartTime,
+                    EndTime= item.EndTime,
+
 
                 });
             }
