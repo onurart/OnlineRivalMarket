@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
 using OnlineRivalMarket.Persistance.Context;
 using OnlineRivalMarket.WebApi.Configurations;
 var builder = WebApplication.CreateBuilder(args);

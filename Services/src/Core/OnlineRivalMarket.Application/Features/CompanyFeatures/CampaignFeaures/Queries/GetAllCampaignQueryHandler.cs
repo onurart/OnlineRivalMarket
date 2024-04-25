@@ -10,6 +10,6 @@ public sealed class GetAllCampaignQueryHandler : IQueryHandler<GetAllCampaignQue
     }
     public async Task<GetAllCampaignQueryResponse> Handle(GetAllCampaignQuery request, CancellationToken cancellationToken)
     {
-        return new(await _campaignService.GetAllAsync(request.CompanyId));
+        return new(await _campaignService.GetAllAsync(request));
     }
 }

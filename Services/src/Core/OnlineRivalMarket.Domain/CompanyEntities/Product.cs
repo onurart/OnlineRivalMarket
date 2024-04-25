@@ -11,8 +11,8 @@ namespace OnlineRivalMarket.Domain.CompanyEntities
         public string? ProducerCode { get; set; }
         public string? ProductName { get; set; }
 
-        
-        
+
+
         [ForeignKey(nameof(VehicleTypeId))]
         public string? VehicleTypeId { get; set; }
         public VehicleType? VehicleType { get; set; }
@@ -21,7 +21,7 @@ namespace OnlineRivalMarket.Domain.CompanyEntities
         public string? VehicleGroupId { get; set; }
         public VehicleGroup? VehicleGrup { get; set; }
 
-    
+
         [ForeignKey(nameof(CategoryId))]
         public string? CategoryId { get; set; }
         public Category? Category { get; set; }

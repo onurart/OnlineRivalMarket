@@ -1,14 +1,9 @@
-﻿using OnlineRivalMarket.Application.Abstractions;
+﻿using Microsoft.AspNetCore.Identity;
+using OnlineRivalMarket.Application.Abstractions;
 using OnlineRivalMarket.Application.Messaging;
 using OnlineRivalMarket.Application.Services.AppServices;
-using OnlineRivalMarket.Domain.AppEntities.Identity;
 using OnlineRivalMarket.Domain.AppEntities;
-using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OnlineRivalMarket.Domain.AppEntities.Identity;
 using OnlineRivalMarket.Domain.Dtos;
 
 namespace OnlineRivalMarket.Application.Features.AppFeatures.AuthFeatures.Commands.GetTokenByRefreshToken

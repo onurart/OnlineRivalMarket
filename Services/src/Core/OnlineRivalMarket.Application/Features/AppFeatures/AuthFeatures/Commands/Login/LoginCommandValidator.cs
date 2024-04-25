@@ -13,6 +13,7 @@ namespace OnlineRivalMarket.Application.Features.AppFeatures.AuthFeatures.Comman
         {
             RuleFor(p => p.EmailOrUserName).NotNull().WithMessage("Mail ya da kullanıcı adı yazmalısınız!");
             RuleFor(p => p.EmailOrUserName).NotEmpty().WithMessage("Mail ya da kullanıcı adı yazmalısınız!");
+            RuleFor(p => p.EmailOrUserName).Matches("[^A-Z]").WithMessage("Mail yada kullanıcı adı en az 1 adet özel karakter içermelidir");
             RuleFor(p => p.Password).NotNull().WithMessage("Şifre boş olamaz");
             RuleFor(p => p.Password).NotEmpty().WithMessage("Şifre boş olamaz");
             RuleFor(p => p.Password).MinimumLength(6).WithMessage("Şifre en az 6 karakter olmalıdır");

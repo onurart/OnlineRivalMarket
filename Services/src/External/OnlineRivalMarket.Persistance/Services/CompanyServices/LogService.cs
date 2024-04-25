@@ -39,6 +39,7 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
             await _unitOfWork.SaveChangesAsync();
         }
 
+
         public async Task<PaginationResult<LogDto>> GetAllByTableName(GetLogsByTableNameQuery request)
         {
             _context = (CompanyDbContext)_contextService.CreateDbContextInstance(request.CompanyId);

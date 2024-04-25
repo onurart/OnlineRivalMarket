@@ -1,4 +1,5 @@
-﻿using OnlineRivalMarket.Domain.CompanyEntities;
+﻿using EntityFrameworkCorePagination.Nuget.Pagination;
+using OnlineRivalMarket.Domain.CompanyEntities;
 namespace OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries;
-public sealed record GetAllCampaignQueryResponse(IList<Campaigns> Data);
+public sealed record GetAllCampaignQueryResponse(PaginationResult<Campaigns> Data);
 

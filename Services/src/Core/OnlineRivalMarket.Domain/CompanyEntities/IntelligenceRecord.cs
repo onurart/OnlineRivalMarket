@@ -25,6 +25,7 @@ public class IntelligenceRecord : Entity
     public decimal? CurrencyTl { get; set; }
     public decimal? CurrencyDolor { get; set; }
     public decimal? CurrencyEuro { get; set; }
+
     public decimal? RakipTl { get; set; }
     public decimal? RakipDolor { get; set; }
     public decimal? RakipEuro { get; set; }
