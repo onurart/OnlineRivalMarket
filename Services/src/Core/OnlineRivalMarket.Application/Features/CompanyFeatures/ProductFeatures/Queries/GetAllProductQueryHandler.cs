@@ -19,7 +19,8 @@ namespace OnlineRivalMarket.Application.Features.CompanyFeatures.ProductFeatures
 
         public async Task<GetAllProductQueryResponse> Handle(GetAllProductQuery request, CancellationToken cancellationToken)
         {
-            return new(await _service.GetAllAsync(request.CompanyId));
+            return new(await _service.GetAllAsync(request));
         }
+
     }
 }

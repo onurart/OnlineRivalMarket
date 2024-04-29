@@ -15,6 +15,6 @@ namespace OnlineRivalMarket.Domain.CompanyEntities
         [ForeignKey(nameof(CompetitorId))]
         public string? CompetitorId { get; set; }
         public Competitor? Competitorses { get; set; }
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
     }
 }

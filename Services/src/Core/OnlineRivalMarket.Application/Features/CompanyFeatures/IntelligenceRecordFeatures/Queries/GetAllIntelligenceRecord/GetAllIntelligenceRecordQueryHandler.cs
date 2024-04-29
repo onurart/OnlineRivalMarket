@@ -11,8 +11,13 @@ public GetAllIntelligenceRecordQueryHandler(IIntelligenceRecordService service)
         _service = service;
     }
 
-    public async Task<GetAllIntelligenceRecordQueryResponse> Handle(GetAllIntelligenceRecordQuery request, CancellationToken cancellationToken)
+    public Task<GetAllIntelligenceRecordQueryResponse> Handle(GetAllIntelligenceRecordQuery request, CancellationToken cancellationToken)
     {
-        return new(await _service.GetAllIntelligenceRecordAsync(request.CompanyId));
+        throw new NotImplementedException();
     }
+
+    //public async Task<GetAllIntelligenceRecordQueryResponse> Handle(GetAllIntelligenceRecordQuery request, CancellationToken cancellationToken)
+    //{
+    //    return new(await _service.GetAllIntelligenceRecordAsync(request.CompanyId));
+    //}
 }

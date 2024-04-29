@@ -1,5 +1,6 @@
 ﻿using OnlineRivalMarket.Application.Services.CompanyServices;
 using OnlineRivalMarket.Application.Messaging;
+
 namespace OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries;
 public sealed class GetAllCampaignQueryHandler : IQueryHandler<GetAllCampaignQuery, GetAllCampaignQueryResponse>
 {
@@ -8,8 +9,13 @@ public sealed class GetAllCampaignQueryHandler : IQueryHandler<GetAllCampaignQue
     {
         _campaignService = campaignService;
     }
-    public async Task<GetAllCampaignQueryResponse> Handle(GetAllCampaignQuery request, CancellationToken cancellationToken)
+
+    public Task<GetAllCampaignQueryResponse> Handle(GetAllCampaignQuery request, CancellationToken cancellationToken)
     {
-        return new(await _campaignService.GetAllAsync(request));
+        throw new NotImplementedException();
     }
+    //public async Task<GetAllCampaignQueryResponse> Handle(GetAllCampaignQuery request, CancellationToken cancellationToken)
+    //{
+    //    return new(await _campaignService.GetAllAsync(request));
+    //}
 }

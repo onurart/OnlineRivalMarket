@@ -25,6 +25,8 @@ namespace OnlineRivalMarket.Domain.Dtos
 
 
 
+
+
         public int IntelligenceType { get; set; } 
         public string? Description { get; set; }
         public string? ImageUrl { get; set; } 
@@ -32,9 +34,15 @@ namespace OnlineRivalMarket.Domain.Dtos
         public int? Region { get; set; }
         public string? FieldFeedback { get; set; }
         public string? Explanation { get; set; }
+
+
+
         public decimal? CurrencyTl { get; set; }
         public decimal? CurrencyDolor { get; set; }
         public decimal? CurrencyEuro { get; set; }
+
+
+
         public decimal? RakipTl { get; set; }
         public decimal? RakipDolor { get; set; }
         public decimal? RakipEuro { get; set; }

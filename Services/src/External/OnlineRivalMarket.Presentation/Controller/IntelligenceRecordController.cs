@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Commands.CreateIntelligenceRecord;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.GetAllIntelligenceRecord;
+using OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.GetFilteredIntelligenceRecordsAsync;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.HomeGetTopIntelligenceRecord;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.IntelligenceRecordDtos;
 using OnlineRivalMarket.Presentation.Abstraction;
@@ -21,13 +22,13 @@ namespace OnlineRivalMarket.Presentation.Controller
             return Ok(response);
         }
 
-        [HttpGet("[action]/{companyid}")]
-        public async Task<IActionResult> GetAllIntelligenceRecord(string companyid)
-        {
-            GetAllIntelligenceRecordQuery requst = new(companyid);
-            GetAllIntelligenceRecordQueryResponse response = await _mediator.Send(requst);
-            return Ok(response);
-        }
+        //[HttpGet("[action]/{companyid}")]
+        //public async Task<IActionResult> GetAllIntelligenceRecord(string companyid)
+        //{
+        //    GetAllIntelligenceRecordQuery requst = new(companyid);
+        //    GetAllIntelligenceRecordQueryResponse response = await _mediator.Send(requst);
+        //    return Ok(response);
+        //}
         [HttpGet("[action]/{companyid}")]
         public async Task<IActionResult> GetIntelligenceRecordDto(string companyid)
         {
@@ -35,6 +36,21 @@ namespace OnlineRivalMarket.Presentation.Controller
             IntelligenceRecordDtoQueryResponse reponse =await _mediator.Send(requst);   
             return Ok(reponse);
 
+        }
+        [HttpGet("[action]/{companyId}")]
+        public async Task<IActionResult> GetFilteredIntelligenceRecords(string companyId, [FromQuery] IList<string> competitorIds)
+        {
+            try
+            {
+                var query = new IntelligenceRecordFilterQuery(companyId, competitorIds);
+                var response = await _mediator.Send(query);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                // Hata durumunda uygun yanıtı döndür
+                return StatusCode(500, $"Bir hata oluştu: {ex.Message}");
+            }
         }
 
         [HttpGet("[action]/{companyid}")]

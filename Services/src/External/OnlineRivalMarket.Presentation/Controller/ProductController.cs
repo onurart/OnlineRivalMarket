@@ -16,10 +16,9 @@ namespace OnlineRivalMarket.Presentation.Controller
             CreateProductCommandResponse response = await _mediator.Send(request, cancellationToken);
             return Ok(response);
         }
-        [HttpGet("[action]/{companyid}")]
-        public async Task<IActionResult> GetAllProduct(string companyid)
+        [HttpPost("[action]")]
+        public async Task<IActionResult> GetAllProduct(GetAllProductQuery request)
         {
-            GetAllProductQuery request = new(companyid);
             GetAllProductQueryResponse response = await _mediator.Send(request);
             return Ok(response);
         }
