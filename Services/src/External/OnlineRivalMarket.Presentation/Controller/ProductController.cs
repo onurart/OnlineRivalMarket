@@ -1,10 +1,12 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.ProductFeatures.Commands.CreateProduct;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.ProductFeatures.Queries;
 using OnlineRivalMarket.Presentation.Abstraction;
 namespace OnlineRivalMarket.Presentation.Controller
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class ProductController : ApiController
     {
         public ProductController(IMediator mediator) : base(mediator)

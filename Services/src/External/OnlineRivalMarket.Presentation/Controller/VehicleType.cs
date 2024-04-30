@@ -1,10 +1,12 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.VehicleTypeFeaures.Commands.CreateVehicleType;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.VehicleTypeFeaures.Queries.GetAllVehicleType;
-using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.VehicleTypeRepository;
 using OnlineRivalMarket.Presentation.Abstraction;
 namespace OnlineRivalMarket.Presentation.Controller;
+
+[Authorize(AuthenticationSchemes = "Bearer")]
 public class VehicleType : ApiController
 {
     public VehicleType(IMediator mediator) : base(mediator)
