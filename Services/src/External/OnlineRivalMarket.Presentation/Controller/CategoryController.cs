@@ -15,6 +15,7 @@ public class CategoryController : ApiController
         CreateCategoryCommandResponse response = await _mediator.Send(request, cancellationToken);
         return Ok(response);
     }
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
     [HttpPost("[action]")]
     public async Task<IActionResult> GetAllCategory(GetAllCategoryQuery request)
     {

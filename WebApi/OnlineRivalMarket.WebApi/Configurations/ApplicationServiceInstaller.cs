@@ -2,6 +2,7 @@
 using OnlineRivalMarket.Application.Behavior;
 using FluentValidation;
 using MediatR;
+using System.Net.Sockets;
 
 namespace OnlineRivalMarket.WebApi.Configurations
 {
