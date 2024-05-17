@@ -15,11 +15,20 @@ public class CategoryController : ApiController
         CreateCategoryCommandResponse response = await _mediator.Send(request, cancellationToken);
         return Ok(response);
     }
-    [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
-    [HttpPost("[action]")]
-    public async Task<IActionResult> GetAllCategory(GetAllCategoryQuery request)
+
+    [HttpGet("[action]/{companyid}")]
+    public async Task<IActionResult> GetAllCategory(string companyid)
     {
+        GetAllCategoryQuery request = new(companyid);
         GetAllCategoryQueryResponse response = await _mediator.Send(request);
         return Ok(response);
     }
+
+
+    //[HttpPost("[action]")]
+    //public async Task<IActionResult> GetAllCategory(GetAllCategoryQuery request)
+    //{
+    //    GetAllCategoryQueryResponse response = await _mediator.Send(request);
+    //    return Ok(response);
+    //}
 }

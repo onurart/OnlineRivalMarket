@@ -1,0 +1,2 @@
+﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Commands.IIntellignenceFile;
+public sealed record IntellignenceFileCommandResponse(string Message ="Foto Eklendi");

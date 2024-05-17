@@ -6,6 +6,7 @@ using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Com
 using OnlineRivalMarket.Application.Features.CompanyFeatures.CategoryFeatures.Commands.CreateCategory;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.CompetitorsFeatures.Command.CreateCompetitors;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Commands;
+using OnlineRivalMarket.Application.Features.CompanyFeatures.ForeignCurrency.Commamds;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Commands.CreateIntelligenceRecord;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.ProductFeatures.Commands.CreateProduct;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.VehicleGroupFeaures.Commands.CreateVehicleGroup;
@@ -31,6 +32,7 @@ namespace OnlineRivalMarket.Persistance.Mapping
             CreateMap<CreateIntelligenceRecordCommand, IntelligenceRecord>();
             CreateMap<CreateVehicleGroupCommand, VehicleGroup>();
             CreateMap<CreateVehicleTypeCommand, VehicleType>();
+            CreateMap<CreateForeignCurrencyCommand, ForeignCurrency>();
 
 
 

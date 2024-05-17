@@ -1,10 +1,5 @@
-﻿using OnlineRivalMarket.Application.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using Microsoft.AspNetCore.Http;
+using OnlineRivalMarket.Application.Messaging;
 namespace OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Commands.CreateCampaign;
 public sealed record CreateCampaignCommand
                                          (
@@ -17,9 +12,7 @@ public sealed record CreateCampaignCommand
                                            DateTime? EndTime,
 
                                            string? Description,
-
-                                           string? ImageUrl,
-
-                                           string? CompanyId
+                                           string? CompanyId,
+                                            IFormFile[]? Files
                                          ) : ICommand<CreateCampaignCommandResponse>;
 

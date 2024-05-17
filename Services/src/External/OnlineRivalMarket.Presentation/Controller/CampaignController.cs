@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Commands.CreateCampaign;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries.CampaignGetById;
+using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries.GetAllCampaing;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries.GetAllDtoAsync;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries.HomeTopGetAll;
 using OnlineRivalMarket.Presentation.Abstraction;
@@ -14,7 +15,7 @@ public class CampaignController : ApiController
     {
     }
     [HttpPost("[action]")]
-    public async Task<IActionResult> CreateCampaign(CreateCampaignCommand requst, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateCampaign([FromForm]CreateCampaignCommand requst, CancellationToken cancellationToken)
     {
         CreateCampaignCommandResponse response = await _mediator.Send(requst, cancellationToken);
         return Ok(response);
@@ -43,6 +44,13 @@ public class CampaignController : ApiController
     {
         GetByIdCampaignQuery request = new(id,companyId);
         GetByIdGetByIdCampaignResponse response = await _mediator.Send(request);
+        return Ok(response);
+    }
+    [HttpGet("[action]/{companyid}")]
+    public async Task<IActionResult> GetAllCampaingsesAsync(string companyid)
+    {
+        GetAllCampaingsesQuery requst = new(companyid);
+        GetAllCampaingsesQueryResponse response = await _mediator.Send(requst);
         return Ok(response);
     }
 }

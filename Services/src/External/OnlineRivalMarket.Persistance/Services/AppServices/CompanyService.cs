@@ -26,7 +26,7 @@ namespace OnlineRivalMarket.Persistance.Services.AppServices
         {
             Company company = _mapper.Map<Company>(request);
             company.Id = Guid.NewGuid().ToString();
-            company.DatabaseName = "OnlineMarket" + request.DatabaseName;
+            company.DatabaseName = "CloseBurger" + request.DatabaseName;
             await _companyCommandRepository.AddAsync(company, cancellationToken);
             await _appUnitOfWork.SaveChangesAsync(cancellationToken);
         }

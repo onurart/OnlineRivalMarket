@@ -1,6 +1,7 @@
 ﻿namespace OnlineRivalMarket.Domain.Dtos.IntelligenceDto;
 public  class IntelligenceByIdDto
 {
+    public string Id { get; set; }
     public string? ProductId { get; set; }
     public string? ProductName { get; set; }
 
@@ -13,6 +14,8 @@ public  class IntelligenceByIdDto
     public string? BrandId { get; set; }
     public string? BrandName { get; set; }
 
+    public IEnumerable<string> ImageFiles { get; set; }
+    public DateTime CreateDate { get; set; }
 
 
     public string? VehicleTypeId { get; set; }
@@ -21,27 +24,20 @@ public  class IntelligenceByIdDto
     public string? VehicleGroupId { get; set; }
     public string? VehicleGroupName { get; set; }
 
-
-
-
-
-    public int IntelligenceType { get; set; }
     public string? Description { get; set; }
-    public string? ImageUrl { get; set; }
-    public string? Location { get; set; }
-    public int? Region { get; set; }
-    public string? FieldFeedback { get; set; }
-    public string? Explanation { get; set; }
 
 
 
-    public decimal? CurrencyTl { get; set; }
-    public decimal? CurrencyDolor { get; set; }
-    public decimal? CurrencyEuro { get; set; }
+    public decimal? MCurrency { get; set; }
+    public decimal? RakipCurrency { get; set; }
+    public string? ForeignCurrencyId { get; set; }
+    public string? ForeignCurrencyName { get; set; }
 
 
-
-    public decimal? RakipTl { get; set; }
-    public decimal? RakipDolor { get; set; }
-    public decimal? RakipEuro { get; set; }
+    //public int IntelligenceType { get; set; }
+    //public string? ImageUrl { get; set; }
+    //public string? Location { get; set; }
+    //public int? Region { get; set; }
+    //public string? FieldFeedback { get; set; }
+    //public string? Explanation { get; set; }
 }

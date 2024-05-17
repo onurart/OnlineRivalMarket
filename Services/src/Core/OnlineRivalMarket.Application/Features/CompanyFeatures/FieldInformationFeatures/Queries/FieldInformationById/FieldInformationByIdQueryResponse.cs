@@ -1,0 +1,3 @@
+﻿using OnlineRivalMarket.Domain.Dtos.FieldInformationDtos;
+namespace OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Queries.FieldInformationById;
+public sealed record FieldInformationByIdQueryResponse(IList<FieldInformationsesDto> Data );

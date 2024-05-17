@@ -24,7 +24,7 @@ namespace OnlineRivalMarket.Domain.Dtos.Product
 
         public string? VehicleGroupId { get; set; }
         public string? VehicleGroupName { get; set; }
-
+        public DateTime CreateDate { get; set; }
 
         public string? CategoryId { get; set; }
         public string? CategoryName { get; set; }

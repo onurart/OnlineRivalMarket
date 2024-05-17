@@ -9,7 +9,11 @@ namespace OnlineRivalMarket.Application.Services.CompanyServices
     public interface IProductService
     {
         Task<Product> CreateProductAsync(CreateProductCommand requst, CancellationToken cancellationToken);
-        Task<PaginationResult<ProductDto>> GetAllAsync(GetAllProductQuery request);
+        Task<IList<ProductDto>> GetAllAsync(GetAllProductQuery request);
+        //Task<PaginationResult<ProductDto>> GetAllAsync(GetAllProductQuery request);
+        Task<IList<ProductSelectList>> GetSelectListAsync(string companyId);
+        //Task<IList<Category>> GetAllCategoryAsync(string companyId);
+
         Task UpdateAsync(Product product, string companyId);
     }
 }

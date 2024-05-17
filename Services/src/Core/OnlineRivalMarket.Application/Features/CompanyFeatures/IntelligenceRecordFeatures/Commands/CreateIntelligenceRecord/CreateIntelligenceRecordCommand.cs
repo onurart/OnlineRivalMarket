@@ -1,4 +1,5 @@
-﻿using OnlineRivalMarket.Application.Messaging;
+﻿using Microsoft.AspNetCore.Http;
+using OnlineRivalMarket.Application.Messaging;
 using OnlineRivalMarket.Domain.Enums;
 
 namespace OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Commands.CreateIntelligenceRecord;
@@ -7,16 +8,14 @@ public sealed record CreateIntelligenceRecordCommand
                                                         string? CompanyId,
                                                         string? CompetitorId,
                                                         string? ProductId,
-                                                        IntelligenceType Specieses,
                                                         string? Description,
-                                                        string? ImageUrl,
-                                                        string? Location,
-                                                        Region? Region,
-                                                        string? FieldFeedback,                                                        
-                                                        decimal? CurrencyDolor,
-                                                        decimal? CurrencyEuro,
-                                                        decimal? CurrencyTl,
-                                                        decimal? RakipDolor,
-                                                        decimal? RakipEuro,
-                                                        decimal? RakipTl
-                                                   ) : ICommand<CreateIntelligenceRecordCommandResponse>;
+                                                        //string? Location,
+                                                        //IntelligenceType IntelligenceType,
+                                                        //Region? Region,
+                                                        //string? FieldFeedback,        
+                                                        //string? Explanation,
+                                                        decimal? MCurrency,
+                                                        decimal? RakipCurrency,
+                                                        string? ForeignCurrencyId,
+                                                        IFormFile[]? Files
+                                                        ) : ICommand<CreateIntelligenceRecordCommandResponse>;

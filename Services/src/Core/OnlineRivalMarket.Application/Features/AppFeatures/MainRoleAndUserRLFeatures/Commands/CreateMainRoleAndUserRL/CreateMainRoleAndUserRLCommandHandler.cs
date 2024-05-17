@@ -9,10 +9,16 @@ public sealed class CreateMainRoleAndUserRLCommandHandler : ICommandHandler<Crea
     {
         _service = service;
     }
+  
+
+
     public async Task<CreateMainRoleAndUserRLCommandResponse> Handle(CreateMainRoleAndUserRLCommand request, CancellationToken cancellationToken)
     {
         MainRoleAndUserRelationship checkEntity = await _service.GetByUserIdCompanyIdAndMainRoleIdAsync(request.UserId, request.MainRoleId, cancellationToken);
-        if (checkEntity != null) throw new Exception("Kullanıcı bu role zaten sahip!");
+        if (checkEntity != null)
+        {
+
+        }
 
         MainRoleAndUserRelationship mainRoleAndUserRelationship = new(
             Guid.NewGuid().ToString(), request.UserId, request.MainRoleId);

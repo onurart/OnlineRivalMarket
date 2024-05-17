@@ -1,0 +1,4 @@
+﻿using OnlineRivalMarket.Application.Messaging;
+namespace OnlineRivalMarket.Application.Features.CompanyFeatures.ForeignCurrency.Queries.GetAllForeignCurrency.GetAllForeignCurrencyDtoAsync;
+public sealed record GetAllForeignCurrencyDtoQuery(string CompanyId) : IQuery<GetAllForeignCurrencyDtoQueryResponse>;
+

@@ -15,7 +15,7 @@ public class IntelligenceRecordController : ApiController
     {
     }
     [HttpPost("[action]")]
-    public async Task<IActionResult> CreateIntelligenceRecord(CreateIntelligenceRecordCommand request,CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateIntelligenceRecord([FromForm] CreateIntelligenceRecordCommand request,CancellationToken cancellationToken)
     {
         CreateIntelligenceRecordCommandResponse response = await _mediator.Send(request,cancellationToken);
         return Ok(response);

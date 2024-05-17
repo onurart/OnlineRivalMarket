@@ -11,7 +11,7 @@ namespace OnlineRivalMarket.Application.Features.CompanyFeatures.CategoryFeature
         }
         public async Task<GetAllCategoryQueryResponse> Handle(GetAllCategoryQuery request, CancellationToken cancellationToken)
         {
-            return new(await _categoryService.GetAllCategoryAsync(request));
+            return new(await _categoryService.GetAllCategoryAsync(request.CompanyId));
         }
     }
 }

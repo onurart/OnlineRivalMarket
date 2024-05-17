@@ -8,6 +8,6 @@ namespace OnlineRivalMarket.Application.Services.CompanyServices
     public interface ICategoryService
     {
         Task<Category> CreateCategoryAsync(CreateCategoryCommand request, CancellationToken cancellationToken);
-        Task<PaginationResult<Category>> GetAllCategoryAsync(GetAllCategoryQuery request);
+        Task<IList<Category>> GetAllCategoryAsync(string companyId);
     }
 }

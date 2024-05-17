@@ -1,4 +1,6 @@
 ﻿using FluentValidation;
+using Newtonsoft.Json;
+using OnlineRivalMarket.Application.Services;
 
 
 namespace OnlineRivalMarket.WebApi.Middleware
@@ -15,6 +17,37 @@ namespace OnlineRivalMarket.WebApi.Middleware
             {
                 await HandleExceptionAsync(context, ex);
             }
+
+            if (context.Response.StatusCode == 401)
+            {
+                context.Response.ContentType = "application/json";
+                var result = new Result<object>(401, "Unauthorized");
+                await context.Response.WriteAsync(JsonConvert.SerializeObject(result));
+            }
+            else if (context.Response.StatusCode == 402)
+            {
+                context.Response.ContentType = "application/json";
+                var result = new Result<object>(403, "Payment Required");
+                await context.Response.WriteAsync(JsonConvert.SerializeObject(result));
+            }
+            else if (context.Response.StatusCode == 403)
+            {
+                context.Response.ContentType = "application/json";
+                var result = new Result<object>(403, "Forbidden");
+                await context.Response.WriteAsync(JsonConvert.SerializeObject(result));
+            }
+            else if (context.Response.StatusCode == 404)
+            {
+                context.Response.ContentType = "application/json";
+                var result = new Result<object>(403, "Not Found");
+                await context.Response.WriteAsync(JsonConvert.SerializeObject(result));
+            }
+            else if (context.Response.StatusCode == 405)
+            {
+                context.Response.ContentType = "application/json";
+                var result = new Result<object>(403, "Method Not Allowed");
+                await context.Response.WriteAsync(JsonConvert.SerializeObject(result));
+            }
         }
         private Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
@@ -28,6 +61,7 @@ namespace OnlineRivalMarket.WebApi.Middleware
                     StatusCode = context.Response.StatusCode
                 }.ToString());
             }
+
             return context.Response.WriteAsync(new ErrorResult
             {
                 Message = ex.Message,
@@ -35,4 +69,4 @@ namespace OnlineRivalMarket.WebApi.Middleware
             }.ToString());
         }
     }
-    }
+}

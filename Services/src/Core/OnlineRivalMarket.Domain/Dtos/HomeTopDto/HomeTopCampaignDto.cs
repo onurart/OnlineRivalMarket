@@ -4,6 +4,7 @@ namespace OnlineRivalMarket.Domain.Dtos.HomeTopDto
 {
     public class HomeTopCampaignDto
     {
+        public string Id { get; set; }
         public string? ProductId { get; set; }
         public string? ProductName { get; set; }
 
@@ -16,11 +17,11 @@ namespace OnlineRivalMarket.Domain.Dtos.HomeTopDto
         public string? BrandId { get; set; }
         public string? BrandName { get; set; }
 
+        public DateTime CreateDate { get; set; }
 
-
+        public IEnumerable<string> ImageFiles { get; set; }
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }
         public string? Description { get; set; }
-        public string? ImageUrl { get; set; }
     }
 }

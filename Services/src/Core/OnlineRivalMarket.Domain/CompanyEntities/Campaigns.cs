@@ -18,8 +18,10 @@ public class Campaigns : Entity
     public DateTime? StartTime { get; set; }
     public DateTime? EndTime { get; set; }
     public string? Description { get; set; }
-    public string? ImageUrl { get; set; }
-   
+    //public string? ImageUrl { get; set; }
+    public ICollection<CampaingImagesFile>? CampaingImagesFiles { get; set; }
 
-   
+
+
+
 }

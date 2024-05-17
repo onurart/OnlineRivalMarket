@@ -19,5 +19,7 @@ namespace OnlineRivalMarket.Persistance.Constans
         public static string Brand = nameof(Brand);
         public static string Sales = nameof(Sales);
         public static string Logs = nameof(Logs);
+        public static string ForeignCurrency = nameof(ForeignCurrency);
+        public static string ImagesFile = nameof(ImagesFile);
     }
 }

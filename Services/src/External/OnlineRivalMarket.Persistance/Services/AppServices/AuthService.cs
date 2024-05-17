@@ -3,7 +3,6 @@ using OnlineRivalMarket.Domain.AppEntities;
 using OnlineRivalMarket.Domain.AppEntities.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
 namespace OnlineRivalMarket.Persistance.Services.AppServices
 {
     public sealed class AuthService : IAuthService
@@ -21,13 +20,11 @@ namespace OnlineRivalMarket.Persistance.Services.AppServices
         {
             return await _userManager.CheckPasswordAsync(user, password);
         }
-
         public async Task<AppUser> ChangePasswordAsync(AppUser user, string currentPassword, string newPassword)
         {
             var result = await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
             return user;
         }
-
         public async Task<AppUser> GetByEmailOrUserNameAsync(string emailOrUserName)
         {
             var result = await _userManager.Users.Where(p => p.Email == emailOrUserName || p.UserName == emailOrUserName).FirstOrDefaultAsync();
@@ -37,21 +34,10 @@ namespace OnlineRivalMarket.Persistance.Services.AppServices
         {
             return await _companyRelationService.GetListByUserId(userId);
         }
-
         public async Task<string> GetMainRolesByUserId(string userId)
         {
             MainRoleAndUserRelationship mainRoleAndUserRelationship = await _mainRoleAndUserRelationshipService.GetMainRolesByUserId(userId);
             return mainRoleAndUserRelationship.MainRole.Title;
         }
-
-        //public async Task<IList<string>> GetRolesByUserIdAndCompanyId(string userId, string companyId)
-        //{
-        //    MainRoleAndUserRelationship mainRoleAndUserRelationship = await _mainRoleAndUserRelationshipService.GetRolesByUserIdAndCompanyId(userId, companyId);
-
-        //    IList<MainRoleAndRoleRelationship> getMainRole = await _mainRoleAndRoleRelationshipService.GetListByMainRoleIdForGetRolesAsync(mainRoleAndUserRelationship.MainRoleId);
-
-        //    IList<string> roles = getMainRole.Select(s => s.AppRole.Name).ToList();
-        //    return roles;
-        //}
     }
 }

@@ -90,27 +90,20 @@ namespace OnlineRivalMarket.Application.Features.AppFeatures.AuthFeatures.Comman
 
                 }
             }
-            //    AppUser
             user = await _authService.GetByEmailOrUserNameAsync(request.EmailOrUserName);
             if (user is null) 
             {
-                return Result<LoginCommandResponse>.Failure(500, "user not found");   
+                return Result<LoginCommandResponse>.Failure(200, "user not found");   
             }
-
             var checkUser = await _authService.CheckPasswordAsync(user, request.Password);
             if (!checkUser)
             {
-                return Result<LoginCommandResponse>.Failure(500, "Password is wrong");
+                return Result<LoginCommandResponse>.Failure(200, "Password is wrong");
             }
             var mainrole = await _authService.GetMainRolesByUserId(user.Id);
-            //if (companies.Count() == 0) throw new Exception("Herhangi bir şikete kayıtlı değilsiniz!");
             IList<UserAndCompanyRelationship> companies = await _authService.GetCompanyListByUserIdAsync(user.Id);
-            IList<CompanyDto> companiesDto = companies.Select(s => new CompanyDto(
-                s.Company.Id, s.Company.Name)).ToList();
-            
-            
+            IList<CompanyDto> companiesDto = companies.Select(s => new CompanyDto(s.Company.Id, s.Company.Name)).ToList();          
             IList<CompanyDto> companiesDtow = companies.Select(s => new CompanyDto(s.Company.Id, s.Company.Name)).ToList();
-
             LoginCommandResponse response = new(
                         Token: await _jwtProvider.CreateTokenAsync(user),
                         Email: user.Email,

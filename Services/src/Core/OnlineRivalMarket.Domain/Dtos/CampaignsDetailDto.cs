@@ -13,11 +13,13 @@ public class CampaignsDetailDto
 
     public string? BrandId { get; set; }
     public string? BrandName { get; set; }
+    public DateTime CreateDate { get; set; }
 
 
-
+    //public string ImageUrl { get; set; }
     public DateTime? StartTime { get; set; }
     public DateTime? EndTime { get; set; }
     public string? Description { get; set; }
-    public string? ImageUrl { get; set; }
+    public IEnumerable<string> ImageFiles { get; set; }
+
 }

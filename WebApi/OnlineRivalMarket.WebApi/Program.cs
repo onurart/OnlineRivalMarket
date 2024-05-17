@@ -1,9 +1,16 @@
     using Microsoft.EntityFrameworkCore;
 using OnlineRivalMarket.Persistance.Context;
+using OnlineRivalMarket.WebApi;
 using OnlineRivalMarket.WebApi.Configurations;
+using System.Text.Json.Serialization;
+;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.InstallServices(builder.Configuration, typeof(IServiceInstaller).Assembly);
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    options.JsonSerializerOptions.Converters.Add(new DateTimeConverter("dd-MM-yyyy"));
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var app = builder.Build();

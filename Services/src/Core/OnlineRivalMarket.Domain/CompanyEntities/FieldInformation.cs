@@ -1,11 +1,13 @@
 ﻿using OnlineRivalMarket.Domain.Abstractions;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnlineRivalMarket.Domain.CompanyEntities;
 public class FieldInformation : Entity
 {
-    public string? Title { get; set; }
+    [ForeignKey(nameof(CompetitorId))]
+    public string? CompetitorId { get; set; }
+    public Competitor? Competitor { get; set; }
     public string? Description { get; set; }
-    public DateTime? Date { get; set; }
-    public string? Location { get; set; }
-    public string? Source { get; set; }
+    public string? Title { get; set; }
+    public ICollection<FieldInformationImagesFile> FieldInformationImagesFiles { get; set; }
 }
