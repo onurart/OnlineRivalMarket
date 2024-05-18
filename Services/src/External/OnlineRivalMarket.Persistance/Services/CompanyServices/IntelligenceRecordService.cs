@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Commands.CreateIntelligenceRecord;
+using OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Commands.
+    CreateIntelligenceRecord;
 using OnlineRivalMarket.Application.Services.CompanyServices;
 using OnlineRivalMarket.Domain;
 using OnlineRivalMarket.Domain.CompanyEntities;
@@ -10,7 +11,9 @@ using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.IntelligenceRecordR
 using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.ProductRepositories;
 using OnlineRivalMarket.Domain.UnitOfWorks;
 using OnlineRivalMarket.Persistance.Context;
+
 namespace OnlineRivalMarket.Persistance.Services.CompanyServices;
+
 public class IntelligenceRecordService : IIntelligenceRecordService
 {
     private readonly IIntelligenceRecordCommandRepository _commandRepository;
@@ -20,11 +23,21 @@ public class IntelligenceRecordService : IIntelligenceRecordService
     private readonly IContextService _contextService;
     private readonly IMapper _mapper;
     private CompanyDbContext _context;
-    public IntelligenceRecordService(IIntelligenceRecordCommandRepository commandRepository, IIntelligenceRecordQueryRepository queryRepository, ICompanyDbUnitOfWork unitOfWork, IContextService contextService, IMapper mapper, IProductQueryRepository queryProductRepository = null)
+
+    public IntelligenceRecordService(IIntelligenceRecordCommandRepository commandRepository,
+        IIntelligenceRecordQueryRepository queryRepository, ICompanyDbUnitOfWork unitOfWork,
+        IContextService contextService, IMapper mapper, IProductQueryRepository queryProductRepository = null)
     {
-        _commandRepository = commandRepository; _queryRepository = queryRepository; _unitOfWork = unitOfWork; _contextService = contextService; _mapper = mapper; _queryProductRepository = queryProductRepository;
+        _commandRepository = commandRepository;
+        _queryRepository = queryRepository;
+        _unitOfWork = unitOfWork;
+        _contextService = contextService;
+        _mapper = mapper;
+        _queryProductRepository = queryProductRepository;
     }
-    public async Task<IntelligenceRecord> CreateIntelligenceRecordAsync(CreateIntelligenceRecordCommand requset, CancellationToken cancellationToken)
+
+    public async Task<IntelligenceRecord> CreateIntelligenceRecordAsync(CreateIntelligenceRecordCommand requset,
+        CancellationToken cancellationToken)
     {
         _context = (CompanyDbContext)_contextService.CreateDbContextInstance(requset.CompanyId);
         _commandRepository.SetDbContextInstance(_context);
@@ -35,42 +48,45 @@ public class IntelligenceRecordService : IIntelligenceRecordService
         await _unitOfWork.SaveChangesAsync(cancellationToken);
         return record;
     }
+
     public async Task<IList<IntelligenceRecordDto>> GetAllDtoAsync(string companyId)
     {
         _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
         _queryRepository.SetDbContextInstance(_context);
         _queryProductRepository.SetDbContextInstance(_context);
-        var prodcustrel = await _queryRepository.GetAll().Include("Competitor").Include("IntelligenceRecordFiles").Include("Product").Include("ForeignCurrency").ToListAsync();
-        var product = await _queryProductRepository.GetAll().Include("VehicleType").Include("VehicleGrup").Include("Brand").Include("Category").ToListAsync();
+        var prodcustrel = await _queryRepository.GetAll().Include("Competitor").Include("IntelligenceRecordFiles")
+            .Include("Product").Include("ForeignCurrency").ToListAsync();
+        var product = await _queryProductRepository.GetAll().Include("VehicleType").Include("VehicleGrup")
+            .Include("Brand").Include("Category").ToListAsync();
 
         var joinedData = from pc in prodcustrel
-                         join p in product on pc.ProductId equals p.Id
-                         orderby pc.CreatedDate descending
-                         select new IntelligenceRecordDto
-                         {
-                             Id = pc.Id,
-                             CompetitorId = pc.CompetitorId,
-                             CompetitorName = pc.Competitor != null ? pc.Competitor.Name : null,
-                             BrandId = p.BrandId,
-                             BrandName = p.Brand != null ? p.Brand.Name : null,
-                             CategoryId = p.CategoryId,
-                             CategoryName = p.Category != null ? p.Category.Name : null,
-                             ProductId = p.Id,
-                             ProductName = p.ProductName,
-                             VehicleGroupId = p.VehicleGrup.Id,
-                             VehicleGroupName = pc.Product.VehicleGrup.Name,
-                             VehicleTypeId = pc.Product.VehicleType.Id,
-                             VehicleTypeName = pc.Product.VehicleType.Name,
-                             Description = pc.Description,
-                             MCurrency = pc.MCurrency,
-                             RakipCurrency = pc.RakipCurrency,
-                             ForeignCurrencyId = pc.ForeignCurrencyId,
-                             ForeignCurrencyName = pc.ForeignCurrency.CurrencyName,
-                             ImageFiles = pc.IntelligenceRecordFiles.Select(x => x.FileUrls),
-                             CreatedDate = pc.CreatedDate,
-                             UserId = pc.UserId,
-                             UserLastName = pc.UserLastName,
-                         };
+            join p in product on pc.ProductId equals p.Id
+            orderby pc.CreatedDate descending
+            select new IntelligenceRecordDto
+            {
+                Id = pc.Id,
+                CompetitorId = pc.CompetitorId,
+                CompetitorName = pc.Competitor != null ? pc.Competitor.Name : null,
+                BrandId = p.BrandId,
+                BrandName = p.Brand != null ? p.Brand.Name : null,
+                CategoryId = p.CategoryId,
+                CategoryName = p.Category != null ? p.Category.Name : null,
+                ProductId = p.Id,
+                ProductName = p.ProductName,
+                VehicleGroupId = p.VehicleGrup.Id,
+                VehicleGroupName = pc.Product.VehicleGrup.Name,
+                VehicleTypeId = pc.Product.VehicleType.Id,
+                VehicleTypeName = pc.Product.VehicleType.Name,
+                Description = pc.Description,
+                MCurrency = pc.MCurrency,
+                RakipCurrency = pc.RakipCurrency,
+                ForeignCurrencyId = pc.ForeignCurrencyId,
+                ForeignCurrencyName = pc.ForeignCurrency.CurrencyName,
+                ImageFiles = pc.IntelligenceRecordFiles.Select(x => x.FileUrls),
+                CreatedDate = pc.CreatedDate,
+                UserId = pc.UserId,
+                UserLastName = pc.UserLastName,
+            };
         List<IntelligenceRecordDto> dto = new List<IntelligenceRecordDto>();
         foreach (var item in joinedData)
         {
@@ -109,7 +125,93 @@ public class IntelligenceRecordService : IIntelligenceRecordService
 
         return dto;
     }
-    public async Task<IList<IntelligenceRecordDto>> GetFilteredIntelligenceRecordsAsync(string companyId, IList<string> competitorIds)
+
+    public async Task<IList<IntelligenceRecordDto>> GetAllDtoFilterAsync(string companyId, List<string> competitorIds,
+        List<string> brandIds, List<string> categoryIds, DateTime startDate, DateTime endDate)
+    {
+        _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
+        _queryRepository.SetDbContextInstance(_context);
+        _queryProductRepository.SetDbContextInstance(_context);
+
+        // Başlangıç sorguları
+        var prodcustrelQuery = _queryRepository.GetAll(false)
+            .Include(pc => pc.Competitor)
+            .Include(pc => pc.IntelligenceRecordFiles)
+            .Include(pc => pc.Product)
+            .Include(pc => pc.ForeignCurrency)
+            .AsQueryable();
+
+        var productQuery = _queryProductRepository.GetAll(false)
+            .Include(p => p.VehicleType)
+            .Include(p => p.VehicleGrup)
+            .Include(p => p.Brand)
+            .Include(p => p.Category)
+            .AsQueryable();
+
+        // Filtreler
+        if (competitorIds != null && competitorIds.Any())
+        {
+            prodcustrelQuery = prodcustrelQuery.Where(pc => competitorIds.Contains(pc.CompetitorId));
+        }
+
+        if (brandIds != null && brandIds.Any())
+        {
+            productQuery = productQuery.Where(p => brandIds.Contains(p.BrandId));
+        }
+
+        if (categoryIds != null && categoryIds.Any())
+        {
+            productQuery = productQuery.Where(p => categoryIds.Contains(p.CategoryId));
+        }
+
+        // if (startDate != default && endDate != default)
+        // {
+        //     prodcustrelQuery = prodcustrelQuery.Where(pc => pc.CreatedDate >= startDate && pc.CreatedDate <= endDate);
+        // }
+
+        // Verileri çekiyoruz
+        var prodcustrel = await prodcustrelQuery.ToListAsync();
+        var products = await productQuery.ToListAsync();
+
+        // Verileri birleştirme
+        var joinedData = from pc in prodcustrel
+            join p in products on pc.ProductId equals p.Id
+            orderby pc.CreatedDate descending
+            select new IntelligenceRecordDto
+            {
+                Id = pc.Id,
+                CompetitorId = pc.CompetitorId,
+                CompetitorName = pc.Competitor != null ? pc.Competitor.Name : null,
+                BrandId = p.BrandId,
+                BrandName = p.Brand != null ? p.Brand.Name : null,
+                CategoryId = p.CategoryId,
+                CategoryName = p.Category != null ? p.Category.Name : null,
+                ProductId = p.Id,
+                ProductName = p.ProductName,
+                VehicleGroupId = p.VehicleGrup != null ? p.VehicleGrup.Id : null,
+                VehicleGroupName = p.VehicleGrup != null ? p.VehicleGrup.Name : null,
+                VehicleTypeId = p.VehicleType != null ? p.VehicleType.Id : null,
+                VehicleTypeName = p.VehicleType != null ? p.VehicleType.Name : null,
+                Description = pc.Description,
+                MCurrency = pc.MCurrency,
+                RakipCurrency = pc.RakipCurrency,
+                ForeignCurrencyId = pc.ForeignCurrencyId,
+                ForeignCurrencyName = pc.ForeignCurrency != null ? pc.ForeignCurrency.CurrencyName : null,
+                ImageFiles = pc.IntelligenceRecordFiles.Select(x => x.FileUrls),
+                CreatedDate = pc.CreatedDate,
+                UserId = pc.UserId,
+                UserLastName = pc.UserLastName,
+            };
+
+        // DTO'ya dönüştürme
+        var dtoList = joinedData.ToList();
+
+        return dtoList;
+    }
+
+
+    public async Task<IList<IntelligenceRecordDto>> GetFilteredIntelligenceRecordsAsync(string companyId,
+        IList<string> competitorIds)
     {
         _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
         _queryRepository.SetDbContextInstance(_context);
@@ -117,80 +219,88 @@ public class IntelligenceRecordService : IIntelligenceRecordService
         List<IntelligenceRecordDto> filteredRecords = new List<IntelligenceRecordDto>();
         foreach (var competitorIdLoop in competitorIds)
         {
-            var prodcustrel = await _queryRepository.GetAll().Include("Competitor").Include("IntelligenceRecordFiles").Include("ForeignCurrency").Include("Product").Where(pc => pc.CompetitorId == competitorIdLoop || pc.ProductId == pc.ProductId).OrderByDescending(pc => pc.CreatedDate).ToListAsync();
-            var product = await _queryProductRepository.GetAll().Include("VehicleType").Include("VehicleGrup").Include("Brand").Include("Category").ToListAsync();
+            var prodcustrel = await _queryRepository.GetAll().Include("Competitor").Include("IntelligenceRecordFiles")
+                .Include("ForeignCurrency").Include("Product")
+                .Where(pc => pc.CompetitorId == competitorIdLoop || pc.ProductId == pc.ProductId)
+                .OrderByDescending(pc => pc.CreatedDate).ToListAsync();
+            var product = await _queryProductRepository.GetAll().Include("VehicleType").Include("VehicleGrup")
+                .Include("Brand").Include("Category").ToListAsync();
             var joinedData = (from pc in prodcustrel
-                              join p in product on pc.ProductId equals p.Id
-                              select new IntelligenceRecordDto
-                              {
-                                  Id = pc.Id,
-                                  CompetitorId = pc.CompetitorId,
-                                  CompetitorName = pc.Competitor != null ? pc.Competitor.Name : null,
-                                  BrandId = p.BrandId,
-                                  BrandName = p.Brand.Name,
-                                  CategoryId = p.CategoryId,
-                                  CategoryName = p.Category.Name,
-                                  ProductId = p.Id,
-                                  ProductName = p.ProductName,
-                                  Description = pc.Description,
-                                  ForeignCurrencyId = pc.ForeignCurrencyId,
-                                  ForeignCurrencyName = pc.ForeignCurrency.CurrencyName,
-                                  MCurrency = pc.MCurrency,
-                                  RakipCurrency = pc.RakipCurrency,
-                                  VehicleGroupId = p.VehicleGrup.Id,
-                                  VehicleGroupName = p.VehicleGrup.Name,
-                                  VehicleTypeId = pc.Product.VehicleType.Id,
-                                  VehicleTypeName = pc.Product.VehicleType.Name,
-                                  ImageFiles = pc.IntelligenceRecordFiles.Select(x => x.FileUrls),
-                                  CreatedDate = pc.CreatedDate,
-                                  UserId = pc.UserId,
-                                  UserLastName = pc.UserLastName,
+                join p in product on pc.ProductId equals p.Id
+                select new IntelligenceRecordDto
+                {
+                    Id = pc.Id,
+                    CompetitorId = pc.CompetitorId,
+                    CompetitorName = pc.Competitor != null ? pc.Competitor.Name : null,
+                    BrandId = p.BrandId,
+                    BrandName = p.Brand.Name,
+                    CategoryId = p.CategoryId,
+                    CategoryName = p.Category.Name,
+                    ProductId = p.Id,
+                    ProductName = p.ProductName,
+                    Description = pc.Description,
+                    ForeignCurrencyId = pc.ForeignCurrencyId,
+                    ForeignCurrencyName = pc.ForeignCurrency.CurrencyName,
+                    MCurrency = pc.MCurrency,
+                    RakipCurrency = pc.RakipCurrency,
+                    VehicleGroupId = p.VehicleGrup.Id,
+                    VehicleGroupName = p.VehicleGrup.Name,
+                    VehicleTypeId = pc.Product.VehicleType.Id,
+                    VehicleTypeName = pc.Product.VehicleType.Name,
+                    ImageFiles = pc.IntelligenceRecordFiles.Select(x => x.FileUrls),
+                    CreatedDate = pc.CreatedDate,
+                    UserId = pc.UserId,
+                    UserLastName = pc.UserLastName,
 
-                                  //ImageUrl = pc.ImageUrl,
-                                  //FieldFeedback = pc.FieldFeedback,
-                                  //Location = pc.Location,
-                                  //Explanation = pc.Explanation,
-                              }).ToList();
+                    //ImageUrl = pc.ImageUrl,
+                    //FieldFeedback = pc.FieldFeedback,
+                    //Location = pc.Location,
+                    //Explanation = pc.Explanation,
+                }).ToList();
 
             filteredRecords.AddRange(joinedData.Take(5));
         }
+
         return filteredRecords;
     }
+
     public async Task<IList<IntelligenceRecordDto>> HomeGetTopIntelligenceRecordAsync(string companyId)
     {
         _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
         _queryRepository.SetDbContextInstance(_context);
         _queryProductRepository.SetDbContextInstance(_context);
-        var prodcustrel = await _queryRepository.GetAll().Include("Competitor").Include("Product").Include("ForeignCurrency").Include("IntelligenceRecordFiles").ToListAsync();
-        var product = await _queryProductRepository.GetAll().Include("VehicleType").Include("VehicleGrup").Include("Brand").Include("Category").ToListAsync();
+        var prodcustrel = await _queryRepository.GetAll().Include("Competitor").Include("Product")
+            .Include("ForeignCurrency").Include("IntelligenceRecordFiles").ToListAsync();
+        var product = await _queryProductRepository.GetAll().Include("VehicleType").Include("VehicleGrup")
+            .Include("Brand").Include("Category").ToListAsync();
         var joinedData = (from pc in prodcustrel
-                          join p in product on pc.ProductId equals p.Id
-                          orderby pc.CreatedDate descending // Order by CreatedDate in descending order
-                          select new IntelligenceRecordDto
-                          {
-                              Id = pc.Id,
-                              CompetitorId = pc.CompetitorId,
-                              CompetitorName = pc.Competitor != null ? pc.Competitor.Name : null,
-                              BrandId = p.BrandId,
-                              BrandName = p.Brand.Name,
-                              CategoryId = p.CategoryId,
-                              CategoryName = p.Category.Name,
-                              ProductId = p.Id,
-                              ProductName = p.ProductName,
-                              Description = pc.Description,
-                              MCurrency = pc.MCurrency,
-                              RakipCurrency = pc.RakipCurrency,
-                              ForeignCurrencyName = pc.ForeignCurrency.CurrencyName,
-                              ForeignCurrencyId = pc.ForeignCurrency.Id,
-                              VehicleGroupId = p.VehicleGrup.Id,
-                              VehicleGroupName = pc.Product.VehicleGrup.Name,
-                              VehicleTypeId = pc.Product.VehicleType.Id,
-                              VehicleTypeName = pc.Product.VehicleType.Name,
-                              ImageFiles = pc.IntelligenceRecordFiles.Select(x => x.FileUrls),
-                              CreatedDate = pc.CreatedDate,
-                              UserLastName = pc.UserLastName,
-                              UserId = pc.UserId,
-                          }).Take(12).ToList();
+            join p in product on pc.ProductId equals p.Id
+            orderby pc.CreatedDate descending // Order by CreatedDate in descending order
+            select new IntelligenceRecordDto
+            {
+                Id = pc.Id,
+                CompetitorId = pc.CompetitorId,
+                CompetitorName = pc.Competitor != null ? pc.Competitor.Name : null,
+                BrandId = p.BrandId,
+                BrandName = p.Brand.Name,
+                CategoryId = p.CategoryId,
+                CategoryName = p.Category.Name,
+                ProductId = p.Id,
+                ProductName = p.ProductName,
+                Description = pc.Description,
+                MCurrency = pc.MCurrency,
+                RakipCurrency = pc.RakipCurrency,
+                ForeignCurrencyName = pc.ForeignCurrency.CurrencyName,
+                ForeignCurrencyId = pc.ForeignCurrency.Id,
+                VehicleGroupId = p.VehicleGrup.Id,
+                VehicleGroupName = pc.Product.VehicleGrup.Name,
+                VehicleTypeId = pc.Product.VehicleType.Id,
+                VehicleTypeName = pc.Product.VehicleType.Name,
+                ImageFiles = pc.IntelligenceRecordFiles.Select(x => x.FileUrls),
+                CreatedDate = pc.CreatedDate,
+                UserLastName = pc.UserLastName,
+                UserId = pc.UserId,
+            }).Take(12).ToList();
 
         List<IntelligenceRecordDto> dto = new();
         foreach (var item in joinedData)
@@ -223,43 +333,47 @@ public class IntelligenceRecordService : IIntelligenceRecordService
                 UserLastName = item.UserLastName,
             });
         }
+
         return dto;
     }
+
     public async Task<IList<IntelligenceByIdDto>> GetByIdIntelligenceRecordsAsync(string id, string companyId)
     {
         _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
         _queryRepository.SetDbContextInstance(_context);
         _queryProductRepository.SetDbContextInstance(_context);
-        var intelligence = await _queryRepository.GetWhere(x => x.Id == id, false).Include("Competitor").Include("IntelligenceRecordFiles").Include("Product").Include("ForeignCurrency").ToListAsync();
-        var product = await _queryProductRepository.GetAll().Include("VehicleType").Include("VehicleGrup").Include("Brand").Include("Category").ToListAsync();
+        var intelligence = await _queryRepository.GetWhere(x => x.Id == id, false).Include("Competitor")
+            .Include("IntelligenceRecordFiles").Include("Product").Include("ForeignCurrency").ToListAsync();
+        var product = await _queryProductRepository.GetAll().Include("VehicleType").Include("VehicleGrup")
+            .Include("Brand").Include("Category").ToListAsync();
         var joinedData = (from pc in intelligence
-                          join p in product on pc.ProductId equals p.Id
-                          orderby pc.CreatedDate descending
-                          select new IntelligenceByIdDto
-                          {
-                              Id = pc.Id,
-                              CompetitorId = pc.CompetitorId,
-                              CompetitorName = pc.Competitor != null ? pc.Competitor.Name : null,
-                              BrandId = p.BrandId,
-                              BrandName = p.Brand.Name,
-                              CategoryId = p.CategoryId,
-                              CategoryName = p.Category.Name,
-                              ProductId = p.Id,
-                              ProductName = p.ProductName,
-                              Description = pc.Description,
-                              VehicleGroupId = p.VehicleGrup.Id,
-                              VehicleGroupName = p.VehicleGrup.Name,
-                              VehicleTypeId = p.VehicleType.Id,
-                              VehicleTypeName = p.VehicleType.Name,
-                              MCurrency = pc.MCurrency,
-                              RakipCurrency = pc.RakipCurrency,
-                              ForeignCurrencyId = pc.ForeignCurrencyId,
-                              ForeignCurrencyName = pc.ForeignCurrency.CurrencyName,
-                              ImageFiles = pc.IntelligenceRecordFiles.Select(x => x.FileUrls),
-                              CreateDate = pc.CreatedDate,
-                              UserId = pc.UserId,
-                              UserLastName = pc.UserLastName,
-                          }).Take(5).ToList();
+            join p in product on pc.ProductId equals p.Id
+            orderby pc.CreatedDate descending
+            select new IntelligenceByIdDto
+            {
+                Id = pc.Id,
+                CompetitorId = pc.CompetitorId,
+                CompetitorName = pc.Competitor != null ? pc.Competitor.Name : null,
+                BrandId = p.BrandId,
+                BrandName = p.Brand.Name,
+                CategoryId = p.CategoryId,
+                CategoryName = p.Category.Name,
+                ProductId = p.Id,
+                ProductName = p.ProductName,
+                Description = pc.Description,
+                VehicleGroupId = p.VehicleGrup.Id,
+                VehicleGroupName = p.VehicleGrup.Name,
+                VehicleTypeId = p.VehicleType.Id,
+                VehicleTypeName = p.VehicleType.Name,
+                MCurrency = pc.MCurrency,
+                RakipCurrency = pc.RakipCurrency,
+                ForeignCurrencyId = pc.ForeignCurrencyId,
+                ForeignCurrencyName = pc.ForeignCurrency.CurrencyName,
+                ImageFiles = pc.IntelligenceRecordFiles.Select(x => x.FileUrls),
+                CreateDate = pc.CreatedDate,
+                UserId = pc.UserId,
+                UserLastName = pc.UserLastName,
+            }).Take(5).ToList();
 
         List<IntelligenceByIdDto> dto = new List<IntelligenceByIdDto>();
         foreach (var item in joinedData)
@@ -290,8 +404,10 @@ public class IntelligenceRecordService : IIntelligenceRecordService
                 UserId = item.UserId,
             });
         }
+
         return dto;
     }
+
     public async Task<IList<IntelligenceByIdDto>> GetByProductIdIntelligenceRecordsAsync(string id, string companyId)
     {
         var context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
@@ -330,49 +446,7 @@ public class IntelligenceRecordService : IIntelligenceRecordService
 
         return dtoList;
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //public async Task<IList<IntelligenceRecord>> GetAllIntelligenceRecordAsync(string companyId)
