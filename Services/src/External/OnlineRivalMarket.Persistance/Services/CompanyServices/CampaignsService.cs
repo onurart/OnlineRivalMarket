@@ -320,6 +320,7 @@ public sealed class CampaignsService : ICampaignService
 
 
 
+ 
     //public async Task<PaginationResult<Campaigns>> GetAllAsync(GetAllCampaignQuery request)
     //{
     //    _context = (CompanyDbContext)_contextService.CreateDbContextInstance(request.CompanyId);
