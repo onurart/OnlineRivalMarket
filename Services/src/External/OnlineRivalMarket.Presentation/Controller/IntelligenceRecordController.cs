@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Commands.CreateIntelligenceRecord;
+using OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.GetAllDtoFilterIntelligenceRecord;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.GetByIdIntelligenceRecord;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.GetByProductIdIntelligence;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.GetFilteredIntelligenceRecordsAsync;
@@ -44,6 +45,14 @@ public class IntelligenceRecordController : ApiController
         return Ok(reponse);
 
     }
+    [HttpPost("[action]")]
+    public async Task<IActionResult> GetIntelligenceRecordDtoFilter(GetAllDtoFilterIntelligenceRecordQuery requst ,CancellationToken cancellationToken)
+    {
+        //GetAllDtoFilterIntelligenceRecordQuery requst = new(companyid,competitorIds, brandIds,  categoryIds, startDate, endDate);
+        var reponse = await _mediator.Send(requst);
+        return Ok(reponse);
+
+    }
     [HttpGet("[action]/{companyId}")]
     public async Task<IActionResult> GetFilteredIntelligenceRecords(string companyId, [FromQuery] IList<string> competitorIds)
     {
@@ -68,6 +77,7 @@ public class IntelligenceRecordController : ApiController
         return Ok(reponse);
 
     }
+    
 
 
 
