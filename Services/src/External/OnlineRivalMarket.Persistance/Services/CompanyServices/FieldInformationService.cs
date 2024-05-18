@@ -74,7 +74,8 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
                                   Title = pc.Title,
                                   CreatedDate = pc.CreatedDate,
                                   ImageFiles = pc.FieldInformationImagesFiles.Select(x => x.FieldInformationFileUrls),
-
+                                  AppUserId = pc.UserId,
+                                  AppUserName = pc.UserLastName
 
                               }).Take(6).ToList();
             List<FieldInformationsesDto> dto = new List<FieldInformationsesDto>();
@@ -89,7 +90,8 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
                     CompetitorName = item.CompetitorName,
                     CreatedDate = item.CreatedDate,
                     ImageFiles = item.ImageFiles,
-
+                    AppUserId=item.AppUserId,
+                    AppUserName=item.AppUserName
                 });
 
 
@@ -116,7 +118,8 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
                                   Title = pc.Title,
                                   ImageFiles = pc.FieldInformationImagesFiles.Select(x => x.FieldInformationFileUrls),
                                   CreatedDate = pc.CreatedDate,
-
+                                  AppUserId = pc.UserId,
+                                  AppUserName = pc.UserLastName
                               }).ToList();
             List<FieldInformationsesDto> dto = new List<FieldInformationsesDto>();
             foreach (var item in joinedData)
@@ -130,6 +133,8 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
                     CompetitorName = item.CompetitorName,
                     CreatedDate = item.CreatedDate,
                     ImageFiles = item.ImageFiles,
+                    AppUserName=item.AppUserName,
+                    AppUserId=item.AppUserId
 
                 });
 
@@ -143,8 +148,6 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
         {
             _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
             _queryRepository.SetDbContextInstance(_context);
-            // await _queryRepository.GetAll().AsNoTracking().ToListAsync();
-
             var prodcustrel = await _queryRepository.GetWhere(x => x.Id == id).Include("Competitor").Include(x => x.FieldInformationImagesFiles).ToListAsync();
             var product = await _queryRepository.GetAll().ToListAsync();
             var joinedData = (from pc in prodcustrel
@@ -159,7 +162,8 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
                                   Title = pc.Title,
                                   ImageFiles = pc.FieldInformationImagesFiles.Select(x => x.FieldInformationFileUrls),
                                   CreatedDate = pc.CreatedDate,
-
+                                  AppUserId = pc.UserId,
+                                  AppUserName=pc.UserLastName
                               }).ToList();
             List<FieldInformationsesDto> dto = new List<FieldInformationsesDto>();
             foreach (var item in joinedData)
@@ -173,6 +177,8 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
                     CompetitorName = item.CompetitorName,
                     ImageFiles = item.ImageFiles,
                     CreatedDate = item.CreatedDate,
+                    AppUserId=item.AppUserId,
+                    AppUserName=item.AppUserName
 
                 });
 

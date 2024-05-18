@@ -17,5 +17,7 @@ public sealed record CreateIntelligenceRecordCommand
                                                         decimal? MCurrency,
                                                         decimal? RakipCurrency,
                                                         string? ForeignCurrencyId,
+                                                         string userId,
+                                                         string UserLastName,
                                                         IFormFile[]? Files
                                                         ) : ICommand<CreateIntelligenceRecordCommandResponse>;

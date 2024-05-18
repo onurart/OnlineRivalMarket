@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Commands.CreateIntelligenceRecord;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.GetByIdIntelligenceRecord;
+using OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.GetByProductIdIntelligence;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.GetFilteredIntelligenceRecordsAsync;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.HomeGetTopIntelligenceRecord;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.IntelligenceRecordDtos;
@@ -15,9 +16,9 @@ public class IntelligenceRecordController : ApiController
     {
     }
     [HttpPost("[action]")]
-    public async Task<IActionResult> CreateIntelligenceRecord([FromForm] CreateIntelligenceRecordCommand request,CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateIntelligenceRecord([FromForm] CreateIntelligenceRecordCommand request, CancellationToken cancellationToken)
     {
-        CreateIntelligenceRecordCommandResponse response = await _mediator.Send(request,cancellationToken);
+        CreateIntelligenceRecordCommandResponse response = await _mediator.Send(request, cancellationToken);
         return Ok(response);
     }
     [HttpGet("[action]/{id}/{companyId}")]
@@ -39,7 +40,7 @@ public class IntelligenceRecordController : ApiController
     public async Task<IActionResult> GetIntelligenceRecordDto(string companyid)
     {
         IntelligenceRecordDtoQuery requst = new(companyid);
-        IntelligenceRecordDtoQueryResponse reponse =await _mediator.Send(requst);   
+        IntelligenceRecordDtoQueryResponse reponse = await _mediator.Send(requst);
         return Ok(reponse);
 
     }
@@ -68,4 +69,14 @@ public class IntelligenceRecordController : ApiController
 
     }
 
+
+
+    [HttpGet("[action]/{id}/{companyId}")]
+    public async Task<IActionResult> IntelligenceRecordGetByIdAsync(string id, string companyId)
+    {
+        GetByProductIdIntelligenceQuery request = new(id, companyId);
+        GetByProductIdIntelligenceResponse response = await _mediator.Send(request);
+        return Ok(response);
+
+    }
 }

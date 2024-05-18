@@ -23,13 +23,19 @@ namespace OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformatio
         }
         public async Task<CreateFieldInformationCommandResponse> Handle(CreateFieldInformationCommand request, CancellationToken cancellationToken)
         {
+            //FieldInformation fieldInformation=new (){
+            
+            //};
+
+
+
         
             FieldInformation newFieldInformation = await _fieldInformationService.CreateFieldInformationAsync(request, cancellationToken);
             string userId = _apiService.GetUserIdByToken();
             if (request.Files != null)
             {
-                string fileUrl = @"C:\inetpub\wwwroot\build\ticket\wwwroot\TicketAttachment\OnlineRivalMarket\FieldInformation";
-                //string fileUrl = @"C:\inetpub\wwwroot\Onur\FieldInformation";
+                //string fileUrl = @"C:\inetpub\wwwroot\build\ticket\wwwroot\TicketAttachment\OnlineRivalMarket\FieldInformation";
+                string fileUrl = @"C:\inetpub\wwwroot\Onur\FieldInformation";
                 foreach (var file in request.Files)
                 {
                     string fileName = _fileService.FileSaveToServer(file, fileUrl);

@@ -18,10 +18,13 @@ namespace OnlineRivalMarket.Domain.Dtos.HomeTopDto
         public string? BrandName { get; set; }
 
         public DateTime CreateDate { get; set; }
-
+        public string UserId { get; set; }
+        public string UserLastName { get; set; }
         public IEnumerable<string> ImageFiles { get; set; }
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }
         public string? Description { get; set; }
     }
 }
+
+    

@@ -22,14 +22,8 @@ public class IntelligenceRecord : Entity
     [ForeignKey(nameof(ForeignCurrencyId))]
     public string? ForeignCurrencyId { get; set; }
     public ForeignCurrency? ForeignCurrency { get; set; }
-
+    public string? UserId { get; set; }
+    public string? UserLastName { get; set; }
     public ICollection<ImagesFile>? IntelligenceRecordFiles { get; set; }
 
-
-    //public IntelligenceType? IntelligenceType { get; set; }
-    //public Region? Region { get; set; }
-
-    //public string? Location { get; set; }
-    //public string? FieldFeedback { get; set; }
-    //public string? Explanation { get; set; }
 }

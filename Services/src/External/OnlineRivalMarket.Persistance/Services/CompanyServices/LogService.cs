@@ -8,7 +8,6 @@ using OnlineRivalMarket.Domain.CompanyEntities;
 using OnlineRivalMarket.Domain.Dtos;
 using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.LogRepositories;
 using OnlineRivalMarket.Domain.UnitOfWorks;
-using OnlineRivalMarket.Persistance.Configurations;
 using OnlineRivalMarket.Persistance.Context;
 namespace OnlineRivalMarket.Persistance.Services.CompanyServices
 {
@@ -20,7 +19,6 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
         private readonly ILogQueryRepository _logQueryRepository;
         private readonly ICompanyDbUnitOfWork _unitOfWork;
         private readonly UserManager<AppUser> _userManager;
-
         public LogService(IContextService contextService, ILogCommandRepository logCommandRepository, ILogQueryRepository logQueryRepository, ICompanyDbUnitOfWork unitOfWork, UserManager<AppUser> userManager)
         {
             _contextService = contextService;
@@ -29,7 +27,6 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
             _unitOfWork = unitOfWork;
             _userManager = userManager;
         }
-
         public async Task AddAsync(Logs log, string companyId)
         {
             _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
@@ -38,19 +35,13 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
             await _logCommandRepository.AddAsync(log, default);
             await _unitOfWork.SaveChangesAsync();
         }
-
-
         public async Task<PaginationResult<LogDto>> GetAllByTableName(GetLogsByTableNameQuery request)
         {
             _context = (CompanyDbContext)_contextService.CreateDbContextInstance(request.CompanyId);
             _logQueryRepository.SetDbContextInstance(_context);
-
             PaginationResult<Logs> result = await _logQueryRepository.GetAll(false).OrderByDescending(p => p.CreatedDate).ToPagedListAsync(request.PageNumber, request.PageSize);
-
             int count = _logQueryRepository.GetAll().Count();
-
             IList<LogDto> logDtos = new List<LogDto>();
-
             if (result.Datas != null)
             {
                 foreach (var item in result.Datas)
@@ -75,7 +66,6 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
                 pageSize: result.PageSize,
                 totalCount: count,
                 datas: logDtos);
-
             return requestResult;
         }
 

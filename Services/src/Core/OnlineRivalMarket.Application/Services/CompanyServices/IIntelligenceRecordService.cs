@@ -13,5 +13,6 @@ namespace OnlineRivalMarket.Application.Services.CompanyServices
         Task<IList<IntelligenceRecordDto>> GetFilteredIntelligenceRecordsAsync(string companyId, IList<string> competitorIds);
         Task<IList<IntelligenceRecordDto>> HomeGetTopIntelligenceRecordAsync(string companyId);
         Task<IList<IntelligenceByIdDto>> GetByIdIntelligenceRecordsAsync(string id, string companyId);
+        Task<IList<IntelligenceByIdDto>> GetByProductIdIntelligenceRecordsAsync(string id, string companyId);
     }
 }

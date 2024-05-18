@@ -44,66 +44,6 @@ public sealed class CampaignsService : ICampaignService
         return campaigns;
     }
 
-    public async Task<PaginationResult<HomeTopCampaignDto>> GetAllDtoAsync(GetAllDtoAsyncQuery request)
-    {
-        _context = (CompanyDbContext)_contextService.CreateDbContextInstance(request.CompanyId);
-        _queryRepository.SetDbContextInstance(_context);
-        _queryProductRepository.SetDbContextInstance(_context);
-
-        PaginationResult<Campaigns> result = await _queryRepository.GetAll(false).OrderByDescending(x => x.CreatedDate).ToPagedListAsync(request.PageNumber, request.PageSize);
-
-        int count = _queryRepository.GetAll().Count();
-        IList<HomeTopCampaignDto> list = new List<HomeTopCampaignDto>();
-        var prodcustrel = await _queryRepository.GetAll().Include("Competitor").Include("Product").Include(x => x.CampaingImagesFiles).ToListAsync();
-        var product = await _queryProductRepository.GetAll().Include("Category").Include("Brand").ToListAsync();
-        var joinedData = (from pc in prodcustrel
-                          join p in product on pc.ProductId equals p.Id
-                          orderby pc.CreatedDate descending
-                          select new HomeTopCampaignDto
-                          {
-                              Id = pc.Id,
-                              CompetitorId = pc.CompetitorId,
-                              CompetitorsesName = pc.Competitor != null ? pc.Competitor.Name : null,
-                              BrandId = p.BrandId,
-                              BrandName = p.Brand.Name,
-                              CategoryId = p.CategoryId,
-                              CategoryName = p.Category.Name,
-                              ProductId = p.Id,
-                              ProductName = p.ProductName,
-                              Description = pc.Description,
-                              EndTime = pc.EndTime,
-                              StartTime = pc.StartTime,
-                              ImageFiles = pc.CampaingImagesFiles.Select(x => x.CampaingFİleUrls)
-
-                          }).ToList();
-        foreach (var item in joinedData)
-        {
-            list.Add(new HomeTopCampaignDto()
-            {
-                Id = item.Id,
-                CompetitorId = item.CompetitorId,
-                CompetitorsesName = item.CompetitorsesName,
-                BrandId = item.BrandId,
-                BrandName = item.BrandName,
-                CategoryId = item.CategoryId,
-                CategoryName = item.CategoryName,
-                ProductId = item.ProductId,
-                ProductName = item.ProductName,
-                Description = item.Description,
-                StartTime = item.StartTime,
-                EndTime = item.EndTime,
-                ImageFiles = item.ImageFiles,
-            });
-        }
-        PaginationResult<HomeTopCampaignDto> paginationResult = new(
-                   pageNumber: result.PageNumber,
-                   pageSize: result.PageSize,
-                   totalCount: count,
-                   datas: list
-                   );
-        return paginationResult;
-    }
-
     public async Task<IList<CampaignsDetailDto>> GetListByIdDtoAsync(string id, string companyId)
     {
         _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
@@ -128,8 +68,9 @@ public sealed class CampaignsService : ICampaignService
                               Description = pc.Description,
                               EndTime = pc.EndTime,
                               StartTime = pc.StartTime,
-                              CreateDate= pc.CreatedDate,
-                              
+                              CreateDate = pc.CreatedDate,
+                              UserLastName = pc.UserLastName,
+                              UserId = pc.UserId,
                               ImageFiles = pc.CampaingImagesFiles.Select(x => x.CampaingFİleUrls)
                           }).ToList();
 
@@ -152,7 +93,10 @@ public sealed class CampaignsService : ICampaignService
                 StartTime = item.StartTime,
                 EndTime = item.EndTime,
                 ImageFiles = item.ImageFiles,
-                CreateDate = item.CreateDate
+                CreateDate = item.CreateDate,
+                UserLastName = item.UserLastName,
+                UserId = item.UserId,
+
 
             });
         }
@@ -183,7 +127,9 @@ public sealed class CampaignsService : ICampaignService
                               EndTime = pc.EndTime,
                               StartTime = pc.StartTime,
                               ImageFiles = pc.CampaingImagesFiles != null ? pc.CampaingImagesFiles.Select(x => x.CampaingFİleUrls) : null,
-                              CreateDate=p.CreatedDate,
+                              CreateDate = p.CreatedDate,
+                              UserLastName = pc.UserLastName,
+                              UserId = pc.UserId
                           }).ToList();
 
         List<HomeTopCampaignDto> dto = new();
@@ -204,7 +150,9 @@ public sealed class CampaignsService : ICampaignService
                 StartTime = item.StartTime,
                 EndTime = item.EndTime,
                 ImageFiles = item.ImageFiles,
-                CreateDate=item.CreateDate,
+                UserLastName = item.UserLastName,
+                UserId = item.UserId,
+                CreateDate = item.CreateDate,
             });
         }
         return dto;
@@ -234,6 +182,8 @@ public sealed class CampaignsService : ICampaignService
                               EndTime = pc.EndTime,
                               StartTime = pc.StartTime,
                               ImageFiles = pc.CampaingImagesFiles.Select(x => x.CampaingFİleUrls),
+                              UserLastName = pc.UserLastName,
+                              UserId = pc.UserId
                           }).Take(6).ToList();
         List<HomeTopCampaignDto> dto = new();
         foreach (var item in joinedData)
@@ -252,15 +202,15 @@ public sealed class CampaignsService : ICampaignService
                 Description = item.Description,
                 StartTime = item.StartTime,
                 EndTime = item.EndTime,
-                ImageFiles = item.ImageFiles
+                ImageFiles = item.ImageFiles,
+                UserLastName = item.UserLastName,
+                UserId = item.UserId,
+                CreateDate = item.CreateDate
 
             });
         }
         return dto;
     }
-
-
-
     public async Task UpdateAsync(Campaigns product, string companyId)
     {
         _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
@@ -269,6 +219,106 @@ public sealed class CampaignsService : ICampaignService
         _commandRepository.Update(product);
         await _companyDbUnitOfWork.SaveChangesAsync();
     }
+
+    public async Task<PaginationResult<HomeTopCampaignDto>> GetAllDtoAsync(GetAllDtoAsyncQuery request)
+    {
+        _context = (CompanyDbContext)_contextService.CreateDbContextInstance(request.CompanyId);
+        _queryRepository.SetDbContextInstance(_context);
+        _queryProductRepository.SetDbContextInstance(_context);
+        var baseQuery = _queryRepository.GetAll(false)
+            .Include(x => x.Competitor)
+            .Include(x => x.Product)
+            .Include(x => x.CampaingImagesFiles)
+            .OrderByDescending(x => x.CreatedDate);
+        var pagedData = await baseQuery
+            .Skip((request.PageNumber - 1) * request.PageSize)
+            .Take(request.PageSize)
+            .ToListAsync();
+
+        //PaginationResult<HomeTopCampaignDto> result = await _queryRepository.GetAll(false).OrderByDescending(p => p.CreatedDate).ToPagedListAsync(request.PageNumber, request.PageSize);
+
+        int totalCount = await _queryRepository.GetAll().CountAsync();
+        var dtoList = pagedData.Select(pc => new HomeTopCampaignDto
+        {
+            Id = pc.Id,
+            CompetitorId = pc.CompetitorId,
+            CompetitorsesName = pc.Competitor?.Name,
+            BrandId = pc.Product?.BrandId,
+            BrandName = pc.Product?.Brand?.Name,
+            CategoryId = pc.Product?.CategoryId,
+            CategoryName = pc.Product?.Category?.Name,
+            ProductId = pc.Product?.Id,
+            ProductName = pc.Product?.ProductName,
+            Description = pc.Description,
+            EndTime = pc.EndTime,
+            StartTime = pc.StartTime,
+            UserLastName = pc.UserLastName,
+            UserId = pc.UserId,
+            ImageFiles = pc.CampaingImagesFiles.Select(x => x.CampaingFİleUrls),
+            CreateDate = pc.CreatedDate
+        }).ToList();
+        List<HomeTopCampaignDto> xView = new List<HomeTopCampaignDto>();
+    
+
+        return new PaginationResult<HomeTopCampaignDto>(
+            pageNumber: request.PageNumber,
+            pageSize: request.PageSize,
+            totalCount: totalCount,
+            datas: dtoList
+        );
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //public async Task<PaginationResult<Campaigns>> GetAllAsync(GetAllCampaignQuery request)
     //{

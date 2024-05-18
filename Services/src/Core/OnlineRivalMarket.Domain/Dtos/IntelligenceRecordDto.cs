@@ -24,7 +24,8 @@ namespace OnlineRivalMarket.Domain.Dtos
 
         public string? VehicleGroupId { get; set; }
         public string? VehicleGroupName { get; set; }
-
+        public string? UserId { get; set; }
+        public string? UserLastName { get; set; }
 
 
 

@@ -13,6 +13,8 @@ public sealed record CreateCampaignCommand
 
                                            string? Description,
                                            string? CompanyId,
+                                            string userId,
+                                            string UserLastName,
                                             IFormFile[]? Files
                                          ) : ICommand<CreateCampaignCommandResponse>;
 

@@ -26,18 +26,11 @@ public  class IntelligenceByIdDto
 
     public string? Description { get; set; }
 
-
+    public string? UserId { get; set; }
+    public string? UserLastName { get; set; }
 
     public decimal? MCurrency { get; set; }
     public decimal? RakipCurrency { get; set; }
     public string? ForeignCurrencyId { get; set; }
     public string? ForeignCurrencyName { get; set; }
-
-
-    //public int IntelligenceType { get; set; }
-    //public string? ImageUrl { get; set; }
-    //public string? Location { get; set; }
-    //public int? Region { get; set; }
-    //public string? FieldFeedback { get; set; }
-    //public string? Explanation { get; set; }
 }
