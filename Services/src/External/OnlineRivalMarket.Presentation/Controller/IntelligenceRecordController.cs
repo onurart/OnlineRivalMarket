@@ -37,6 +37,7 @@ public class IntelligenceRecordController : ApiController
     //    GetAllIntelligenceRecordQueryResponse response = await _mediator.Send(requst);
     //    return Ok(response);
     //}
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
     [HttpGet("[action]/{companyid}")]
     public async Task<IActionResult> GetIntelligenceRecordDto(string companyid)
     {
@@ -82,7 +83,7 @@ public class IntelligenceRecordController : ApiController
 
 
     [HttpGet("[action]/{id}/{companyId}")]
-    public async Task<IActionResult> IntelligenceRecordGetByIdAsync(string id, string companyId)
+    public async Task<IActionResult> GetByProductIdIntelligenceRecordsAsync(string id, string companyId)
     {
         GetByProductIdIntelligenceQuery request = new(id, companyId);
         GetByProductIdIntelligenceResponse response = await _mediator.Send(request);

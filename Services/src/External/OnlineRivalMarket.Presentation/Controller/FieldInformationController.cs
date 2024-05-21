@@ -1,11 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries.GetAllDtoFilterCampaings;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Commands;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Queries;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Queries.FieldInformationById;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Queries.FieldInformationDto;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Queries.FieldInformationHome;
+using OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Queries.GetAllDtoFilterField;
 using OnlineRivalMarket.Presentation.Abstraction;
 namespace OnlineRivalMarket.Presentation.Controller
 {
@@ -65,6 +67,14 @@ namespace OnlineRivalMarket.Presentation.Controller
             FieldInformationByIdQuery requst = new(companyId, id);
             FieldInformationByIdQueryResponse response =await _mediator.Send(requst);
             return Ok(response);   
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> GetCampaingDtoFilter(GetAllDtoFilterFieldInfoQuery requst, CancellationToken cancellationToken)
+        {
+            var reponse = await _mediator.Send(requst);
+            return Ok(reponse);
+
         }
     }
 }

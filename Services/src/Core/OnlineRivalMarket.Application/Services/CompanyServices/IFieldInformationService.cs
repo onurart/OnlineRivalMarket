@@ -3,6 +3,7 @@ using OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFea
 using OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Queries.FieldInformationDto;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Queries.FieldInformationHome;
 using OnlineRivalMarket.Domain.CompanyEntities;
+using OnlineRivalMarket.Domain.Dtos;
 using OnlineRivalMarket.Domain.Dtos.FieldInformationDtos;
 using System;
 using System.Collections.Generic;
@@ -19,5 +20,7 @@ namespace OnlineRivalMarket.Application.Services.CompanyServices
         Task<IList<FieldInformationsesDto>> GetAllFieldInformationDtoAsync(FieldInformationDtoQuery companyId);
         Task<IList<FieldInformationsesDto>> GetAllFieldInformationHomeAsync(FieldInformationHomeQuery companyId);
         Task<IList<FieldInformationsesDto>> GetAllFieldInformationByIdAsync(string id,string companyId);
+        Task<IList<FieldInformationsesDto>> GetAllFieldInfoDtoFilterAsync(string companyId, List<string> competitorId, DateTime? startdate, DateTime? enddate, string keyword);
+
     }
 }

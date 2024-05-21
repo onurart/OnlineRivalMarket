@@ -16,5 +16,16 @@ namespace OnlineRivalMarket.Application.Services.CompanyServices
         //Task<IList<Campaigns>> GetCampaignsAsync(string companyId);
         Task<IList<CampaignsDetailDto>> GetListByIdDtoAsync(string id,string companyId);
         Task UpdateAsync(Campaigns product, string companyId);
+        //Task<IList<CampaignsDetailDto>> GetAllDtoFilterAsync(string companyId, List<string> competitorId, List<string> brandId, List<string> categoryId, DateTime startdate, DateTime enddate, string keyword);
+        Task<IList<CampaignsDetailDto>> GetAllDtoFilterAsync(
+        string companyId,
+        List<string> competitorIds,
+        List<string> productIds,
+        List<string> brandIds,
+        List<string> categoryIds,
+        DateTime startDate,
+        DateTime endDate,
+        string keyword);
+
     }
 }

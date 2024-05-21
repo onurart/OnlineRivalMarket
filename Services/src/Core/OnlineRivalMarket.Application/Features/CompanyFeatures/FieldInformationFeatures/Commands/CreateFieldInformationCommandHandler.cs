@@ -34,8 +34,8 @@ namespace OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformatio
             string userId = _apiService.GetUserIdByToken();
             if (request.Files != null)
             {
-                //string fileUrl = @"C:\inetpub\wwwroot\build\ticket\wwwroot\TicketAttachment\OnlineRivalMarket\FieldInformation";
-                string fileUrl = @"C:\inetpub\wwwroot\Onur\FieldInformation";
+                string fileUrl = @"C:\inetpub\wwwroot\build\ticket\wwwroot\TicketAttachment\OnlineRivalMarket\FieldInformation";
+                //string fileUrl = @"C:\inetpub\wwwroot\Onur\FieldInformation";
                 foreach (var file in request.Files)
                 {
                     string fileName = _fileService.FileSaveToServer(file, fileUrl);

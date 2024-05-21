@@ -16,8 +16,6 @@ public class CampaignsDetailDto
     public DateTime CreateDate { get; set; }
     public string UserId { get; set; }
     public string UserLastName { get; set; }
-
-    //public string ImageUrl { get; set; }
     public DateTime? StartTime { get; set; }
     public DateTime? EndTime { get; set; }
     public string? Description { get; set; }

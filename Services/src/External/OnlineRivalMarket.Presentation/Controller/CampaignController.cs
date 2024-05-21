@@ -5,7 +5,9 @@ using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Com
 using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries.CampaignGetById;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries.GetAllCampaing;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries.GetAllDtoAsync;
+using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries.GetAllDtoFilterCampaings;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries.HomeTopGetAll;
+using OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.GetAllDtoFilterIntelligenceRecord;
 using OnlineRivalMarket.Presentation.Abstraction;
 namespace OnlineRivalMarket.Presentation.Controller;
 [Authorize(AuthenticationSchemes = "Bearer")]
@@ -52,5 +54,14 @@ public class CampaignController : ApiController
         GetAllCampaingsesQuery requst = new(companyid);
         GetAllCampaingsesQueryResponse response = await _mediator.Send(requst);
         return Ok(response);
+    }
+
+
+    [HttpPost("[action]")]
+    public async Task<IActionResult> GetCampaingDtoFilter(GetAllDtoFilterCampaingsQuery requst, CancellationToken cancellationToken)
+    {
+        var reponse = await _mediator.Send(requst);
+        return Ok(reponse);
+
     }
 }
