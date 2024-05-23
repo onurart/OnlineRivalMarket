@@ -1,10 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using OnlineRivalMarket.Application.Features.CompanyFeatures.BrandFeaures.Commands.CreateBrand;
-using OnlineRivalMarket.Application.Features.CompanyFeatures.BrandFeaures.Commands.Queries.GetAllBrand;
-using OnlineRivalMarket.Presentation.Abstraction;
-namespace OnlineRivalMarket.Presentation.Controller
+﻿namespace OnlineRivalMarket.Presentation.Controller
 {
     [Authorize(AuthenticationSchemes = "Bearer")]
 

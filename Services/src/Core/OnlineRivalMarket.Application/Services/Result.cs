@@ -1,13 +1,10 @@
-﻿using System.Net;
-using System.Text.Json.Serialization;
-
-namespace OnlineRivalMarket.Application.Services;
+﻿namespace OnlineRivalMarket.Application.Services;
 public sealed class Result<T>
 {
     public T? Data { get; set; }
     public List<string>? ErrorMessages { get; set; }
     public bool IsSuccessful { get; set; } = true;
-    [JsonIgnore]
+    [System.Text.Json.Serialization.JsonIgnore]
     public int StatusCode { get; set; } = (int)HttpStatusCode.OK;
     public Result(T data)
     {

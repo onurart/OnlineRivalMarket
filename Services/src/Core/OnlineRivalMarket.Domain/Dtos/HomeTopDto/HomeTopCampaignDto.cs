@@ -1,6 +1,4 @@
-﻿using OnlineRivalMarket.Domain.CompanyEntities;
-
-namespace OnlineRivalMarket.Domain.Dtos.HomeTopDto
+﻿namespace OnlineRivalMarket.Domain.Dtos.HomeTopDto
 {
     public class HomeTopCampaignDto
     {

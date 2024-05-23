@@ -1,3 +1,2 @@
-﻿using OnlineRivalMarket.Application.Messaging;
-namespace OnlineRivalMarket.Application.Features.AppFeatures.CompanyFeatures.Commands.UpdateCompany;
+﻿namespace OnlineRivalMarket.Application.Features.AppFeatures.CompanyFeatures.Commands.UpdateCompany;
 public sealed record UpdateCompanyCommand(string Id, string Name, string Address, string IdentityNumber, string TaxDepartment, string Tel, string Email, string ServerName, string DatabaseName, string ServerUserId, string ServerPassword, string ClientApiUrl, string? CompanyLogo, bool IsSync) : ICommand<UpdateCompanyCommandResponse>;

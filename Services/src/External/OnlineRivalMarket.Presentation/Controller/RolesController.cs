@@ -1,13 +1,4 @@
-﻿using OnlineRivalMarket.Presentation.Abstraction;
-using OnlineRivalMarket.Application.Features.AppFeatures.RoleFeatures.Commands.CreateAllRoles;
-using OnlineRivalMarket.Application.Features.AppFeatures.RoleFeatures.Commands.CreateRole;
-using OnlineRivalMarket.Application.Features.AppFeatures.RoleFeatures.Commands.DeleteRole;
-using OnlineRivalMarket.Application.Features.AppFeatures.RoleFeatures.Commands.UpdateRole;
-using OnlineRivalMarket.Application.Features.AppFeatures.RoleFeatures.Queries.GetAllRoles;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-namespace OnlineRivalMarket.Presentation.Controller;
+﻿namespace OnlineRivalMarket.Presentation.Controller;
 [Authorize(AuthenticationSchemes = "Bearer")]
 
 public class RolesController : ApiController

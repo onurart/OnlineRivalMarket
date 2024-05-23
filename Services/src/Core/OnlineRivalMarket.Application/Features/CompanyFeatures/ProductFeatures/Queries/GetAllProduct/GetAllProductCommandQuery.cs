@@ -1,0 +1,2 @@
+﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.ProductFeatures.Queries.GetAllProduct;
+public sealed record class GetAllProductCommandQuery(string CompanyId) : IQuery<GetAllProductCommandResponse>;

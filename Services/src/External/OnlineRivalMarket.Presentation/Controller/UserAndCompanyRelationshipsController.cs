@@ -1,12 +1,5 @@
-using OnlineRivalMarket.Presentation.Abstraction;
-using OnlineRivalMarket.Application.Features.AppFeatures.UserAndCompanyRLFeatures.Commands.CreateUserAndCompanyRL;
-using OnlineRivalMarket.Application.Features.AppFeatures.UserAndCompanyRLFeatures.Commands.RemoveByIdUserAndCompanyRL;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 namespace OnlineRivalMarket.Presentation.Controller;
 [Authorize(AuthenticationSchemes = "Bearer")]
-
 public class UserAndCompanyRelationshipsController : ApiController
 {
     public UserAndCompanyRelationshipsController(IMediator mediator) : base(mediator) { }

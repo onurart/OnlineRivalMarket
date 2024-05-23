@@ -1,11 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using OnlineRivalMarket.Application.Features.CompanyFeatures.VehicleTypeFeaures.Commands.CreateVehicleType;
-using OnlineRivalMarket.Application.Features.CompanyFeatures.VehicleTypeFeaures.Queries.GetAllVehicleType;
-using OnlineRivalMarket.Presentation.Abstraction;
-namespace OnlineRivalMarket.Presentation.Controller;
-
+﻿namespace OnlineRivalMarket.Presentation.Controller;
 [Authorize(AuthenticationSchemes = "Bearer")]
 public class VehicleType : ApiController
 {

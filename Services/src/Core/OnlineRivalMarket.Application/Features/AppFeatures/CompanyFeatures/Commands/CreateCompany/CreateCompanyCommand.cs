@@ -1,5 +1,4 @@
-﻿using OnlineRivalMarket.Application.Messaging;
-namespace OnlineRivalMarket.Application.Features.AppFeatures.CompanyFeatures.Commands.CreateCompany;
+﻿namespace OnlineRivalMarket.Application.Features.AppFeatures.CompanyFeatures.Commands.CreateCompany;
 public sealed record CreateCompanyCommand
  (string Name,
     string Address,

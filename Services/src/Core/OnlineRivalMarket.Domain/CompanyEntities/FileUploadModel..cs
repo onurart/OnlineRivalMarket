@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-namespace OnlineRivalMarket.Domain.CompanyEntities
+﻿namespace OnlineRivalMarket.Domain.CompanyEntities
 {
     public class FileUploadModel
     {

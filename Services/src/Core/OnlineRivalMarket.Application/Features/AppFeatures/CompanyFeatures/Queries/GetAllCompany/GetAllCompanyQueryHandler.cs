@@ -1,6 +1,4 @@
-﻿using OnlineRivalMarket.Application.Messaging;
-using OnlineRivalMarket.Application.Services.AppServices;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 namespace OnlineRivalMarket.Application.Features.AppFeatures.CompanyFeatures.Queries.GetAllCompany;
 public sealed class GetAllCompanyQueryHandler : IQueryHandler<GetAllCompanyQuery, GetAllCompanyQueryResponse>
 {

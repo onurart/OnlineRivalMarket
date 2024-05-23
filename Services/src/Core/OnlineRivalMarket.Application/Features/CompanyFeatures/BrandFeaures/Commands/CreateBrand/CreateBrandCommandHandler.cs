@@ -1,37 +1,22 @@
-﻿using Newtonsoft.Json;
-using OnlineRivalMarket.Application.Messaging;
-using OnlineRivalMarket.Application.Services;
-using OnlineRivalMarket.Application.Services.CompanyServices;
-using OnlineRivalMarket.Domain.CompanyEntities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OnlineRivalMarket.Application.Features.CompanyFeatures.BrandFeaures.Commands.CreateBrand
+﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.BrandFeaures.Commands.CreateBrand;
+public sealed class CreateBrandCommandHandler : ICommandHandler<CreateBrandCommand, CreateBrandCOmmandResponse>
 {
-    public sealed class CreateBrandCommandHandler : ICommandHandler<CreateBrandCommand, CreateBrandCOmmandResponse>
+    private readonly IBrandService _brandService;
+    private readonly IApiService _apiService;
+    private readonly ILogService _logService;
+    public CreateBrandCommandHandler(IBrandService brandService, IApiService apiService, ILogService logService)
     {
-        private readonly IBrandService _brandService;
-        private readonly IApiService _apiService;
-        private readonly ILogService _logService;
-
-        public CreateBrandCommandHandler(IBrandService brandService, IApiService apiService, ILogService logService)
-        {
-            _brandService = brandService;
-            _apiService = apiService;
-            _logService = logService;
-        }
-
-        public async Task<CreateBrandCOmmandResponse> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
-        {
-            Brand createBrand = await _brandService.CreateBrandAsync(request, cancellationToken);
-            string userId = _apiService.GetUserIdByToken();
-            Logs logs = new Logs()
-            { Id = Guid.NewGuid().ToString(), TableName = nameof(Brand), Progress = "Create", UserId = userId, Data = JsonConvert.SerializeObject(createBrand) };
-            await _logService.AddAsync(logs, request.CompanyId);
-            return new();
-        }
+        _brandService = brandService;
+        _apiService = apiService;
+        _logService = logService;
+    }
+    public async Task<CreateBrandCOmmandResponse> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
+    {
+        Brand createBrand = await _brandService.CreateBrandAsync(request, cancellationToken);
+        string userId = _apiService.GetUserIdByToken();
+        Logs logs = new Logs()
+        { Id = Guid.NewGuid().ToString(), TableName = nameof(Brand), Progress = "Create", UserId = userId, Data = JsonConvert.SerializeObject(createBrand) };
+        await _logService.AddAsync(logs, request.CompanyId);
+        return new();
     }
 }

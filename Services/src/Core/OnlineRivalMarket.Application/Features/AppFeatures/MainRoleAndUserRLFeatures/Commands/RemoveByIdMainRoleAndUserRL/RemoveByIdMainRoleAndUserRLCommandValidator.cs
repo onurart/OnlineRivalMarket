@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-namespace OnlineRivalMarket.Application.Features.AppFeatures.MainRoleAndUserRLFeatures.Commands.RemoveByIdMainRoleAndUserRL;
+﻿namespace OnlineRivalMarket.Application.Features.AppFeatures.MainRoleAndUserRLFeatures.Commands.RemoveByIdMainRoleAndUserRL;
 public sealed class RemoveByIdMainRoleAndUserRLCommandValidator : AbstractValidator<RemoveByIdMainRoleAndUserRLCommand>
 {
     public RemoveByIdMainRoleAndUserRLCommandValidator()

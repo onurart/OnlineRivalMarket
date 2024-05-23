@@ -1,6 +1,4 @@
-﻿using OnlineRivalMarket.Application.Messaging;
-using OnlineRivalMarket.Application.Services.CompanyServices;
-namespace OnlineRivalMarket.Application.Features.CompanyFeatures.BrandFeaures.Commands.Queries.GetAllBrand;
+﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.BrandFeaures.Commands.Queries.GetAllBrand;
 public sealed class GetAllBrandQueryHandler : IQueryHandler<GetAllBrandQuery, GetAllBrandQueryResponse>
 {
     private readonly IBrandService _brandService;

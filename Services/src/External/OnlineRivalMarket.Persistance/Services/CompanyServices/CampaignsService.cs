@@ -1,18 +1,8 @@
-﻿using AutoMapper;
-using EntityFrameworkCorePagination.Nuget.Pagination;
-using Microsoft.EntityFrameworkCore;
-using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Commands.CreateCampaign;
-using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries;
+﻿using EntityFrameworkCorePagination.Nuget.Pagination;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries.GetAllDtoAsync;
 using OnlineRivalMarket.Application.Services.CompanyServices;
 using OnlineRivalMarket.Domain;
-using OnlineRivalMarket.Domain.CompanyEntities;
 using OnlineRivalMarket.Domain.Dtos;
-using OnlineRivalMarket.Domain.Dtos.HomeTopDto;
-using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.CampaignRepository;
-using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.ProductRepositories;
-using OnlineRivalMarket.Domain.UnitOfWorks;
-using OnlineRivalMarket.Persistance.Context;
 namespace OnlineRivalMarket.Persistance.Services.CompanyServices;
 public sealed class CampaignsService : ICampaignService
 {
@@ -43,7 +33,6 @@ public sealed class CampaignsService : ICampaignService
         await _companyDbUnitOfWork.SaveChangesAsync(cancellationToken);
         return campaigns;
     }
-
     public async Task<IList<CampaignsDetailDto>> GetListByIdDtoAsync(string id, string companyId)
     {
         _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
@@ -183,7 +172,8 @@ public sealed class CampaignsService : ICampaignService
                               StartTime = pc.StartTime,
                               ImageFiles = pc.CampaingImagesFiles.Select(x => x.CampaingFİleUrls),
                               UserLastName = pc.UserLastName,
-                              UserId = pc.UserId,CreateDate=pc.CreatedDate
+                              UserId = pc.UserId,
+                              CreateDate = pc.CreatedDate
                           }).Take(6).ToList();
         List<HomeTopCampaignDto> dto = new();
         foreach (var item in joinedData)
@@ -219,7 +209,6 @@ public sealed class CampaignsService : ICampaignService
         _commandRepository.Update(product);
         await _companyDbUnitOfWork.SaveChangesAsync();
     }
-
     public async Task<PaginationResult<HomeTopCampaignDto>> GetAllDtoAsync(GetAllDtoAsyncQuery request)
     {
         _context = (CompanyDbContext)_contextService.CreateDbContextInstance(request.CompanyId);
@@ -267,13 +256,11 @@ public sealed class CampaignsService : ICampaignService
             datas: dtoList
         );
     }
-
-    public async Task<IList<CampaignsDetailDto>> GetAllDtoFilterAsync(string companyId, List<string> competitorIds, List<string> productIds, List<string> brandIds, List<string> categoryIds, DateTime startDate, DateTime endDate, string keyword)
+    public async Task<IList<CampaignsDetailDto>> GetAllDtoFilterAsync(string companyId, List<string> competitorIds, List<string> productIds, List<string> brandIds, List<string> categoryIds, DateTime startDate, DateTime endDate, DateTime CreateDate, DateTime EndCreateDate, string keyword)
     {
         var context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
         _queryRepository.SetDbContextInstance(context);
         _queryProductRepository.SetDbContextInstance(context);
-
         var campaignQuery = _queryRepository.GetAll(false)
             .Include(pc => pc.Competitor)
             .Include(pc => pc.CampaingImagesFiles)
@@ -282,27 +269,31 @@ public sealed class CampaignsService : ICampaignService
             .Include(pc => pc.Product)
                 .ThenInclude(p => p.Category)
             .AsQueryable();
-
         var productQuery = _queryProductRepository.GetAll(false)
           .Include(p => p.VehicleType)
           .Include(p => p.VehicleGrup)
           .Include(p => p.Brand)
           .Include(p => p.Category)
           .AsQueryable();
-
         bool isOtherFiltersEmpty = !(competitorIds?.Any() == true) &&
-                                   !(productIds?.Any() == true) &&
-                                   !(brandIds?.Any() == true) &&
-                                   !(categoryIds?.Any() == true) &&
-                                   string.IsNullOrEmpty(keyword);
+                           !(productIds?.Any() == true) &&
+                           !(brandIds?.Any() == true) &&
+                           !(categoryIds?.Any() == true) &&
+                           string.IsNullOrEmpty(keyword);
 
-        if (startDate != default & endDate != default && isOtherFiltersEmpty)
+        if (isOtherFiltersEmpty)
         {
-            campaignQuery = campaignQuery.Where(pc => pc.StartTime >= startDate && pc.EndTime <= endDate.AddDays(1));
+            if (startDate != default && endDate != default)
+            {
+                campaignQuery = campaignQuery.Where(pc => pc.StartTime >= startDate && pc.EndTime <= endDate.AddDays(1));
+            }
+            if (CreateDate != default && EndCreateDate != default)
+            {
+                campaignQuery = campaignQuery.Where(pc => pc.CreatedDate >= CreateDate && pc.CreatedDate <= EndCreateDate.AddDays(1));
+            }
         }
         else
         {
-
             if (competitorIds?.Any() == true)
             {
                 campaignQuery = campaignQuery.Where(pc => competitorIds.Contains(pc.CompetitorId));
@@ -327,6 +318,11 @@ public sealed class CampaignsService : ICampaignService
             {
                 campaignQuery = campaignQuery.Where(pc => pc.StartTime >= startDate && pc.EndTime <= endDate.AddDays(1));
             }
+
+            if (CreateDate != default && EndCreateDate != default)
+            {
+                campaignQuery = campaignQuery.Where(pc => pc.CreatedDate >= CreateDate && pc.CreatedDate <= EndCreateDate.AddDays(1));
+            }
             if (!string.IsNullOrEmpty(keyword))
             {
                 campaignQuery = campaignQuery.Where(pc =>
@@ -339,7 +335,6 @@ public sealed class CampaignsService : ICampaignService
                 );
             }
         }
-
         var campaignList = await campaignQuery.ToListAsync();
 
         var joinedData = campaignList.Select(pc => new CampaignsDetailDto
@@ -359,303 +354,10 @@ public sealed class CampaignsService : ICampaignService
             UserLastName = pc.UserLastName,
             CreateDate = pc.CreatedDate,
             StartTime = pc.StartTime,
-            EndTime = pc.EndTime
+            EndTime = pc.EndTime,
         }).ToList();
 
         return joinedData;
     }
-    //public async Task<IList<CampaignsDetailDto>> GetAllDtoFilterAsync(string companyId, List<string> competitorIds, List<string> productIds, List<string> brandIds, List<string> categoryIds, DateTime startDate, DateTime endDate, string keyword)
-    //{
-    //    var context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
-    //    _queryRepository.SetDbContextInstance(context);
-    //    _queryProductRepository.SetDbContextInstance(context);
 
-    //    var campaignQuery = _queryRepository.GetAll(false)
-    //        .Include(pc => pc.Competitor)
-    //        .Include(pc => pc.CampaingImagesFiles)
-    //        .Include(pc => pc.Product)
-    //            .ThenInclude(p => p.Brand)
-    //        .Include(pc => pc.Product)
-    //            .ThenInclude(p => p.Category)
-    //        .AsQueryable();
-
-    //    var productQuery = _queryProductRepository.GetAll(false)
-    //      .Include(p => p.VehicleType)
-    //      .Include(p => p.VehicleGrup)
-    //      .Include(p => p.Brand)
-    //      .Include(p => p.Category)
-    //      .AsQueryable();
-
-    //    bool isOtherFiltersEmpty = !(competitorIds?.Any() == true) &&
-    //                               !(productIds?.Any() == true) &&
-    //                               !(brandIds?.Any() == true) &&
-    //                               !(categoryIds?.Any() == true) &&
-    //                               string.IsNullOrEmpty(keyword);
-    //    // Filtreler uygulanıyor
-    //    if (competitorIds?.Any() == true)
-    //    {
-    //        campaignQuery = campaignQuery.Where(pc => competitorIds.Contains(pc.CompetitorId));
-    //    }
-
-    //    if (productIds?.Any() == true)
-    //    {
-    //        campaignQuery = campaignQuery.Where(pc => productIds.Contains(pc.ProductId));
-    //    }
-
-    //    if (brandIds?.Any() == true)
-    //    {
-    //        campaignQuery = campaignQuery.Where(pc => pc.Product != null && brandIds.Contains(pc.Product.BrandId));
-    //    }
-
-    //    if (categoryIds?.Any() == true)
-    //    {
-    //        campaignQuery = campaignQuery.Where(pc => pc.Product != null && categoryIds.Contains(pc.Product.CategoryId));
-    //    }
-
-    //    if (startDate != default && endDate != default)
-    //    {
-    //        campaignQuery = campaignQuery.Where(pc => pc.StartTime >= startDate && pc.EndTime <= endDate.AddDays(1));
-    //    }
-
-    //    var campaignList = await campaignQuery.ToListAsync();
-
-    //    var joinedData = campaignList.Select(pc => new CampaignsDetailDto
-    //    {
-    //        Id = pc.Id,
-    //        CompetitorId = pc.CompetitorId,
-    //        CompetitorsesName = pc.Competitor?.Name,
-    //        BrandId = pc.Product?.BrandId,
-    //        BrandName = pc.Product?.Brand?.Name,
-    //        CategoryId = pc.Product?.CategoryId,
-    //        CategoryName = pc.Product?.Category?.Name,
-    //        ProductId = pc.Product?.Id,
-    //        ProductName = pc.Product?.ProductName,
-    //        Description = pc.Description,
-    //        ImageFiles = pc.CampaingImagesFiles.Select(x => x.CampaingFİleUrls),
-    //        UserId = pc.UserId,
-    //        UserLastName = pc.UserLastName,
-    //        CreateDate = pc.CreatedDate,
-    //        StartTime = pc.StartTime,
-    //        EndTime = pc.EndTime
-    //    }).ToList();
-
-    //    return joinedData;
-    //}
-
-
-
-    //public async Task<IList<CampaignsDetailDto>> GetAllDtoFilterAsync(string companyId, List<string> competitorIds, List<string> brandIds, List<string> categoryIds, DateTime startDate, DateTime endDate, string keyword)
-    //{
-    //    var context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
-    //    _queryRepository.SetDbContextInstance(context);
-    //    _queryProductRepository.SetDbContextInstance(context);
-
-    //    var campaignQuery = _queryRepository.GetAll(false)
-    //        .Include(pc => pc.Competitor)
-    //        .Include(pc => pc.CampaingImagesFiles)
-    //        .Include(pc => pc.Product)
-    //            .ThenInclude(p => p.Brand)
-    //        .Include(pc => pc.Product)
-    //            .ThenInclude(p => p.Category)
-    //        .AsQueryable();
-
-    //    if (string.IsNullOrEmpty(keyword))
-    //    {
-
-    //        if (competitorIds != null && competitorIds.Any())
-    //        {
-    //            campaignQuery = campaignQuery.Where(pc => competitorIds.Contains(pc.CompetitorId));
-    //        }
-
-    //        if (brandIds != null && brandIds.Any())
-    //        {
-    //            campaignQuery = campaignQuery.Where(pc => pc.Product != null && brandIds.Contains(pc.Product.BrandId));
-    //        }
-
-    //        if (categoryIds != null && categoryIds.Any())
-    //        {
-    //            campaignQuery = campaignQuery.Where(pc => pc.Product != null && categoryIds.Contains(pc.Product.CategoryId));
-    //        }
-
-    //        if (startDate != default && endDate != default)
-    //        {
-    //            campaignQuery = campaignQuery.Where(pc => pc.CreatedDate >= startDate && pc.CreatedDate <= endDate);
-    //        }
-
-
-    //    }
-
-    //    var campaignList = await campaignQuery.ToListAsync();
-
-    //    var joinedData = from pc in campaignList
-    //                     select new CampaignsDetailDto
-    //                     {
-    //                         Id = pc.Id,
-    //                         CompetitorId = pc.CompetitorId,
-    //                         CompetitorsesName = pc.Competitor?.Name,
-    //                         BrandId = pc.Product?.BrandId,
-    //                         BrandName = pc.Product?.Brand?.Name,
-    //                         CategoryId = pc.Product?.CategoryId,
-    //                         CategoryName = pc.Product?.Category?.Name,
-    //                         ProductId = pc.Product?.Id,
-    //                         ProductName = pc.Product?.ProductName,
-    //                         Description = pc.Description,
-    //                         ImageFiles = pc.CampaingImagesFiles.Select(x => x.CampaingFİleUrls),
-    //                         UserId = pc.UserId,
-    //                         UserLastName = pc.UserLastName,
-    //                         CreateDate = pc.CreatedDate,
-    //                         StartTime = pc.StartTime,
-    //                         EndTime = pc.EndTime
-    //                     };
-
-    //    return joinedData.ToList();
-    //}
-
-    //public async Task<IList<CampaignsDetailDto>> GetAllDtoFilterAsync(string companyId, List<string> competitorIds, List<string> brandIds, List<string> categoryIds, DateTime startDate, DateTime endDate)
-    //{
-    //    _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
-    //    _queryRepository.SetDbContextInstance(_context);
-    //    _queryProductRepository.SetDbContextInstance(_context);
-    //    var prodcustrelQuery = _queryRepository.GetAll(false).Include(pc => pc.Competitor).Include(pc => pc.CampaingImagesFiles).Include(pc => pc.Product).AsQueryable();
-    //    var productQuery = _queryProductRepository.GetAll(false).Include(p => p.VehicleType).Include(p => p.VehicleGrup).Include(p => p.Brand).Include(p => p.Category).AsQueryable();
-    //    if (competitorIds != null && competitorIds.Any())
-    //    {
-    //        prodcustrelQuery = prodcustrelQuery.Where(pc => competitorIds.Contains(pc.CompetitorId));
-    //    }
-    //    if (brandIds != null && brandIds.Any())
-    //    {
-    //        productQuery = productQuery.Where(p => brandIds.Contains(p.BrandId));
-    //    }
-    //    if (categoryIds != null && categoryIds.Any())
-    //    {
-    //        productQuery = productQuery.Where(p => categoryIds.Contains(p.CategoryId));
-    //    }
-    //    if (startDate != default && endDate != default)
-    //    {
-    //        prodcustrelQuery = prodcustrelQuery.Where(pc => pc.CreatedDate >= startDate && pc.CreatedDate <= endDate);
-    //    }
-    //    var prodcustrel = await prodcustrelQuery.ToListAsync();
-    //    var products = await productQuery.ToListAsync();
-    //    var joinedData = from pc in prodcustrel
-    //                     join p in products on pc.ProductId equals p.Id
-    //                     orderby pc.CreatedDate descending
-    //                     select new CampaignsDetailDto
-    //                     {
-    //                         Id = pc.Id,
-    //                         CompetitorId = pc.CompetitorId,
-    //                         CompetitorsesName = pc.Competitor != null ? pc.Competitor.Name : null,
-    //                         BrandId = p.BrandId,
-    //                         BrandName = p.Brand != null ? p.Brand.Name : null,
-    //                         CategoryId = p.CategoryId,
-    //                         CategoryName = p.Category != null ? p.Category.Name : null,
-    //                         ProductId = p.Id,
-    //                         ProductName = p.ProductName,
-    //                         Description = pc.Description,
-    //                         ImageFiles = pc.CampaingImagesFiles.Select(x => x.CampaingFİleUrls),
-    //                         UserId = pc.UserId,
-    //                         UserLastName = pc.UserLastName,
-    //                         CreateDate=pc.CreatedDate,
-    //                         EndTime=pc.CreatedDate,
-    //                         StartTime = pc.CreatedDate
-
-    //                     };
-
-    //    var dtoList = joinedData.ToList();
-
-    //    return dtoList;
-    //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //public async Task<PaginationResult<Campaigns>> GetAllAsync(GetAllCampaignQuery request)
-    //{
-    //    _context = (CompanyDbContext)_contextService.CreateDbContextInstance(request.CompanyId);
-    //    _queryRepository.SetDbContextInstance(_context);
-    //    PaginationResult<Campaigns> result = await _queryRepository.GetAll(false).ToPagedListAsync(request.PageNumber, request.PageSize);
-
-    //    int count = _queryRepository.GetAll().Count();
-    //    IList<Campaigns> list = new List<Campaigns>();
-    //    if (result.Datas != null)
-    //    {
-    //        foreach (var data in result.Datas)
-    //        {
-    //            Campaigns campaigns = new Campaigns()
-    //            {
-    //                Id = data.Id,
-    //                CompetitorId = data.CompetitorId,
-    //                Competitor = data.Competitor.name,
-    //                CreatedDate = data.CreatedDate,
-    //                Description = data.Description,
-    //                EndTime = data.EndTime,
-    //                ImageUrl = data.ImageUrl,
-    //                ProductId = data.ProductId,
-    //                StartTime = data.StartTime,
-    //                IsActive = data.IsActive,
-    //                Product = data.Product,
-    //            };
-    //            list.Add(campaigns);
-    //        }
-    //    }
-    //    PaginationResult<Campaigns> paginationResult = new(
-    //        pageNumber: result.PageNumber,
-    //        pageSize: result.PageSize,
-    //        totalCount: count,
-    //        datas: list
-    //        );
-    //    return paginationResult;
-    //}
-    //public Task<IList<Campaigns>> GetCampaignsAsync(string companyId)
-    //{
-    //    throw new NotImplementedException();
-    //}
 }

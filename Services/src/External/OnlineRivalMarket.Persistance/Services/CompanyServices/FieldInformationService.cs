@@ -1,20 +1,8 @@
-﻿using AutoMapper;
-using Azure.Core;
-using Microsoft.EntityFrameworkCore;
-using OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Commands;
-using OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Queries.FieldInformationDto;
+﻿using OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Queries.FieldInformationDto;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Queries.FieldInformationHome;
 using OnlineRivalMarket.Application.Services.CompanyServices;
 using OnlineRivalMarket.Domain;
-using OnlineRivalMarket.Domain.CompanyEntities;
-using OnlineRivalMarket.Domain.Dtos;
 using OnlineRivalMarket.Domain.Dtos.FieldInformationDtos;
-using OnlineRivalMarket.Domain.Dtos.IntelligenceDto;
-using OnlineRivalMarket.Domain.Dtos.Product;
-using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.CompetitorRepository;
-using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.FieldInformationRepository;
-using OnlineRivalMarket.Domain.UnitOfWorks;
-using OnlineRivalMarket.Persistance.Context;
 namespace OnlineRivalMarket.Persistance.Services.CompanyServices
 {
     public sealed class FieldInformationService : IFieldInformationService

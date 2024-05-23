@@ -1,9 +1,4 @@
-﻿using OnlineRivalMarket.Application.Features.CompanyFeatures.LogFeatures.Queires.GetLogsByTableName;
-using OnlineRivalMarket.Domain.CompanyEntities;
-using OnlineRivalMarket.Domain.Dtos;
-using EntityFrameworkCorePagination.Nuget.Pagination;
-
-namespace OnlineRivalMarket.Application.Services.CompanyServices
+﻿namespace OnlineRivalMarket.Application.Services.CompanyServices
 {
     public interface ILogService
     {

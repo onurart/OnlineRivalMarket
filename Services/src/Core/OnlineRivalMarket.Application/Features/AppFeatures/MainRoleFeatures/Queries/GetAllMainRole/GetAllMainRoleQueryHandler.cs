@@ -1,7 +1,4 @@
-﻿using OnlineRivalMarket.Application.Messaging;
-using OnlineRivalMarket.Application.Services.AppServices;
-using Microsoft.EntityFrameworkCore;
-namespace OnlineRivalMarket.Application.Features.AppFeatures.MainRoleFeatures.Queries.GetAllMainRole;
+﻿namespace OnlineRivalMarket.Application.Features.AppFeatures.MainRoleFeatures.Queries.GetAllMainRole;
 public sealed class GetAllMainRoleQueryHandler : IQueryHandler<GetAllMainRoleQuery, GetAllMainRoleQueryResponse>
 {
     private readonly IMainRoleService _mainRoleService;

@@ -1,7 +1,4 @@
-﻿using OnlineRivalMarket.Application.Messaging;
-using OnlineRivalMarket.Application.Services.AppServices;
-using OnlineRivalMarket.Domain.AppEntities.Identity;
-namespace OnlineRivalMarket.Application.Features.AppFeatures.RoleFeatures.Commands.UpdateRole;
+﻿namespace OnlineRivalMarket.Application.Features.AppFeatures.RoleFeatures.Commands.UpdateRole;
 public sealed class UpdateRoleCommandHandler : ICommandHandler<UpdateRoleCommand, UpdateRoleCommandResponse>
 {
     private readonly IRoleService _roleService;

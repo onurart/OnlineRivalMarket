@@ -1,11 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using OnlineRivalMarket.Application.Features.AppFeatures.AuthFeatures.Commands.CreateUserAll;
-using OnlineRivalMarket.Application.Messaging;
-using OnlineRivalMarket.Application.Services.AppServices;
-using OnlineRivalMarket.Domain.AppEntities;
-using OnlineRivalMarket.Domain.AppEntities.Identity;
-using System.DirectoryServices.AccountManagement;
-namespace ATTicOnlineRivalMarketket.Application.Features.AppFeatures.AuthFeatures.Commands.CreateUserAll;
+﻿namespace ATTicOnlineRivalMarketket.Application.Features.AppFeatures.AuthFeatures.Commands.CreateUserAll;
 public sealed class CreateUserAllCommandHandler : ICommandHandler<CreateUserAllCommand, CreateUserAllCommandResponse>
 {
     private readonly IAuthService _authService;

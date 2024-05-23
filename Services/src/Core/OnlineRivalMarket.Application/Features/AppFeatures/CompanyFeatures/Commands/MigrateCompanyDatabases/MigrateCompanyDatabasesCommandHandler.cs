@@ -1,6 +1,4 @@
-﻿using OnlineRivalMarket.Application.Messaging;
-using OnlineRivalMarket.Application.Services.AppServices;
-namespace OnlineRivalMarket.Application.Features.AppFeatures.CompanyFeatures.Commands.MigrateCompanyDatabase;
+﻿namespace OnlineRivalMarket.Application.Features.AppFeatures.CompanyFeatures.Commands.MigrateCompanyDatabase;
 public sealed class MigrateCompanyDatabasesCommandHandler : ICommandHandler<MigrateCompanyDatabasesCommand, MigrateCompanyDatabasesCommandResponse>
 {
     private readonly ICompanyService _companyService;

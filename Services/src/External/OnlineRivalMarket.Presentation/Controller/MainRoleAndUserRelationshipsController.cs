@@ -1,9 +1,3 @@
-using OnlineRivalMarket.Presentation.Abstraction;
-using OnlineRivalMarket.Application.Features.AppFeatures.MainRoleAndUserRLFeatures.Commands.CreateMainRoleAndUserRL;
-using OnlineRivalMarket.Application.Features.AppFeatures.MainRoleAndUserRLFeatures.Commands.RemoveByIdMainRoleAndUserRL;
-using OnlineRivalMarket.Application.Features.AppFeatures.MainRoleAndUserRLFeatures.Queries;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
 namespace OnlineRivalMarket.Presentation.Controller;
 public class MainRoleAndUserRelationshipsController : ApiController
 {

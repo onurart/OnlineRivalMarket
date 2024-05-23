@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-namespace OnlineRivalMarket.Application.Features.AppFeatures.MainRoleFeatures.Commands.UpdateMainRole;
+﻿namespace OnlineRivalMarket.Application.Features.AppFeatures.MainRoleFeatures.Commands.UpdateMainRole;
 public sealed class UpdateMainRoleCommandValidator : AbstractValidator<UpdateMainRoleCommand>
 {
     public UpdateMainRoleCommandValidator()

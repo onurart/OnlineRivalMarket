@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace OnlineRivalMarket.Presentation
+﻿namespace OnlineRivalMarket.Presentation
 {
     public static class AssemblyReference
     {

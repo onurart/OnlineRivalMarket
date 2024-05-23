@@ -1,23 +1,15 @@
-﻿using Newtonsoft.Json;
-using OnlineRivalMarket.Application.Messaging;
-using OnlineRivalMarket.Application.Services;
-using OnlineRivalMarket.Application.Services.CompanyServices;
-using OnlineRivalMarket.Domain.CompanyEntities;
-
-namespace OnlineRivalMarket.Application.Features.CompanyFeatures.VehicleTypeFeaures.Commands.CreateVehicleType;
+﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.VehicleTypeFeaures.Commands.CreateVehicleType;
 public class CreateVehicleTypeCommandHandler : ICommandHandler<CreateVehicleTypeCommand, CreateVehicleTypeCommandResponse>
 {
     private readonly IVehicleTypeService _vehicleTypeService;
     private readonly IApiService _apiService;
     private readonly ILogService _logService;
-
     public CreateVehicleTypeCommandHandler(IVehicleTypeService vehicleTypeService, IApiService apiService, ILogService logService)
     {
         _vehicleTypeService = vehicleTypeService;
         _apiService = apiService;
         _logService = logService;
     }
-
     public async Task<CreateVehicleTypeCommandResponse> Handle(CreateVehicleTypeCommand request, CancellationToken cancellationToken)
     {
         VehicleType vehicleType = await _vehicleTypeService.CreateVehicleTypeAsync(request,cancellationToken);

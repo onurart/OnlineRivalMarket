@@ -1,12 +1,5 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using OnlineRivalMarket.Application.Features.CompanyFeatures.VehicleGroupFeaures.Commands.CreateVehicleGroup;
-using OnlineRivalMarket.Application.Services.CompanyServices;
+﻿using OnlineRivalMarket.Application.Services.CompanyServices;
 using OnlineRivalMarket.Domain;
-using OnlineRivalMarket.Domain.CompanyEntities;
-using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.VehicleGroupRepository;
-using OnlineRivalMarket.Domain.UnitOfWorks;
-using OnlineRivalMarket.Persistance.Context;
 
 namespace OnlineRivalMarket.Persistance.Services.CompanyServices
 {

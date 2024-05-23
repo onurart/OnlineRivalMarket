@@ -1,5 +1,4 @@
-﻿using OnlineRivalMarket.Domain.Abstractions;
-namespace OnlineRivalMarket.Domain.AppEntities;
+﻿namespace OnlineRivalMarket.Domain.AppEntities;
 public sealed class Company : Entity
 {
     public string? Name { get; set; }

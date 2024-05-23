@@ -1,7 +1,4 @@
-﻿using OnlineRivalMarket.Application.Messaging;
-using OnlineRivalMarket.Application.Services.AppServices;
-using OnlineRivalMarket.Domain.AppEntities.Identity;
-namespace OnlineRivalMarket.Application.Features.AppFeatures.RoleFeatures.Commands.CreateRole;
+﻿namespace OnlineRivalMarket.Application.Features.AppFeatures.RoleFeatures.Commands.CreateRole;
 public sealed class CreateRoleCommandHandler : ICommandHandler<CreateRoleCommand, CreateRoleCommandResponse>
 {
     private readonly IRoleService _roleService;

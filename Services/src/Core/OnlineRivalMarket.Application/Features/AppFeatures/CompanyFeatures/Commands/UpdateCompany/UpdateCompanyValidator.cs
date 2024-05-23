@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-namespace OnlineRivalMarket.Application.Features.AppFeatures.CompanyFeatures.Commands.UpdateCompany;
+﻿namespace OnlineRivalMarket.Application.Features.AppFeatures.CompanyFeatures.Commands.UpdateCompany;
 public sealed class UpdateCompanyValidator : AbstractValidator<UpdateCompanyCommand>
 {
     public UpdateCompanyValidator()

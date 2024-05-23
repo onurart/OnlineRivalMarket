@@ -1,8 +1,6 @@
-﻿using OnlineRivalMarket.Domain.Abstractions;
-namespace OnlineRivalMarket.Domain.CompanyEntities
+﻿namespace OnlineRivalMarket.Domain.CompanyEntities;
+public class VehicleGroup : Entity
 {
-    public class VehicleGroup : Entity
-    {
-        public string? Name { get; set; }
-    }
+    public string? Name { get; set; }
 }
+

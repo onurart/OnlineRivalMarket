@@ -1,8 +1,4 @@
-﻿using OnlineRivalMarket.Application.Messaging;
-using OnlineRivalMarket.Application.Services.AppServices;
-using OnlineRivalMarket.Domain.AppEntities;
-using OnlineRivalMarket.Domain.Roles;
-namespace OnlineRivalMarket.Application.Features.AppFeatures.MainRoleFeatures.Commands.CreateStaticMainRoles;
+﻿namespace OnlineRivalMarket.Application.Features.AppFeatures.MainRoleFeatures.Commands.CreateStaticMainRoles;
 public sealed class CreateStaticMainRolesCommandHandler : ICommandHandler<CreateStaticMainRolesCommand, CreateStaticMainRolesCommandResponse>
 {
     private readonly IMainRoleService _mainRoleService;

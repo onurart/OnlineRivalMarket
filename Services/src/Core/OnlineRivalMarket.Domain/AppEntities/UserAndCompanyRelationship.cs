@@ -1,7 +1,4 @@
-﻿using OnlineRivalMarket.Domain.Abstractions;
-using OnlineRivalMarket.Domain.AppEntities.Identity;
-using System.ComponentModel.DataAnnotations.Schema;
-namespace OnlineRivalMarket.Domain.AppEntities;
+﻿namespace OnlineRivalMarket.Domain.AppEntities;
 public class UserAndCompanyRelationship : Entity
 {
     public UserAndCompanyRelationship(){}
@@ -10,7 +7,6 @@ public class UserAndCompanyRelationship : Entity
         AppUserId = appUserId;
         CompanyId = companyId;
     }
-
     [ForeignKey("AppUser")]
     public string AppUserId { get; set; }
     public AppUser AppUser { get; set; }

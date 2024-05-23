@@ -1,10 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using OnlineRivalMarket.Application.Services.AppServices;
-using OnlineRivalMarket.Domain.AppEntities;
-using OnlineRivalMarket.Domain.Repositories.AppDbContext.UserAndCompanyRelationshipRepositories;
-using OnlineRivalMarket.Domain.UnitOfWorks;
-
-namespace OnlineRivalMarket.Persistance.Services.AppServices
+﻿namespace OnlineRivalMarket.Persistance.Services.AppServices
 {
     public class UserAndCompanyRelationshipService : IUserAndCompanyRelationshipService
     {

@@ -1,5 +1,4 @@
-﻿
-namespace OnlineRivalMarket.Domain.Dtos.FieldInformationDtos
+﻿namespace OnlineRivalMarket.Domain.Dtos.FieldInformationDtos
 {
     public  class FieldInformationsesDto
     {

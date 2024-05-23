@@ -1,6 +1,4 @@
-﻿using OnlineRivalMarket.Domain.Abstractions;
-using System.Linq.Expressions;
-namespace OnlineRivalMarket.Domain.Repositories.GenericRepositories;
+﻿namespace OnlineRivalMarket.Domain.Repositories.GenericRepositories;
 public interface IQueryGenericRepository<T> where T : Entity
 {
     IQueryable<T> GetAll(bool isTracking = true);

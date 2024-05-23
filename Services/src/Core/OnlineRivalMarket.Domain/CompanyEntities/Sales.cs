@@ -1,6 +1,4 @@
-﻿using OnlineRivalMarket.Domain.Abstractions;
-
-namespace OnlineRivalMarket.Domain.CompanyEntities;
+﻿namespace OnlineRivalMarket.Domain.CompanyEntities;
 public class Sales : Entity
 {
     public string? CompetitorId { get; set; }

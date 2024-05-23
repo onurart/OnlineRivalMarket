@@ -1,6 +1,4 @@
-﻿using OnlineRivalMarket.Application.Messaging;
-using OnlineRivalMarket.Application.Services.CompanyServices;
-namespace OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries.GetAllDtoAsync;
+﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries.GetAllDtoAsync;
 
 public sealed class GetAllCampaingQueryHandler : IQueryHandler<GetAllDtoAsyncQuery, GetAllCampaingDtoResponse>
 {

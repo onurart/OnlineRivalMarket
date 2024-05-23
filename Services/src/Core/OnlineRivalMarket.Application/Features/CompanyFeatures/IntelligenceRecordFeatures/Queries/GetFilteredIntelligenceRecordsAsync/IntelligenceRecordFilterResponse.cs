@@ -1,4 +1,2 @@
-﻿using OnlineRivalMarket.Domain.Dtos;
-
-namespace OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.GetFilteredIntelligenceRecordsAsync;
+﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.GetFilteredIntelligenceRecordsAsync;
 public sealed record IntelligenceRecordFilterResponse(IList<IntelligenceRecordDto> Data);

@@ -1,19 +1,6 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using OnlineRivalMarket.Application.Features.CompanyFeatures.ForeignCurrency.Commamds;
-using OnlineRivalMarket.Application.Services.CompanyServices;
+﻿using OnlineRivalMarket.Application.Services.CompanyServices;
 using OnlineRivalMarket.Domain;
-using OnlineRivalMarket.Domain.CompanyEntities;
 using OnlineRivalMarket.Domain.Dtos.ForeignCurrency;
-using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.ForeignCurrencyRepositories;
-using OnlineRivalMarket.Domain.UnitOfWorks;
-using OnlineRivalMarket.Persistance.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace OnlineRivalMarket.Persistance.Services.CompanyServices
 {
     public class ForeignCurrencyService : IForeignCurrencyService

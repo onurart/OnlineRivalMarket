@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-namespace OnlineRivalMarket.Application.Features.AppFeatures.RoleFeatures.Commands.DeleteRole;
+﻿namespace OnlineRivalMarket.Application.Features.AppFeatures.RoleFeatures.Commands.DeleteRole;
 public sealed class DeleteRoleCommandValidator : AbstractValidator<DeleteRoleCommand>
 {
     public DeleteRoleCommandValidator()

@@ -1,3 +1,2 @@
-﻿using OnlineRivalMarket.Application.Messaging;
-namespace OnlineRivalMarket.Application.Features.AppFeatures.MainRoleAndUserRLFeatures.Commands.RemoveByIdMainRoleAndUserRL;
+﻿namespace OnlineRivalMarket.Application.Features.AppFeatures.MainRoleAndUserRLFeatures.Commands.RemoveByIdMainRoleAndUserRL;
 public sealed record RemoveByIdMainRoleAndUserRLCommand(string Id) : ICommand<RemoveByIdMainRoleAndUserRLCommandResponse>;

@@ -1,7 +1,4 @@
-﻿using OnlineRivalMarket.Application.Messaging;
-using OnlineRivalMarket.Application.Services.AppServices;
-using OnlineRivalMarket.Domain.AppEntities;
-namespace OnlineRivalMarket.Application.Features.AppFeatures.CompanyFeatures.Commands.UpdatePhotoCompany;
+﻿namespace OnlineRivalMarket.Application.Features.AppFeatures.CompanyFeatures.Commands.UpdatePhotoCompany;
 public sealed class UpdatePhotoCompanyCommandHandler : ICommandHandler<UpdatePhotoCompanyCommand, UpdatePhotoCompanyCommandResponse>
 {
     private readonly ICompanyService _companyService;

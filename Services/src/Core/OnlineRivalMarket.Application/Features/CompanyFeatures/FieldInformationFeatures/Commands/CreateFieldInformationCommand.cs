@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using OnlineRivalMarket.Application.Messaging;
-namespace OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Commands;
+﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Commands;
 
 public sealed record CreateFieldInformationCommand
                                                   (

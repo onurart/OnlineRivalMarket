@@ -1,5 +1,4 @@
-﻿using OnlineRivalMarket.Domain.AppEntities;
-namespace OnlineRivalMarket.Application.Features.AppFeatures.MainRoleAndUserRLFeatures.Queries;
+﻿namespace OnlineRivalMarket.Application.Features.AppFeatures.MainRoleAndUserRLFeatures.Queries;
 public sealed record GetAllMainRoleAndUserQueryResponse(List<MainRoleAndUserRelationship> mainRoleAndUserRelationships)
 {
 }

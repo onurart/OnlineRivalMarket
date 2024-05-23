@@ -1,11 +1,4 @@
-﻿using OnlineRivalMarket.Presentation.Abstraction;
-using OnlineRivalMarket.Application.Features.AppFeatures.UserRoleFeatures.Commands.CreateUserRole;
-using OnlineRivalMarket.Application.Features.AppFeatures.UserRoleFeatures.Queries.GetAllUserRoles;
-using OnlineRivalMarket.Application.Features.AppFeatures.UserRoleFeatures.Queries.GetUserRoles;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-namespace OnlineRivalMarket.Presentation.Controller;
+﻿namespace OnlineRivalMarket.Presentation.Controller;
 [Authorize(AuthenticationSchemes = "Bearer")]
 
 public class UserRolesController : ApiController

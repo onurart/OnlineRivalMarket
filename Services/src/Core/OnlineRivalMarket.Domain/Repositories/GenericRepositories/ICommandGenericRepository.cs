@@ -1,5 +1,4 @@
-﻿using OnlineRivalMarket.Domain.Abstractions;
-namespace OnlineRivalMarket.Domain.Repositories.GenericRepositories;
+﻿namespace OnlineRivalMarket.Domain.Repositories.GenericRepositories;
 public interface ICommandGenericRepository<T> where T : Entity
 {
     Task AddAsync(T entity, CancellationToken cancellationToken);

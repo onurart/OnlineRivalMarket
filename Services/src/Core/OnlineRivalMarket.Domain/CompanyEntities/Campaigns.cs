@@ -1,7 +1,4 @@
-﻿using OnlineRivalMarket.Domain.Abstractions;
-using OnlineRivalMarket.Domain.AppEntities.Identity;
-using System.ComponentModel.DataAnnotations.Schema;
-namespace OnlineRivalMarket.Domain.CompanyEntities;
+﻿namespace OnlineRivalMarket.Domain.CompanyEntities;
 public class Campaigns : Entity
 {
     [ForeignKey(nameof(CompetitorId))]

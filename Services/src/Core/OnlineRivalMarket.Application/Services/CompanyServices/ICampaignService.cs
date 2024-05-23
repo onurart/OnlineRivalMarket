@@ -25,6 +25,8 @@ namespace OnlineRivalMarket.Application.Services.CompanyServices
         List<string> categoryIds,
         DateTime startDate,
         DateTime endDate,
+        DateTime CreateDate,
+        DateTime EndCreateDate,
         string keyword);
 
     }

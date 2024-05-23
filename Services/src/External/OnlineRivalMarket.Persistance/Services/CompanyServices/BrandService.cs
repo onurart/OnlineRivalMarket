@@ -1,12 +1,5 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using OnlineRivalMarket.Application.Features.CompanyFeatures.BrandFeaures.Commands.CreateBrand;
-using OnlineRivalMarket.Application.Services.CompanyServices;
+﻿using OnlineRivalMarket.Application.Services.CompanyServices;
 using OnlineRivalMarket.Domain;
-using OnlineRivalMarket.Domain.CompanyEntities;
-using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.BrandRepositories;
-using OnlineRivalMarket.Domain.UnitOfWorks;
-using OnlineRivalMarket.Persistance.Context;
 namespace OnlineRivalMarket.Persistance.Services.CompanyServices
 {
     public sealed class BrandService : IBrandService

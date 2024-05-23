@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-namespace OnlineRivalMarket.Application.Features.AppFeatures.CompanyFeatures.Commands.CreateCompany;
+﻿namespace OnlineRivalMarket.Application.Features.AppFeatures.CompanyFeatures.Commands.CreateCompany;
 public sealed class CreateCompanyValidator : AbstractValidator<CreateCompanyCommand>
 {
     public CreateCompanyValidator()

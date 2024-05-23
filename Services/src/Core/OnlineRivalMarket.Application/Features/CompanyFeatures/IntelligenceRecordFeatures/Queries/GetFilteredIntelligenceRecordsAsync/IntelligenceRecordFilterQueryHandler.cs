@@ -1,11 +1,7 @@
-﻿using MediatR;
-using OnlineRivalMarket.Application.Services.CompanyServices;
-
-namespace OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.GetFilteredIntelligenceRecordsAsync;
+﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.GetFilteredIntelligenceRecordsAsync;
 public sealed class IntelligenceRecordFilterQueryHandler : IRequestHandler<IntelligenceRecordFilterQuery, IntelligenceRecordFilterResponse>
 {
     private readonly IIntelligenceRecordService _service;
-
     public IntelligenceRecordFilterQueryHandler(IIntelligenceRecordService service)
     {
         _service = service;

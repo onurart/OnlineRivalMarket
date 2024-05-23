@@ -1,16 +1,7 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Commands.
-    CreateIntelligenceRecord;
-using OnlineRivalMarket.Application.Services.CompanyServices;
+﻿using OnlineRivalMarket.Application.Services.CompanyServices;
 using OnlineRivalMarket.Domain;
-using OnlineRivalMarket.Domain.CompanyEntities;
 using OnlineRivalMarket.Domain.Dtos;
 using OnlineRivalMarket.Domain.Dtos.IntelligenceDto;
-using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.IntelligenceRecordRepository;
-using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.ProductRepositories;
-using OnlineRivalMarket.Domain.UnitOfWorks;
-using OnlineRivalMarket.Persistance.Context;
 
 namespace OnlineRivalMarket.Persistance.Services.CompanyServices;
 

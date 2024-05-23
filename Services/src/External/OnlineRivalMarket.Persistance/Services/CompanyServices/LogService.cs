@@ -1,14 +1,8 @@
 ﻿using EntityFrameworkCorePagination.Nuget.Pagination;
-using Microsoft.AspNetCore.Identity;
 using OnlineRivalMarket.Application.Features.CompanyFeatures.LogFeatures.Queires.GetLogsByTableName;
 using OnlineRivalMarket.Application.Services.CompanyServices;
 using OnlineRivalMarket.Domain;
-using OnlineRivalMarket.Domain.AppEntities.Identity;
-using OnlineRivalMarket.Domain.CompanyEntities;
 using OnlineRivalMarket.Domain.Dtos;
-using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.LogRepositories;
-using OnlineRivalMarket.Domain.UnitOfWorks;
-using OnlineRivalMarket.Persistance.Context;
 namespace OnlineRivalMarket.Persistance.Services.CompanyServices
 {
     public sealed class LogService : ILogService

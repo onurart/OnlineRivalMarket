@@ -1,8 +1,4 @@
-﻿using OnlineRivalMarket.Application.Messaging;
-using OnlineRivalMarket.Application.Services.CompanyServices;
-using OnlineRivalMarket.Domain.Dtos;
-
-namespace OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.GetAllDtoFilterIntelligenceRecord;
+﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.GetAllDtoFilterIntelligenceRecord;
 
 public sealed class GetAllDtoFilterIntelligenceRecordQueryHandler(IIntelligenceRecordService _service) : IQueryHandler<GetAllDtoFilterIntelligenceRecordQuery, IList<IntelligenceRecordDto>>
 {

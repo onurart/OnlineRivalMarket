@@ -1,7 +1,4 @@
-﻿using OnlineRivalMarket.Application.Messaging;
-using OnlineRivalMarket.Application.Services.AppServices;
-using OnlineRivalMarket.Domain.AppEntities.Identity;
-namespace OnlineRivalMarket.Application.Features.AppFeatures.RoleFeatures.Commands.DeleteRole;
+﻿namespace OnlineRivalMarket.Application.Features.AppFeatures.RoleFeatures.Commands.DeleteRole;
 public sealed class DeleteRoleCommandHandler : ICommandHandler<DeleteRoleCommand, DeleteRoleCommandResponse>
 {
     private readonly IRoleService _roleService;

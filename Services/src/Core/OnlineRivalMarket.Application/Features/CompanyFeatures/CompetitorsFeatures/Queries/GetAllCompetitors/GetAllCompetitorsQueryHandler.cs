@@ -1,19 +1,13 @@
-﻿using MediatR;
-using OnlineRivalMarket.Application.Messaging;
-using OnlineRivalMarket.Application.Services.CompanyServices;
-
-namespace OnlineRivalMarket.Application.Features.CompanyFeatures.CompetitorsFeatures.Queries.GetAllCompetitors
+﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.CompetitorsFeatures.Queries.GetAllCompetitors;
+public class GetAllCompetitorsQueryHandler : IQueryHandler<GetAllCompetitorsQuery, GetAllCompetitorsQueryResponse>
 {
-    public class GetAllCompetitorsQueryHandler : IQueryHandler<GetAllCompetitorsQuery, GetAllCompetitorsQueryResponse>
+    private readonly ICompetitorService _competitorService;
+    public GetAllCompetitorsQueryHandler(ICompetitorService competitorService)
     {
-        private readonly ICompetitorService _competitorService;
-        public GetAllCompetitorsQueryHandler(ICompetitorService competitorService)
-        {
-            _competitorService = competitorService;
-        }
-        public async Task<GetAllCompetitorsQueryResponse> Handle(GetAllCompetitorsQuery request, CancellationToken cancellationToken)
-        {
-            return new(await _competitorService.GetAllCompetitorsAsync(request.CompanyId));
-        }
+        _competitorService = competitorService;
+    }
+    public async Task<GetAllCompetitorsQueryResponse> Handle(GetAllCompetitorsQuery request, CancellationToken cancellationToken)
+    {
+        return new(await _competitorService.GetAllCompetitorsAsync(request.CompanyId));
     }
 }

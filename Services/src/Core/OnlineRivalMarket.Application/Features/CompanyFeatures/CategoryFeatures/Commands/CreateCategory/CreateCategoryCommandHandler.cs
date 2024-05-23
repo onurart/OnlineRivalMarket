@@ -1,10 +1,4 @@
-﻿using Newtonsoft.Json;
-using OnlineRivalMarket.Application.Messaging;
-using OnlineRivalMarket.Application.Services;
-using OnlineRivalMarket.Application.Services.CompanyServices;
-using OnlineRivalMarket.Domain.CompanyEntities;
-namespace OnlineRivalMarket.Application.Features.CompanyFeatures.CategoryFeatures.Commands.CreateCategory;
-
+﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.CategoryFeatures.Commands.CreateCategory;
 public sealed class CreateCategoryCommandHandler : ICommandHandler<CreateCategoryCommand, CreateCategoryCommandResponse>
 {
     private readonly ICategoryService _service;

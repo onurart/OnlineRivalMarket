@@ -1,6 +1,4 @@
-﻿using OnlineRivalMarket.Application.Messaging;
-using OnlineRivalMarket.Application.Services.CompanyServices;
-namespace OnlineRivalMarket.Application.Features.CompanyFeatures.ForeignCurrency.Queries.GetAllForeignCurrency.GetAllForeignCurrencyDtoAsync;
+﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.ForeignCurrency.Queries.GetAllForeignCurrency.GetAllForeignCurrencyDtoAsync;
 public sealed class GetAllForeignCurrencyDtoQueryHandle : IQueryHandler<GetAllForeignCurrencyDtoQuery, GetAllForeignCurrencyDtoQueryResponse>
 {
     private readonly IForeignCurrencyService _service;

@@ -1,6 +1,4 @@
-﻿using OnlineRivalMarket.Application.Features.CompanyFeatures.BrandFeaures.Commands.CreateBrand;
-using OnlineRivalMarket.Domain.CompanyEntities;
-
+﻿
 namespace OnlineRivalMarket.Application.Services.CompanyServices
 {
     public interface IBrandService

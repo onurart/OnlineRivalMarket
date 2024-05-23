@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-namespace OnlineRivalMarket.Application.Features.AppFeatures.UserAndCompanyRLFeatures.Commands.CreateUserAndCompanyRL;
+﻿namespace OnlineRivalMarket.Application.Features.AppFeatures.UserAndCompanyRLFeatures.Commands.CreateUserAndCompanyRL;
 public sealed class CreateUserAndCompanyRLCommandValidator : AbstractValidator<CreateUserAndCompanyRLCommand>
 {
     public CreateUserAndCompanyRLCommandValidator()

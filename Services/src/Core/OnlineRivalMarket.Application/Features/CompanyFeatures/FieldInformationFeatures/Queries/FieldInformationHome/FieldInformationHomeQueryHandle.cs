@@ -1,7 +1,4 @@
-﻿using OnlineRivalMarket.Application.Messaging;
-using OnlineRivalMarket.Application.Services.CompanyServices;
-
-namespace OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Queries.FieldInformationHome;
+﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Queries.FieldInformationHome;
 public sealed class FieldInformationHomeQueryHandle : IQueryHandler<FieldInformationHomeQuery, FieldInformationHomeQueryResponse>
 {
     private readonly IFieldInformationService _fieldInformationService;

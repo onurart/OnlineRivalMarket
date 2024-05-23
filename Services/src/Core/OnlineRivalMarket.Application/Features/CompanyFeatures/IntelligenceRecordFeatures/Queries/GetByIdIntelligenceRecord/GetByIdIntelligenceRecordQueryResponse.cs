@@ -1,3 +1,2 @@
-﻿using OnlineRivalMarket.Domain.Dtos.IntelligenceDto;
-namespace OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.GetByIdIntelligenceRecord;
+﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.GetByIdIntelligenceRecord;
 public sealed record GetByIdIntelligenceRecordQueryResponse(IList<IntelligenceByIdDto> data);

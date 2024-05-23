@@ -1,16 +1,12 @@
-﻿using OnlineRivalMarket.Domain.AppEntities.Identity;
-
-namespace OnlineRivalMarket.Application.Services.AppServices
+﻿namespace OnlineRivalMarket.Application.Services.AppServices;
+public interface IUserRoleService
 {
-    public interface IUserRoleService
-    {
-        Task AddAsync(AppUserRole appUserRole, CancellationToken cancellationToken);
-        Task AddRangeAsync(IEnumerable<AppUserRole> roles, CancellationToken cancellationToken);
-        Task UpdateAsync(AppUserRole appRole);
-        Task DeleteAsync(AppUserRole appRole);
-        IQueryable<AppUserRole> GetAllRolesAsync();
-        Task<IList<string>> GetListByUserId(string userId, CancellationToken cancellationToken);
-        Task<AppUserRole> GetById(string id);
-        Task<AppUserRole> GetByUserIdAndRoleIdAsync(string userId, string roleid);
-    }
+    Task AddAsync(AppUserRole appUserRole, CancellationToken cancellationToken);
+    Task AddRangeAsync(IEnumerable<AppUserRole> roles, CancellationToken cancellationToken);
+    Task UpdateAsync(AppUserRole appRole);
+    Task DeleteAsync(AppUserRole appRole);
+    IQueryable<AppUserRole> GetAllRolesAsync();
+    Task<IList<string>> GetListByUserId(string userId, CancellationToken cancellationToken);
+    Task<AppUserRole> GetById(string id);
+    Task<AppUserRole> GetByUserIdAndRoleIdAsync(string userId, string roleid);
 }

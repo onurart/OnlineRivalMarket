@@ -1,8 +1,4 @@
-﻿using MediatR;
-
-namespace OnlineRivalMarket.Application.Messaging
+﻿namespace OnlineRivalMarket.Application.Messaging;
+public interface ICommand<out TResponse> : IRequest<TResponse>
 {
-    public interface ICommand<out TResponse> : IRequest<TResponse>
-    {
-    }
 }

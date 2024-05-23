@@ -1,7 +1,4 @@
-﻿using OnlineRivalMarket.Application.Messaging;
-using OnlineRivalMarket.Application.Services.AppServices;
-using OnlineRivalMarket.Domain.AppEntities;
-namespace OnlineRivalMarket.Application.Features.AppFeatures.CompanyFeatures.Commands.UpdateCompany;
+﻿namespace OnlineRivalMarket.Application.Features.AppFeatures.CompanyFeatures.Commands.UpdateCompany;
 public sealed class UpdateCompanyCommandHandler : ICommandHandler<UpdateCompanyCommand, UpdateCompanyCommandResponse>
 {
     private readonly ICompanyService _companyService;
@@ -11,9 +8,6 @@ public sealed class UpdateCompanyCommandHandler : ICommandHandler<UpdateCompanyC
     }
     public async Task<UpdateCompanyCommandResponse> Handle(UpdateCompanyCommand request, CancellationToken cancellationToken)
     {
-        //Company company = await _companyService.GetCompanyByName(request.Name, cancellationToken);
-        //if (company != null) throw new Exception("Bu şirket adı daha önce kullanılmış!");
-
         Company companies = await _companyService.GetByIdAsync(request.Id);
         if (companies == null) throw new Exception("Şirket Bulunamadı!");
         companies.Id = request.Id;

@@ -1,6 +1,4 @@
-﻿using OnlineRivalMarket.Application.Features.AppFeatures.MainRoleFeatures.Commands.CreateRole;
-using FluentValidation;
-namespace OnlineRivalMarket.Application.Features.AppFeatures.MainRoleFeatures.Commands.CreateMainRole;
+﻿namespace OnlineRivalMarket.Application.Features.AppFeatures.MainRoleFeatures.Commands.CreateMainRole;
 public sealed class CreateMainRoleCommandValidator : AbstractValidator<CreateMainRoleCommand>
 {
     public CreateMainRoleCommandValidator()

@@ -1,12 +1,4 @@
-﻿using OnlineRivalMarket.Domain.AppEntities.Identity;
-using OnlineRivalMarket.Domain.AppEntities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OnlineRivalMarket.Domain.Roles
+﻿namespace OnlineRivalMarket.Domain.Roles
 {
     public sealed class RoleList
     {

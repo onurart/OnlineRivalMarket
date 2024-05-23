@@ -1,8 +1,4 @@
-﻿using OnlineRivalMarket.Application.Features.AppFeatures.MainRoleFeatures.Commands.CreateRole;
-using OnlineRivalMarket.Application.Messaging;
-using OnlineRivalMarket.Application.Services.AppServices;
-using OnlineRivalMarket.Domain.AppEntities;
-namespace OnlineRivalMarket.Application.Features.AppFeatures.MainRoleFeatures.Commands.CreateMainRole;
+﻿namespace OnlineRivalMarket.Application.Features.AppFeatures.MainRoleFeatures.Commands.CreateMainRole;
 public sealed class CreateMainRoleCommandHandler : ICommandHandler<CreateMainRoleCommand, CreateMainRoleCommandResponse>
 {
     private readonly IMainRoleService _mainRoleService;
@@ -14,19 +10,10 @@ public sealed class CreateMainRoleCommandHandler : ICommandHandler<CreateMainRol
     {
         MainRole checkMainRoleTitle = await _mainRoleService.GetByTitleAndCompanyId(request.Title, cancellationToken);
         if (checkMainRoleTitle != null) throw new Exception("Bu rol daha önce kaydedilmiş!");
-
-        //MainRole mainRole = new(
-        //    Guid.NewGuid().ToString(),
-        //    request.Title,
-        //    request.CompanyId != null ? false : true,
-        //    request.CompanyId);
-
         MainRole mainRole = new(
-            Guid.NewGuid().ToString(),
-            request.Title);
-
+    Guid.NewGuid().ToString(),
+    request.Title);
         await _mainRoleService.CreateAsync(mainRole, cancellationToken);
-
         return new();
     }
 }

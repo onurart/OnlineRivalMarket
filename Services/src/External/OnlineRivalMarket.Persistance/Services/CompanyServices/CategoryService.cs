@@ -1,19 +1,5 @@
-﻿using AutoMapper;
-using Azure.Core;
-using EntityFrameworkCorePagination.Nuget.Pagination;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using OnlineRivalMarket.Application.Features.CompanyFeatures.CategoryFeatures.Commands.CreateCategory;
-using OnlineRivalMarket.Application.Features.CompanyFeatures.CategoryFeatures.Commands.Queries.GetAllCategory;
-using OnlineRivalMarket.Application.Services.CompanyServices;
+﻿using OnlineRivalMarket.Application.Services.CompanyServices;
 using OnlineRivalMarket.Domain;
-using OnlineRivalMarket.Domain.AppEntities.Identity;
-using OnlineRivalMarket.Domain.CompanyEntities;
-using OnlineRivalMarket.Domain.Dtos;
-using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.CategoryRepository;
-using OnlineRivalMarket.Domain.UnitOfWorks;
-using OnlineRivalMarket.Persistance.Configurations;
-using OnlineRivalMarket.Persistance.Context;
 namespace OnlineRivalMarket.Persistance.Services.CompanyServices;
 public sealed class CategoryService : ICategoryService
 {

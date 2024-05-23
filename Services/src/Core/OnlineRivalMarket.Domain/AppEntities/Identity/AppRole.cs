@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-namespace OnlineRivalMarket.Domain.AppEntities.Identity;
+﻿namespace OnlineRivalMarket.Domain.AppEntities.Identity;
 public sealed class  AppRole : IdentityRole<string>
 {
     public AppRole(){}

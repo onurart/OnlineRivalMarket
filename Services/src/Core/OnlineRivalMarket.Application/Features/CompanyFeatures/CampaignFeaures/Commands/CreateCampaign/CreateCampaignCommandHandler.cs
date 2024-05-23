@@ -1,10 +1,4 @@
-﻿using Newtonsoft.Json;
-using OnlineRivalMarket.Application.Messaging;
-using OnlineRivalMarket.Application.Services;
-using OnlineRivalMarket.Application.Services.CompanyServices;
-using OnlineRivalMarket.Domain.CompanyEntities;
-
-namespace OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Commands.CreateCampaign;
+﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Commands.CreateCampaign;
 public sealed class CreateCampaignCommandHandler : ICommandHandler<CreateCampaignCommand, CreateCampaignCommandResponse>
 {
     private readonly ICampaignService _campaignService;
@@ -20,7 +14,6 @@ public sealed class CreateCampaignCommandHandler : ICommandHandler<CreateCampaig
         _campaingFileService = campaingFileService;
         _cfleService = cfleService;
     }
-
     public async Task<CreateCampaignCommandResponse> Handle(CreateCampaignCommand request, CancellationToken cancellationToken)
     {
         Campaigns createBrand = await _campaignService.CreateCampaignAsync(request, cancellationToken);

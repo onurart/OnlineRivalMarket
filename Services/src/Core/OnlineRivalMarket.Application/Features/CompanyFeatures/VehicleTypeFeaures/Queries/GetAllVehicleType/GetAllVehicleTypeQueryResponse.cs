@@ -1,3 +1,2 @@
-﻿using OnlineRivalMarket.Domain.CompanyEntities;
-namespace OnlineRivalMarket.Application.Features.CompanyFeatures.VehicleTypeFeaures.Queries.GetAllVehicleType;
+﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.VehicleTypeFeaures.Queries.GetAllVehicleType;
 public sealed record GetAllVehicleTypeQueryResponse(IList<VehicleType> Data);

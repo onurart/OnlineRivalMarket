@@ -1,11 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries;
-using OnlineRivalMarket.Application.Features.CompanyFeatures.CompetitorsFeatures.Command.CreateCompetitors;
-using OnlineRivalMarket.Application.Features.CompanyFeatures.CompetitorsFeatures.Queries.GetAllCompetitors;
-using OnlineRivalMarket.Presentation.Abstraction;
-namespace OnlineRivalMarket.Presentation.Controller;
+﻿namespace OnlineRivalMarket.Presentation.Controller;
 [Authorize(AuthenticationSchemes = "Bearer")]
 public class CompetitorsesController : ApiController
 {

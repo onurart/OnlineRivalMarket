@@ -11,4 +11,5 @@ public sealed record GetAllDtoFilterCampaingsQuery(
     List<string> categoryIds,
     DateTime startDate,
     DateTime endDate,
+    DateTime CreateDate, DateTime EndCreateDate,
     string keyword) : IQuery<IList<CampaignsDetailDto>>;

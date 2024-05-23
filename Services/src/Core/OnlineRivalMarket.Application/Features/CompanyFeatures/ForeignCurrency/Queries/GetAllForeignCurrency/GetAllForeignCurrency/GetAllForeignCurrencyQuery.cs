@@ -1,8 +1,4 @@
-﻿using OnlineRivalMarket.Application.Messaging;
-
-namespace OnlineRivalMarket.Application.Features.CompanyFeatures.ForeignCurrency.Queries.GetAllForeignCurrency.GetAllForeignCurrency
+﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.ForeignCurrency.Queries.GetAllForeignCurrency.GetAllForeignCurrency;
+public sealed record GetAllForeignCurrencyQuery(string CompanyId) : IQuery<GetAllForeignCurrencyResponse>
 {
-    public sealed record GetAllForeignCurrencyQuery(string CompanyId) : IQuery<GetAllForeignCurrencyResponse>
-    {
-    }
 }

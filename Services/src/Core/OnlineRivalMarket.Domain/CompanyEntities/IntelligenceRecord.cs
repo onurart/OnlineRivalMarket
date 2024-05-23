@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using OnlineRivalMarket.Domain.Abstractions;
-using OnlineRivalMarket.Domain.Enums;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿//using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace OnlineRivalMarket.Domain.CompanyEntities;
 public class IntelligenceRecord : Entity
 {
