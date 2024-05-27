@@ -1,4 +1,7 @@
-﻿namespace OnlineRivalMarket.Presentation.Controller
+﻿using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries.CampaingProductIntelligenceRecords;
+using OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Queries.CompetitorIntelligenceRecord;
+
+namespace OnlineRivalMarket.Presentation.Controller
 {
     [Authorize(AuthenticationSchemes = "Bearer")]
     public class FieldInformationController : ApiController
@@ -64,6 +67,14 @@
             var reponse = await _mediator.Send(requst);
             return Ok(reponse);
 
+        }
+
+        [HttpGet("[action]/{id}/{companyId}")]
+        public async Task<IActionResult> CompetitorIntelligenceRecord(string id, string companyId)
+        {
+            CompetitorIntelligenceRecordQuery request = new(id, companyId);
+            CompetitorIntelligenceRecordResponse response = await _mediator.Send(request);
+            return Ok(response);
         }
     }
 }

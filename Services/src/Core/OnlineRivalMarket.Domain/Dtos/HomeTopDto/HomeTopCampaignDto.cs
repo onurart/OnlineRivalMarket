@@ -14,6 +14,7 @@
 
         public string? BrandId { get; set; }
         public string? BrandName { get; set; }
+        public int RowNo { get; set; }
 
         public DateTime CreateDate { get; set; }
         public string UserId { get; set; }

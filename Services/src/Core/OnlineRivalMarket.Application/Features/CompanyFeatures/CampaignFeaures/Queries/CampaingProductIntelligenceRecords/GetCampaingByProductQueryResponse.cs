@@ -1,0 +1,3 @@
+﻿using OnlineRivalMarket.Domain.Dtos.Campaing;
+namespace OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries.CampaingProductIntelligenceRecords;
+public sealed record GetCampaingByProductQueryResponse (IList<GetByCampaingProductIntelligenceRecord> Data);

@@ -17,6 +17,8 @@ public  class IntelligenceRecordDto
     public string? VehicleGroupName { get; set; }
     public string? UserId { get; set; }
     public string? UserLastName { get; set; }
+    public int? RowNo { get; set; }
+
     public IEnumerable<string> ImageFiles { get; set; }
     public string? Description { get; set; }
     public decimal? MCurrency { get; set; }

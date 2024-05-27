@@ -9,7 +9,7 @@ builder.Services.InstallServices(builder.Configuration, typeof(IServiceInstaller
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-    options.JsonSerializerOptions.Converters.Add(new DateTimeConverter("dd-MM-yyyy"));
+    options.JsonSerializerOptions.Converters.Add(new DateTimeConverter("dd-MM-yyyy HH:mm"));
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

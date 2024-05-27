@@ -3,6 +3,7 @@ using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Com
 using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries.GetAllDtoAsync;
 using OnlineRivalMarket.Domain.CompanyEntities;
 using OnlineRivalMarket.Domain.Dtos;
+using OnlineRivalMarket.Domain.Dtos.Campaing;
 using OnlineRivalMarket.Domain.Dtos.HomeTopDto;
 
 namespace OnlineRivalMarket.Application.Services.CompanyServices
@@ -28,6 +29,8 @@ namespace OnlineRivalMarket.Application.Services.CompanyServices
         DateTime CreateDate,
         DateTime EndCreateDate,
         string keyword);
+        Task<IList<GetByCampaingProductIntelligenceRecord>> GetByCampaingProductIntelligenceRecordsAsync(string id, string companyId);
+
 
     }
 }

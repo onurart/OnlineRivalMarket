@@ -1,0 +1,2 @@
+﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Queries.CompetitorIntelligenceRecord;
+public sealed record CompetitorIntelligenceRecordResponse(IList<CompetitorIntelligenceRecordDto> Data);

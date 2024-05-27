@@ -14,6 +14,7 @@ public class IntelligenceRecord : Entity
     public string? Description { get; set; }
     public decimal? MCurrency { get; set; }
     public decimal? RakipCurrency { get; set; }
+    public int RowNo { get; set; }
 
 
     [ForeignKey(nameof(ForeignCurrencyId))]

@@ -2,6 +2,7 @@
 using OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Queries.FieldInformationHome;
 using OnlineRivalMarket.Application.Services.CompanyServices;
 using OnlineRivalMarket.Domain;
+using OnlineRivalMarket.Domain.Dtos.Campaing;
 using OnlineRivalMarket.Domain.Dtos.FieldInformationDtos;
 namespace OnlineRivalMarket.Persistance.Services.CompanyServices
 {
@@ -27,9 +28,12 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
         {
             _context = (CompanyDbContext)_contextService.CreateDbContextInstance(requset.CompanyId);
             _commandRepository.SetDbContextInstance(_context);
+            _queryRepository.SetDbContextInstance(_context);
             _unitOfWork.SetDbContextInstance(_context);
+            int maxRowNo = await _queryRepository.GetAll(false).MaxAsync(f => (int?)f.RowNo ?? 0);
             FieldInformation record = _mapper.Map<FieldInformation>(requset);
             record.Id = Guid.NewGuid().ToString();
+            record.RowNo = maxRowNo + 1; 
             await _commandRepository.AddAsync(record, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return record;
@@ -61,7 +65,8 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
                                   CreatedDate = pc.CreatedDate,
                                   ImageFiles = pc.FieldInformationImagesFiles.Select(x => x.FieldInformationFileUrls),
                                   AppUserId = pc.UserId,
-                                  AppUserName = pc.UserLastName
+                                  AppUserName = pc.UserLastName,
+                                  RowNo=(int)pc.RowNo,  
 
                               }).Take(6).ToList();
             List<FieldInformationsesDto> dto = new List<FieldInformationsesDto>();
@@ -77,6 +82,7 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
                     CreatedDate = item.CreatedDate,
                     ImageFiles = item.ImageFiles,
                     AppUserId = item.AppUserId,
+                    RowNo=item.RowNo,
                     AppUserName = item.AppUserName
                 });
 
@@ -89,7 +95,6 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
             _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId.CompanyId);
             _queryRepository.SetDbContextInstance(_context);
             await _queryRepository.GetAll().AsNoTracking().ToListAsync();
-
             var prodcustrel = await _queryRepository.GetAll().Include("Competitor").Include(x => x.FieldInformationImagesFiles).ToListAsync();
             var product = await _queryRepository.GetAll().ToListAsync();
             var joinedData = (from pc in prodcustrel
@@ -105,7 +110,8 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
                                   ImageFiles = pc.FieldInformationImagesFiles.Select(x => x.FieldInformationFileUrls),
                                   CreatedDate = pc.CreatedDate,
                                   AppUserId = pc.UserId,
-                                  AppUserName = pc.UserLastName
+                                  AppUserName = pc.UserLastName,
+                                  RowNo = (int)pc.RowNo
                               }).ToList();
             List<FieldInformationsesDto> dto = new List<FieldInformationsesDto>();
             foreach (var item in joinedData)
@@ -120,14 +126,11 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
                     CreatedDate = item.CreatedDate,
                     ImageFiles = item.ImageFiles,
                     AppUserName = item.AppUserName,
-                    AppUserId = item.AppUserId
+                    AppUserId = item.AppUserId,
+                    RowNo= (int)item.RowNo
 
-                });
-
-
-            }
+                });}
             return dto;
-
         }
         public async Task<IList<FieldInformationsesDto>> GetAllFieldInformationByIdAsync(string id, string companyId)
         {
@@ -148,7 +151,9 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
                                   ImageFiles = pc.FieldInformationImagesFiles.Select(x => x.FieldInformationFileUrls),
                                   CreatedDate = pc.CreatedDate,
                                   AppUserId = pc.UserId,
-                                  AppUserName = pc.UserLastName
+                                  RowNo=(int)pc.RowNo,
+                                  AppUserName = pc.UserLastName,
+
                               }).ToList();
             List<FieldInformationsesDto> dto = new List<FieldInformationsesDto>();
             foreach (var item in joinedData)
@@ -163,6 +168,7 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
                     ImageFiles = item.ImageFiles,
                     CreatedDate = item.CreatedDate,
                     AppUserId = item.AppUserId,
+                    RowNo=(int)item.RowNo,
                     AppUserName = item.AppUserName
 
                 });
@@ -172,14 +178,7 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
             return dto;
 
         }
-
-
-        public async Task<IList<FieldInformationsesDto>> GetAllFieldInfoDtoFilterAsync(
-            string companyId,
-            List<string> competitorIds,
-            DateTime? startDate,
-            DateTime? endDate,
-            string keyword = null)
+        public async Task<IList<FieldInformationsesDto>> GetAllFieldInfoDtoFilterAsync(string companyId, List<string> competitorIds, DateTime? startDate, DateTime? endDate, string keyword = null)
         {
             _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
             _queryRepository.SetDbContextInstance(_context);
@@ -224,65 +223,89 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
                 Description = pc.Description,
                 CreatedDate = pc.CreatedDate,
                 Title = pc.Title,
+                RowNo= (int)pc.RowNo,
                 ImageFiles = pc.FieldInformationImagesFiles.Select(x => x.FieldInformationFileUrls).ToList()
             }).ToList();
 
             return dtoList;
         }
+        public async Task<IList<CompetitorIntelligenceRecordDto>> CompetitorIntelligenceRecord(string id, string companyId) 
+        {
+            var context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
+            _queryRepository.SetDbContextInstance(context);
+            var fields = await _queryRepository.GetWhere(x => x.Competitor.Id == id, false)
+                .Include(x => x.Competitor)
+                .ToListAsync();
+            var dtoList = fields.Select(pc => new CompetitorIntelligenceRecordDto
+            {
+                Id = pc.Id,
+                CompetitorId = pc.CompetitorId,
+                CompetitorName = pc.Competitor?.Name,
+                Description = pc.Description,
+                Title = pc.Description,
+                RowNo=(int)pc.RowNo,
+                CreatedDate = pc.CreatedDate,
+            }).ToList();
 
-        //public async Task<IList<FieldInformationsesDto>> GetAllFieldInfoDtoFilterAsync(
-        //    string companyId,
-        //    List<string> competitorIds,
-        //    DateTime? startDate,
-        //    DateTime? endDate,
-        //    string keyword = null)
-        //{
-        //    _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
-        //    _queryRepository.SetDbContextInstance(_context);
-        //    var prodcustrelQuery = _queryRepository.GetAll(false)
-        //                            .Include(pc => pc.Competitor)
-        //                            .Include(pc => pc.FieldInformationImagesFiles)
-        //                            .AsQueryable();
-
-        //    // Eğer başlangıç ve bitiş tarihleri belirtilmişse, ona göre arama yap
-        //    if (startDate.HasValue && endDate.HasValue)
-        //    {
-        //        prodcustrelQuery = prodcustrelQuery.Where(pc => pc.CreatedDate >= startDate.Value && pc.CreatedDate < endDate.Value.AddDays(1));
-        //    }
-
-        //    // Keyword ve competitorIds filtrelemesi
-        //    if (!string.IsNullOrEmpty(keyword))
-        //    {
-        //        prodcustrelQuery = prodcustrelQuery.Where(pc =>
-        //            pc.Description.Contains(keyword) ||
-        //            pc.Title.Contains(keyword) ||
-        //            (competitorIds != null && competitorIds.Any(id => pc.CompetitorId.Contains(id))));
-        //    }
-
-        //    var products = await prodcustrelQuery.ToListAsync();
-
-        //    var dtoList = products.Select(pc => new FieldInformationsesDto
-        //    {
-        //        Id = pc.Id,
-        //        CompetitorId = pc.CompetitorId,
-        //        CompetitorName = pc.Competitor.Name,
-        //        Description = pc.Description,
-        //        CreatedDate = pc.CreatedDate,
-        //        Title = pc.Title,
-        //        ImageFiles = pc.FieldInformationImagesFiles.Select(x => x.FieldInformationFileUrls).ToList()
-        //    }).ToList();
-
-        //    return dtoList;
-        //}
+            return dtoList;
+        }
 
 
 
 
-        //public Task<IList<FieldInformationsesDto>> GetAllFieldInfoDtoFilterAsync(string companyId, List<string> competitorId, List<string> brandId, List<string> categoryId, DateTime startdate, DateTime enddate)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
+    //public async Task<IList<FieldInformationsesDto>> GetAllFieldInfoDtoFilterAsync(
+    //    string companyId,
+    //    List<string> competitorIds,
+    //    DateTime? startDate,
+    //    DateTime? endDate,
+    //    string keyword = null)
+    //{
+    //    _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
+    //    _queryRepository.SetDbContextInstance(_context);
+    //    var prodcustrelQuery = _queryRepository.GetAll(false)
+    //                            .Include(pc => pc.Competitor)
+    //                            .Include(pc => pc.FieldInformationImagesFiles)
+    //                            .AsQueryable();
+
+    //    // Eğer başlangıç ve bitiş tarihleri belirtilmişse, ona göre arama yap
+    //    if (startDate.HasValue && endDate.HasValue)
+    //    {
+    //        prodcustrelQuery = prodcustrelQuery.Where(pc => pc.CreatedDate >= startDate.Value && pc.CreatedDate < endDate.Value.AddDays(1));
+    //    }
+
+    //    // Keyword ve competitorIds filtrelemesi
+    //    if (!string.IsNullOrEmpty(keyword))
+    //    {
+    //        prodcustrelQuery = prodcustrelQuery.Where(pc =>
+    //            pc.Description.Contains(keyword) ||
+    //            pc.Title.Contains(keyword) ||
+    //            (competitorIds != null && competitorIds.Any(id => pc.CompetitorId.Contains(id))));
+    //    }
+
+    //    var products = await prodcustrelQuery.ToListAsync();
+
+    //    var dtoList = products.Select(pc => new FieldInformationsesDto
+    //    {
+    //        Id = pc.Id,
+    //        CompetitorId = pc.CompetitorId,
+    //        CompetitorName = pc.Competitor.Name,
+    //        Description = pc.Description,
+    //        CreatedDate = pc.CreatedDate,
+    //        Title = pc.Title,
+    //        ImageFiles = pc.FieldInformationImagesFiles.Select(x => x.FieldInformationFileUrls).ToList()
+    //    }).ToList();
+
+    //    return dtoList;
+    //}
+
+
+
+
+    //public Task<IList<FieldInformationsesDto>> GetAllFieldInfoDtoFilterAsync(string companyId, List<string> competitorId, List<string> brandId, List<string> categoryId, DateTime startdate, DateTime enddate)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
     //public async Task<IList<FieldInformationsesDto>> GetAllFieldInformationByIdAsync(string id, string companyId)
     //{

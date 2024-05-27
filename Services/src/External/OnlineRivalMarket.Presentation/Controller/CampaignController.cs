@@ -1,4 +1,7 @@
-﻿namespace OnlineRivalMarket.Presentation.Controller;
+﻿using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries;
+using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries.CampaingProductIntelligenceRecords;
+
+namespace OnlineRivalMarket.Presentation.Controller;
 [Authorize(AuthenticationSchemes = "Bearer")]
 public class CampaignController : ApiController
 {
@@ -52,5 +55,12 @@ public class CampaignController : ApiController
         var reponse = await _mediator.Send(requst);
         return Ok(reponse);
 
+    }
+    [HttpGet("[action]/{id}/{companyId}")]
+    public async Task<IActionResult> GetByCampaingProduct(string id, string companyId)
+    {
+        GetCampaingByProductQuery request = new(id,companyId);
+        GetCampaingByProductQueryResponse response = await _mediator.Send(request);
+        return Ok(response);
     }
 }

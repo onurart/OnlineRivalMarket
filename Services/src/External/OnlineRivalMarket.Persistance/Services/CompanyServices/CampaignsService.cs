@@ -3,6 +3,8 @@ using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Que
 using OnlineRivalMarket.Application.Services.CompanyServices;
 using OnlineRivalMarket.Domain;
 using OnlineRivalMarket.Domain.Dtos;
+using OnlineRivalMarket.Domain.Dtos.Campaing;
+using OnlineRivalMarket.Domain.Dtos.IntelligenceDto;
 namespace OnlineRivalMarket.Persistance.Services.CompanyServices;
 public sealed class CampaignsService : ICampaignService
 {
@@ -27,8 +29,11 @@ public sealed class CampaignsService : ICampaignService
         _context = (CompanyDbContext)_contextService.CreateDbContextInstance(request.CompanyId);
         _commandRepository.SetDbContextInstance(_context);
         _companyDbUnitOfWork.SetDbContextInstance(_context);
+        _queryRepository.SetDbContextInstance(_context);
+        int maxRowNo = await _queryRepository.GetAll(false).MaxAsync(x => (int?)x.RowNo ?? 0);
         Campaigns campaigns = _mapper.Map<Campaigns>(request);
         campaigns.Id = Guid.NewGuid().ToString();
+        campaigns.RowNo = maxRowNo + 1;
         await _commandRepository.AddAsync(campaigns, cancellationToken);
         await _companyDbUnitOfWork.SaveChangesAsync(cancellationToken);
         return campaigns;
@@ -60,7 +65,8 @@ public sealed class CampaignsService : ICampaignService
                               CreateDate = pc.CreatedDate,
                               UserLastName = pc.UserLastName,
                               UserId = pc.UserId,
-                              ImageFiles = pc.CampaingImagesFiles.Select(x => x.CampaingFİleUrls)
+                              ImageFiles = pc.CampaingImagesFiles.Select(x => x.CampaingFİleUrls),
+                              RowNo = pc.RowNo,
                           }).ToList();
 
         List<CampaignsDetailDto> dto = new();
@@ -77,7 +83,6 @@ public sealed class CampaignsService : ICampaignService
                 CategoryName = item.CategoryName,
                 ProductId = item.ProductId,
                 ProductName = item.ProductName,
-                //ImageUrl = item.ImageUrl,
                 Description = item.Description,
                 StartTime = item.StartTime,
                 EndTime = item.EndTime,
@@ -85,6 +90,7 @@ public sealed class CampaignsService : ICampaignService
                 CreateDate = item.CreateDate,
                 UserLastName = item.UserLastName,
                 UserId = item.UserId,
+                RowNo = item.RowNo,
 
 
             });
@@ -118,7 +124,8 @@ public sealed class CampaignsService : ICampaignService
                               ImageFiles = pc.CampaingImagesFiles != null ? pc.CampaingImagesFiles.Select(x => x.CampaingFİleUrls) : null,
                               CreateDate = p.CreatedDate,
                               UserLastName = pc.UserLastName,
-                              UserId = pc.UserId
+                              UserId = pc.UserId,
+                              RowNo = (int)pc.RowNo
                           }).ToList();
 
         List<HomeTopCampaignDto> dto = new();
@@ -142,6 +149,7 @@ public sealed class CampaignsService : ICampaignService
                 UserLastName = item.UserLastName,
                 UserId = item.UserId,
                 CreateDate = item.CreateDate,
+                RowNo =     item.RowNo
             });
         }
         return dto;
@@ -173,7 +181,8 @@ public sealed class CampaignsService : ICampaignService
                               ImageFiles = pc.CampaingImagesFiles.Select(x => x.CampaingFİleUrls),
                               UserLastName = pc.UserLastName,
                               UserId = pc.UserId,
-                              CreateDate = pc.CreatedDate
+                              CreateDate = pc.CreatedDate,
+                              RowNo = (int)pc.RowNo,
                           }).Take(6).ToList();
         List<HomeTopCampaignDto> dto = new();
         foreach (var item in joinedData)
@@ -195,7 +204,8 @@ public sealed class CampaignsService : ICampaignService
                 ImageFiles = item.ImageFiles,
                 UserLastName = item.UserLastName,
                 UserId = item.UserId,
-                CreateDate = item.CreateDate
+                CreateDate = item.CreateDate,
+                RowNo = item.RowNo,
 
             });
         }
@@ -244,7 +254,8 @@ public sealed class CampaignsService : ICampaignService
             UserLastName = pc.UserLastName,
             UserId = pc.UserId,
             ImageFiles = pc.CampaingImagesFiles.Select(x => x.CampaingFİleUrls),
-            CreateDate = pc.CreatedDate
+            CreateDate = pc.CreatedDate,
+            RowNo = (int)pc.RowNo,
         }).ToList();
         List<HomeTopCampaignDto> xView = new List<HomeTopCampaignDto>();
 
@@ -355,9 +366,43 @@ public sealed class CampaignsService : ICampaignService
             CreateDate = pc.CreatedDate,
             StartTime = pc.StartTime,
             EndTime = pc.EndTime,
+            RowNo = pc.RowNo
         }).ToList();
 
         return joinedData;
     }
+    public async Task<IList<GetByCampaingProductIntelligenceRecord>> GetByCampaingProductIntelligenceRecordsAsync(string id, string companyId)
+    {
+        var context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
+        _queryRepository.SetDbContextInstance(context);
+        var campaigns = await _queryRepository.GetWhere(x => x.Product.Id == id, false)
+            .Include(x => x.Product.VehicleGrup)
+            .Include(x => x.Product.VehicleType)
+            .Include(x => x.Product.Category)
+            .Include(x => x.Product.Brand)
+            .Include(x => x.Competitor)
+            .Include(x => x.Product)
+            .ToListAsync();
+        var dtoList = campaigns.Select(pc => new GetByCampaingProductIntelligenceRecord
+        {
+            Id = pc.Id,
+            CompetitorId = pc.CompetitorId,
+            CompetitorName = pc.Competitor?.Name,
+            BrandId = pc.Product?.BrandId,
+            BrandName = pc.Product?.Brand?.Name,
+            CategoryId = pc.Product?.CategoryId,
+            CategoryName = pc.Product?.Category?.Name,
+            ProductId = pc.Product?.Id,
+            ProductName = pc.Product?.ProductName,
+            Description = pc.Description,
+            VehicleGroupId = pc.Product?.VehicleGrup?.Id,
+            VehicleGroupName = pc.Product?.VehicleGrup?.Name,
+            VehicleTypeId = pc.Product?.VehicleType?.Id,
+            VehicleTypeName = pc.Product?.VehicleType?.Name,
+            RowNo = pc.RowNo,
+            CreateDate = pc.CreatedDate,
+        }).ToList();
 
+        return dtoList;
+    }
 }

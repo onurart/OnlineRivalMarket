@@ -10,6 +10,7 @@ public class Campaigns : Entity
     public DateTime? StartTime { get; set; }
     public DateTime? EndTime { get; set; }
     public string? Description { get; set; }
+    public int? RowNo { get; set; }
     public string? UserId { get; set; }
     public string? UserLastName { get; set; }
     public ICollection<CampaingImagesFile>? CampaingImagesFiles { get; set; }
