@@ -12,6 +12,7 @@ namespace OnlineRivalMarket.WebApi.Configurations
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IJwtProvider, JwtProvider>();
             services.AddScoped<IApiService, ApiService>();
+            services.AddScoped<IRabbitMQService, RabbitMQService>();
         }
     }
 }

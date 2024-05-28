@@ -3,20 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineRivalMarket.Persistance.Context;
 
 #nullable disable
 
-namespace OnlineRivalMarket.Persistance.Migrations.CompanyDb
+namespace OnlineRivalMarket.Persistance.Migrations
 {
     [DbContext(typeof(CompanyDbContext))]
-    [Migration("20240513162134_ImagesfileRecod")]
-    partial class ImagesfileRecod
+    partial class CompanyDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,9 +70,6 @@ namespace OnlineRivalMarket.Persistance.Migrations.CompanyDb
                     b.Property<DateTime?>("EndTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -85,11 +79,20 @@ namespace OnlineRivalMarket.Persistance.Migrations.CompanyDb
                     b.Property<string>("ProductId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int?>("RowNo")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("StartTime")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserLastName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -98,6 +101,41 @@ namespace OnlineRivalMarket.Persistance.Migrations.CompanyDb
                     b.HasIndex("ProductId");
 
                     b.ToTable("Campaing", (string)null);
+                });
+
+            modelBuilder.Entity("OnlineRivalMarket.Domain.CompanyEntities.CampaingImagesFile", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CampaignsId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CampaingFİleUrls")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CampaignsId");
+
+                    b.ToTable("CampaingImagesFile");
                 });
 
             modelBuilder.Entity("OnlineRivalMarket.Domain.CompanyEntities.Category", b =>
@@ -161,10 +199,10 @@ namespace OnlineRivalMarket.Persistance.Migrations.CompanyDb
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("CompetitorId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime?>("Date")
+                    b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeletedDate")
@@ -179,11 +217,8 @@ namespace OnlineRivalMarket.Persistance.Migrations.CompanyDb
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Source")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("RowNo")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -191,9 +226,52 @@ namespace OnlineRivalMarket.Persistance.Migrations.CompanyDb
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserLastName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("CompetitorId");
+
                     b.ToTable("FieldInformation", (string)null);
+                });
+
+            modelBuilder.Entity("OnlineRivalMarket.Domain.CompanyEntities.FieldInformationImagesFile", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FieldInformationFileUrls")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FieldInformationId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FieldInformationId");
+
+                    b.ToTable("FieldInformationImagesFile");
                 });
 
             modelBuilder.Entity("OnlineRivalMarket.Domain.CompanyEntities.ForeignCurrency", b =>
@@ -276,29 +354,14 @@ namespace OnlineRivalMarket.Persistance.Migrations.CompanyDb
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Explanation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FieldFeedback")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ForeignCurrencyId")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("IntelligenceType")
-                        .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("MCurrency")
                         .HasColumnType("decimal(18,2)");
@@ -309,11 +372,17 @@ namespace OnlineRivalMarket.Persistance.Migrations.CompanyDb
                     b.Property<decimal?>("RakipCurrency")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("Region")
+                    b.Property<int>("RowNo")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserLastName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -532,6 +601,33 @@ namespace OnlineRivalMarket.Persistance.Migrations.CompanyDb
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("OnlineRivalMarket.Domain.CompanyEntities.CampaingImagesFile", b =>
+                {
+                    b.HasOne("OnlineRivalMarket.Domain.CompanyEntities.Campaigns", null)
+                        .WithMany("CampaingImagesFiles")
+                        .HasForeignKey("CampaignsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("OnlineRivalMarket.Domain.CompanyEntities.FieldInformation", b =>
+                {
+                    b.HasOne("OnlineRivalMarket.Domain.CompanyEntities.Competitor", "Competitor")
+                        .WithMany()
+                        .HasForeignKey("CompetitorId");
+
+                    b.Navigation("Competitor");
+                });
+
+            modelBuilder.Entity("OnlineRivalMarket.Domain.CompanyEntities.FieldInformationImagesFile", b =>
+                {
+                    b.HasOne("OnlineRivalMarket.Domain.CompanyEntities.FieldInformation", null)
+                        .WithMany("FieldInformationImagesFiles")
+                        .HasForeignKey("FieldInformationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("OnlineRivalMarket.Domain.CompanyEntities.ImagesFile", b =>
                 {
                     b.HasOne("OnlineRivalMarket.Domain.CompanyEntities.IntelligenceRecord", null)
@@ -587,6 +683,16 @@ namespace OnlineRivalMarket.Persistance.Migrations.CompanyDb
                     b.Navigation("VehicleGrup");
 
                     b.Navigation("VehicleType");
+                });
+
+            modelBuilder.Entity("OnlineRivalMarket.Domain.CompanyEntities.Campaigns", b =>
+                {
+                    b.Navigation("CampaingImagesFiles");
+                });
+
+            modelBuilder.Entity("OnlineRivalMarket.Domain.CompanyEntities.FieldInformation", b =>
+                {
+                    b.Navigation("FieldInformationImagesFiles");
                 });
 
             modelBuilder.Entity("OnlineRivalMarket.Domain.CompanyEntities.IntelligenceRecord", b =>

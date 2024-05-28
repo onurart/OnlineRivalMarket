@@ -16,32 +16,32 @@ public sealed class CreateCampaignCommandHandler : ICommandHandler<CreateCampaig
     }
     public async Task<CreateCampaignCommandResponse> Handle(CreateCampaignCommand request, CancellationToken cancellationToken)
     {
-        Campaigns createBrand = await _campaignService.CreateCampaignAsync(request, cancellationToken);
+        Campaigns createCampaigns = await _campaignService.CreateCampaignAsync(request, cancellationToken);
         string userId = _apiService.GetUserIdByToken();
-        if (request.Files != null)
-        {
-            string fileUrl = @"C:\inetpub\wwwroot\build\ticket\wwwroot\TicketAttachment\OnlineRivalMarket\Campaing";
-            //string fileUrl = @"C:\inetpub\wwwroot\Onur\Campaing";
-            foreach (var file in request.Files)
-            {
-                string fileName = _cfleService.FileSaveToServer(file, fileUrl);
-                CampaingImagesFile campaingImagesFile = new()
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    CampaignsId = createBrand.Id,
-                    CampaingFİleUrls = fileName,
-                    CreatedDate = DateTime.Now,
-                };
-                await _campaingFileService.CreateAsync(campaingImagesFile, request.CompanyId, cancellationToken);
-            }
-        }
+        //if (request.Files != null)
+        //{
+        //    string fileUrl = @"C:\inetpub\wwwroot\build\ticket\wwwroot\TicketAttachment\OnlineRivalMarket\Campaing";
+        //    //string fileUrl = @"C:\inetpub\wwwroot\Onur\Campaing";
+        //    foreach (var file in request.Files)
+        //    {
+        //        string fileName = _cfleService.FileSaveToServer(file, fileUrl);
+        //        CampaingImagesFile campaingImagesFile = new()
+        //        {
+        //            Id = Guid.NewGuid().ToString(),
+        //            CampaignsId = createBrand.Id,
+        //            CampaingFİleUrls = fileName,
+        //            CreatedDate = DateTime.Now,
+        //        };
+        //        await _campaingFileService.CreateAsync(campaingImagesFile, request.CompanyId, cancellationToken);
+        //    }
+        //}
         Logs log = new()
         {
             Id = Guid.NewGuid().ToString(),
             TableName = nameof(Brand),
             Progress = "Create",
             UserId = userId,
-            Data = JsonConvert.SerializeObject(createBrand)
+            Data = JsonConvert.SerializeObject(createCampaigns)
         };
         await _logService.AddAsync(log, request.CompanyId);
         return new();

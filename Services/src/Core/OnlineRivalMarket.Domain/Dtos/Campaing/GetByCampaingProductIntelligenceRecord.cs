@@ -25,5 +25,7 @@ namespace OnlineRivalMarket.Domain.Dtos.Campaing
         public string? VehicleGroupId { get; set; }
         public string? VehicleGroupName { get; set; }
         public string? Description { get; set; }
+        public DateTime? StartTime { get; set; }
+        public DateTime? EndTime { get; set; }
     }
 }

@@ -23,4 +23,5 @@ public class IntelligenceByIdDto
     public decimal? RakipCurrency { get; set; }
     public string? ForeignCurrencyId { get; set; }
     public string? ForeignCurrencyName { get; set; }
+    public int RowNo { get; set; }
 }

@@ -1,5 +1,7 @@
-﻿using OnlineRivalMarket.Application.Services.CompanyServices;
+﻿using OnlineRivalMarket.Application.Services;
+using OnlineRivalMarket.Application.Services.CompanyServices;
 using OnlineRivalMarket.Domain;
+using OnlineRivalMarket.Domain.Dtos;
 namespace OnlineRivalMarket.Persistance.Services.CompanyServices;
 public sealed class CategoryService : ICategoryService
 {
@@ -7,15 +9,17 @@ public sealed class CategoryService : ICategoryService
     private readonly ICategoryQueryRepository _categoryQueryRepository;
     private readonly ICompanyDbUnitOfWork _unitOfWork;
     private readonly IContextService _contextService;
+    private readonly IRabbitMQService _rabbitMQService;
     private readonly IMapper _mapper;
     private CompanyDbContext _context;
-    public CategoryService(ICategoryCommandRepository categoryCommandRepository, ICategoryQueryRepository categoryQueryRepository, ICompanyDbUnitOfWork unitOfWork, IContextService contextService, IMapper mapper)
+    public CategoryService(ICategoryCommandRepository categoryCommandRepository, ICategoryQueryRepository categoryQueryRepository, ICompanyDbUnitOfWork unitOfWork, IContextService contextService, IMapper mapper, IRabbitMQService rabbitMQService = null)
     {
         _categoryCommandRepository = categoryCommandRepository;
         _categoryQueryRepository = categoryQueryRepository;
         _unitOfWork = unitOfWork;
         _contextService = contextService;
         _mapper = mapper;
+        _rabbitMQService = rabbitMQService;
     }
     public async Task<Category> CreateCategoryAsync(CreateCategoryCommand request, CancellationToken cancellationToken)
     {
@@ -26,9 +30,21 @@ public sealed class CategoryService : ICategoryService
         category.Id = Guid.NewGuid().ToString();
         await _categoryCommandRepository.AddAsync(category, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
+        SendQueue(category, request.CompanyId);
+
         return category;
     }
+    public void SendQueue(Category category, string companyId)
+    {
+        CategoryDto reportDto = new()
+        {
+            Id = category.Id,
+            Name = category.Name,
+            CompanyId = companyId
+        };
 
+        _rabbitMQService.SendQueue(reportDto);
+    }
 
     public async Task<IList<Category>> GetAllCategoryAsync(string companyId)
     {
@@ -37,6 +53,6 @@ public sealed class CategoryService : ICategoryService
         return await _categoryQueryRepository.GetAll().AsNoTracking().ToListAsync();
     }
 
-    
+
 }
 

@@ -207,7 +207,7 @@ public class IntelligenceRecordService : IIntelligenceRecordService
                              CreatedDate = pc.CreatedDate,
                              UserId = pc.UserId,
                              UserLastName = pc.UserLastName,
-                             RowNo=pc.RowNo,
+                             RowNo=(int)pc.RowNo,
                          };
         return joinedData.Distinct().ToList();
     }
@@ -258,7 +258,7 @@ public class IntelligenceRecordService : IIntelligenceRecordService
                                   //Explanation = pc.Explanation,
                               }).ToList();
 
-            filteredRecords.AddRange(joinedData.Take(5));
+            filteredRecords.AddRange(joinedData.Take(5).OrderDescending());
         }
 
         return filteredRecords;
@@ -371,6 +371,7 @@ public class IntelligenceRecordService : IIntelligenceRecordService
                               CreateDate = pc.CreatedDate,
                               UserId = pc.UserId,
                               UserLastName = pc.UserLastName,
+                              RowNo=pc.RowNo,
                           }).Take(5).ToList();
 
         List<IntelligenceByIdDto> dto = new List<IntelligenceByIdDto>();
@@ -400,6 +401,7 @@ public class IntelligenceRecordService : IIntelligenceRecordService
                 CreateDate = item.CreateDate,
                 UserLastName = item.UserLastName,
                 UserId = item.UserId,
+                RowNo=item.RowNo,
             });
         }
 
@@ -442,6 +444,7 @@ public class IntelligenceRecordService : IIntelligenceRecordService
             ImageFiles = pc.IntelligenceRecordFiles.Select(x => x.FileUrls),
             CreateDate = pc.CreatedDate,
             UserId = pc.UserId,
+            RowNo=pc.RowNo,
             UserLastName = pc.UserLastName,
         }).ToList();
 
