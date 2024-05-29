@@ -8,6 +8,6 @@ public sealed class GetAllProductQueryHandler : IQueryHandler<GetAllProductQuery
     }
     public async Task<GetAllProductQueryResponse> Handle(GetAllProductQuery request, CancellationToken cancellationToken)
     {
-        return new(await _service.GetAllaginationAsync(request));
+        return new(await _service.GetAllProductPaginationAsync(request));
     }
 }

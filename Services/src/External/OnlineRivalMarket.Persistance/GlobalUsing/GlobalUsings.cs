@@ -23,7 +23,6 @@ global using OnlineRivalMarket.Domain.Abstractions;
 global using OnlineRivalMarket.Domain.AppEntities;
 global using OnlineRivalMarket.Domain.AppEntities.Identity;
 global using OnlineRivalMarket.Domain.CompanyEntities;
-global using OnlineRivalMarket.Domain.Dtos.HomeTopDto;
 global using OnlineRivalMarket.Domain.Repositories.AppDbContext.CompanyRepositories;
 global using OnlineRivalMarket.Domain.Repositories.AppDbContext.MainRoleAndUserRelationshipRepositories;
 global using OnlineRivalMarket.Domain.Repositories.AppDbContext.MainRoleReporistories;

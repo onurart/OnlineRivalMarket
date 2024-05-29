@@ -2,8 +2,8 @@
 using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries.GetAllDtoAsync;
 using OnlineRivalMarket.Application.Services.CompanyServices;
 using OnlineRivalMarket.Domain;
-using OnlineRivalMarket.Domain.Dtos;
 using OnlineRivalMarket.Domain.Dtos.Campaing;
+using OnlineRivalMarket.Domain.Dtos.Campaing.HomeTopDto;
 using OnlineRivalMarket.Domain.Dtos.IntelligenceDto;
 namespace OnlineRivalMarket.Persistance.Services.CompanyServices;
 public sealed class CampaignsService : ICampaignService
@@ -226,7 +226,7 @@ public sealed class CampaignsService : ICampaignService
             .Take(request.PageSize)
             .ToListAsync();
 
-        //PaginationResult<HomeTopCampaignDto> result = await _queryRepository.GetAll(false).OrderByDescending(p => p.CreatedDate).ToPagedListAsync(request.PageNumber, request.PageSize);
+        //PaginationResult<HomeTopCampaignDto> result = await _queryRepository.GetAll(false).ToPagedListAsync(request.PageSize, request.num);
 
         int totalCount = await _queryRepository.GetAll().CountAsync();
         var dtoList = pagedData.Select(pc => new HomeTopCampaignDto
@@ -406,111 +406,3 @@ public sealed class CampaignsService : ICampaignService
     }
 }
 
-//public async Task<IList<CampaignsDetailDto>> GetAllDtoFilterAsync(string companyId, List<string> competitorIds, List<string> productIds, List<string> brandIds, List<string> categoryIds, DateTime startDate, DateTime endDate,  string keyword)
-//{
-//    throw new NotImplementedException();
-//}
-//public async Task<IList<CampaignsDetailDto>> GetAllDtoFilterAsync(string companyId, List<string> competitorIds, List<string> productIds, List<string> brandIds, List<string> categoryIds, DateTime startDate, DateTime endDate, DateTime CreateDate, DateTime EndCreateDate, string keyword)
-//{
-//    var context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
-//    _queryRepository.SetDbContextInstance(context);
-//    _queryProductRepository.SetDbContextInstance(context);
-//    var campaignQuery = _queryRepository.GetAll(false)
-//        .Include(pc => pc.Competitor)
-//        .Include(pc => pc.CampaingImagesFiles)
-//        .Include(pc => pc.Product)
-//            .ThenInclude(p => p.Brand)
-//        .Include(pc => pc.Product)
-//            .ThenInclude(p => p.Category)
-//        .AsQueryable();
-//    var productQuery = _queryProductRepository.GetAll(false)
-//      .Include(p => p.VehicleType)
-//      .Include(p => p.VehicleGrup)
-//      .Include(p => p.Brand)
-//      .Include(p => p.Category)
-//      .AsQueryable();
-//    bool isOtherFiltersEmpty = !(competitorIds?.Any() == true) &&
-//                       !(productIds?.Any() == true) &&
-//                       !(brandIds?.Any() == true) &&
-//                       !(categoryIds?.Any() == true) &&
-//                       string.IsNullOrEmpty(keyword);
-
-//    if (isOtherFiltersEmpty)
-//    {
-//        if (startDate != default && endDate != default)
-//        {
-//            campaignQuery = campaignQuery.Where(pc => pc.StartTime >= startDate && pc.EndTime <= endDate.AddDays(1));
-//        }
-//        if (CreateDate != default && EndCreateDate != default)
-//        {
-//            campaignQuery = campaignQuery.Where(pc => pc.CreatedDate >= CreateDate && pc.CreatedDate <= EndCreateDate.AddDays(1));
-//        }
-//    }
-//    else
-//    {
-//        if (competitorIds?.Any() == true)
-//        {
-//            campaignQuery = campaignQuery.Where(pc => competitorIds.Contains(pc.CompetitorId));
-//        }
-
-//        if (productIds?.Any() == true)
-//        {
-//            campaignQuery = campaignQuery.Where(pc => productIds.Contains(pc.ProductId));
-//        }
-
-//        if (brandIds?.Any() == true)
-//        {
-//            campaignQuery = campaignQuery.Where(pc => pc.Product != null && brandIds.Contains(pc.Product.BrandId));
-//        }
-
-//        if (categoryIds?.Any() == true)
-//        {
-//            campaignQuery = campaignQuery.Where(pc => pc.Product != null && categoryIds.Contains(pc.Product.CategoryId));
-//        }
-
-//        if (startDate != default && endDate != default)
-//        {
-//            campaignQuery = campaignQuery.Where(pc => pc.StartTime >= startDate && pc.EndTime <= endDate.AddDays(1));
-//        }
-
-//        if (CreateDate != default && EndCreateDate != default)
-//        {
-//            campaignQuery = campaignQuery.Where(pc => pc.CreatedDate >= CreateDate && pc.CreatedDate <= EndCreateDate.AddDays(1));
-//        }
-//        if (!string.IsNullOrEmpty(keyword))
-//        {
-//            campaignQuery = campaignQuery.Where(pc =>
-//                (pc.Description != null && pc.Description.Contains(keyword)) ||
-//                (pc.Product.ProductName != null && pc.Product.ProductName.Contains(keyword)) ||
-//                (pc.Product.Brand.Name != null && pc.Product.Brand.Name.Contains(keyword)) ||
-//                (pc.Product.VehicleGrup != null && pc.Product.VehicleGrup.Name.Contains(keyword)) ||
-//                (pc.Product.VehicleType != null && pc.Product.VehicleType.Name.Contains(keyword)) ||
-//                (pc.Product.Category.Name != null && pc.Product.Category.Name.Contains(keyword))
-//            );
-//        }
-//    }
-//    var campaignList = await campaignQuery.ToListAsync();
-
-//    var joinedData = campaignList.Select(pc => new CampaignsDetailDto
-//    {
-//        Id = pc.Id,
-//        CompetitorId = pc.CompetitorId,
-//        CompetitorsesName = pc.Competitor?.Name,
-//        BrandId = pc.Product?.BrandId,
-//        BrandName = pc.Product?.Brand?.Name,
-//        CategoryId = pc.Product?.CategoryId,
-//        CategoryName = pc.Product?.Category?.Name,
-//        ProductId = pc.Product?.Id,
-//        ProductName = pc.Product?.ProductName,
-//        Description = pc.Description,
-//        ImageFiles = pc.CampaingImagesFiles.Select(x => x.CampaingFİleUrls),
-//        UserId = pc.UserId,
-//        UserLastName = pc.UserLastName,
-//        CreateDate = pc.CreatedDate,
-//        StartTime = pc.StartTime,
-//        EndTime = pc.EndTime,
-//        RowNo = pc.RowNo
-//    }).ToList();
-
-//    return joinedData;
-//}

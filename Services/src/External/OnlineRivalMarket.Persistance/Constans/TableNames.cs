@@ -14,4 +14,5 @@ public static class TableNames
     public static string Logs = nameof(Logs);
     public static string ForeignCurrency = nameof(ForeignCurrency);
     public static string ImagesFile = nameof(ImagesFile);
+    public static string ClientIpAddress = nameof(ClientIpAddress);
 }

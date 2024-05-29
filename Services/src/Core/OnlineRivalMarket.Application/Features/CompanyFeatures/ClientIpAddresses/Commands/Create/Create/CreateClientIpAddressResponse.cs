@@ -1,0 +1,2 @@
+﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.ClientIpAddresses.Commands.Create.Create;
+public sealed record CreateClientIpAddressResponse(string Message = "Kullanıcı Bilgileri alindi...");

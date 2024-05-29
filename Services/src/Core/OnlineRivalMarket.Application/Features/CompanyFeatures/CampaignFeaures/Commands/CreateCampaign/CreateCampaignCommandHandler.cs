@@ -18,23 +18,23 @@ public sealed class CreateCampaignCommandHandler : ICommandHandler<CreateCampaig
     {
         Campaigns createCampaigns = await _campaignService.CreateCampaignAsync(request, cancellationToken);
         string userId = _apiService.GetUserIdByToken();
-        //if (request.Files != null)
-        //{
-        //    string fileUrl = @"C:\inetpub\wwwroot\build\ticket\wwwroot\TicketAttachment\OnlineRivalMarket\Campaing";
-        //    //string fileUrl = @"C:\inetpub\wwwroot\Onur\Campaing";
-        //    foreach (var file in request.Files)
-        //    {
-        //        string fileName = _cfleService.FileSaveToServer(file, fileUrl);
-        //        CampaingImagesFile campaingImagesFile = new()
-        //        {
-        //            Id = Guid.NewGuid().ToString(),
-        //            CampaignsId = createBrand.Id,
-        //            CampaingFİleUrls = fileName,
-        //            CreatedDate = DateTime.Now,
-        //        };
-        //        await _campaingFileService.CreateAsync(campaingImagesFile, request.CompanyId, cancellationToken);
-        //    }
-        //}
+        if (request.Files != null)
+        {
+            string fileUrl = @"C:\inetpub\wwwroot\build\ticket\wwwroot\TicketAttachment\OnlineRivalMarket\Campaing";
+            //string fileUrl = @"C:\inetpub\wwwroot\Onur\Campaing";
+            foreach (var file in request.Files)
+            {
+                string fileName = _cfleService.FileSaveToServer(file, fileUrl);
+                CampaingImagesFile campaingImagesFile = new()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    CampaignsId = createCampaigns.Id,
+                    CampaingFİleUrls = fileName,
+                    CreatedDate = DateTime.Now,
+                };
+                await _campaingFileService.CreateAsync(campaingImagesFile, request.CompanyId, cancellationToken);
+            }
+        }
         Logs log = new()
         {
             Id = Guid.NewGuid().ToString(),

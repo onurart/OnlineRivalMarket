@@ -38,7 +38,7 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
             await _companyDbUnitOfWork.SaveChangesAsync(cancellationToken);
             return product;
         }
-        public async Task<PaginationResult<ProductDto>> GetAllaginationAsync(GetAllProductQuery request)
+        public async Task<PaginationResult<ProductDto>> GetAllProductPaginationAsync(GetAllProductQuery request)
         {
             _context = (CompanyDbContext)_contextService.CreateDbContextInstance(request.CompanyId);
             _queryRepository.SetDbContextInstance(_context);
@@ -140,6 +140,8 @@ namespace OnlineRivalMarket.Persistance.Services.CompanyServices
             _commandRepository.Update(product);
             await _companyDbUnitOfWork.SaveChangesAsync();
         }
+
+      
     }
 }
 

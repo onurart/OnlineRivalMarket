@@ -22,7 +22,7 @@ public class ProductController : ApiController
     }
 
     [HttpPost("[action]")]
-    public async Task<IActionResult> GetAllaginationAsync(GetAllProductQuery companid)
+    public async Task<IActionResult> GetAllProductPaginationAsync(GetAllProductQuery companid)
     {
         GetAllProductQueryResponse response = await _mediator.Send(companid);
         return Ok(response);

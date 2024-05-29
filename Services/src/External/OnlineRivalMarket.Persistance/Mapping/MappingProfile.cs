@@ -1,4 +1,7 @@
-﻿namespace OnlineRivalMarket.Persistance.Mapping;
+﻿using OnlineRivalMarket.Application.Features.CompanyFeatures.ClientIpAddresses.Commands.Create.Create;
+using OnlineRivalMarket.Domain.Dtos.Campaing.HomeTopDto;
+
+namespace OnlineRivalMarket.Persistance.Mapping;
 public class MappingProfile : Profile
 {
     public MappingProfile()
@@ -16,7 +19,7 @@ public class MappingProfile : Profile
         CreateMap<CreateForeignCurrencyCommand, ForeignCurrency>();
 
 
-
+        CreateMap<CreateClientIpAddressCommand ,ClientIpAddresses>();
         CreateMap<Campaigns, HomeTopCampaignDto>();
         CreateMap<CreateCompanyCommand, Company>();
         CreateMap<CreateRoleCommand, AppRole>();

@@ -1,4 +1,5 @@
-﻿using OnlineRivalMarket.Application.Services.AppServices;
+﻿using OnlineRivalMarket.Application.Features.CompanyFeatures.ClientIpAddresses.Commands.Create;
+using OnlineRivalMarket.Application.Services.AppServices;
 using OnlineRivalMarket.Application.Services.CompanyServices;
 using OnlineRivalMarket.Domain;
 using OnlineRivalMarket.Domain.Repositories.AppDbContext.CompanyRepositories;
@@ -16,6 +17,7 @@ using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.FieldInformationRep
 using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.ForeignCurrencyRepositories;
 using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.ImagesFileRepositories;
 using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.IntelligenceRecordRepository;
+using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.IpAddressRepositories;
 using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.LogRepositories;
 using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.ProductRepositories;
 using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.VehicleGroupRepository;
@@ -38,6 +40,7 @@ using OnlineRivalMarket.Persistance.Repositories.CompanyDbContext.FieldInformati
 using OnlineRivalMarket.Persistance.Repositories.CompanyDbContext.ForeignCurrencyRepositories;
 using OnlineRivalMarket.Persistance.Repositories.CompanyDbContext.ImagesFileRepositories;
 using OnlineRivalMarket.Persistance.Repositories.CompanyDbContext.IntelligenceRecordRepository;
+using OnlineRivalMarket.Persistance.Repositories.CompanyDbContext.IpAddresses;
 using OnlineRivalMarket.Persistance.Repositories.CompanyDbContext.LogRepositories;
 using OnlineRivalMarket.Persistance.Repositories.CompanyDbContext.ProductRepositories;
 using OnlineRivalMarket.Persistance.Repositories.CompanyDbContext.SalesRepository;
@@ -72,6 +75,7 @@ namespace OnlineRivalMarket.WebApi.Configurations
             services.AddScoped<IVehicleTypeService, VehicleTypeService>();
             services.AddScoped<IForeignCurrencyService, ForeignCurrencyService>();
             services.AddScoped<IFileService, FileManager>();
+            services.AddScoped<IClientIpAddressesService, ClientIpAdressesService>();
 
 
 
@@ -143,27 +147,15 @@ namespace OnlineRivalMarket.WebApi.Configurations
             services.AddScoped<IForeignCurrencyQueryRepository,ForeignCurrencyQueryRepository>();
             services.AddScoped<IFieldInformationCommandRepository, FieldInformationCommandRepository>();
             services.AddScoped<IFieldInformationQueryRepository, FieldInformationQueryRepository>();
-
-
-
-
             services.AddScoped<IImagesFileCommandRepository , ImagesFileCommandRepository> ();
             services.AddScoped<IImagesFileQueryRepository, ImagesFileQueryRepository>();
-
-
-
-
-            
             services.AddScoped<ICampaingFileCommandRepository , CampaingFileCommandRepository> ();
             services.AddScoped<ICampaingFİleQueryRepository, CampaingImagesFileQueryRepository>();
-
-
-
             services.AddScoped<ICFFileCommandRepository, CFFileCommandRepositories>();
             services.AddScoped<ICFQueryRepository, CFQueryRepository>();
-
-
-
+            services.AddScoped<IIpAddressesCommandRepository, IpAddressesCommandRepository>();
+            services.AddScoped<IIpAddressQueryRepository, IpAddressesQueryRepository>();
+             
             services.AddHttpClient();
 
             #endregion

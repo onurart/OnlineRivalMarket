@@ -1,5 +1,5 @@
 ﻿using OnlineRivalMarket.Application.Messaging;
-using OnlineRivalMarket.Domain.Dtos;
+using OnlineRivalMarket.Domain.Dtos.Campaing;
 
 namespace OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries.GetAllDtoFilterCampaings;
 

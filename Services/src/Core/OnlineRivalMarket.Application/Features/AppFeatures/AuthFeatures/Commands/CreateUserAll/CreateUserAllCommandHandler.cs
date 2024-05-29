@@ -1,4 +1,4 @@
-﻿namespace ATTicOnlineRivalMarketket.Application.Features.AppFeatures.AuthFeatures.Commands.CreateUserAll;
+﻿namespace OnlineRivalMarket.Application.Features.AppFeatures.AuthFeatures.Commands.CreateUserAll;
 public sealed class CreateUserAllCommandHandler : ICommandHandler<CreateUserAllCommand, CreateUserAllCommandResponse>
 {
     private readonly IAuthService _authService;
