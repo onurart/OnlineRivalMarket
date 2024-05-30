@@ -1,5 +1,2 @@
 ﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.BrandFeaures.Commands.CreateBrand;
-public sealed record  CreateBrandCommand
-                                            (string Name, string? CompanyId) : ICommand<CreateBrandCOmmandResponse>
-{
-}
+public sealed record  CreateBrandCommand(string Name, string? CompanyId) : ICommand<CreateBrandCOmmandResponse>;

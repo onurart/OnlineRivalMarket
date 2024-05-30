@@ -1,5 +1,6 @@
 ﻿using OnlineRivalMarket.Application.Messaging;
 using OnlineRivalMarket.Domain.Dtos.Campaing;
+using OnlineRivalMarket.Domain.Dtos.Campaing.GetAllDtoFilter;
 
 namespace OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries.GetAllDtoFilterCampaings;
 
@@ -12,4 +13,4 @@ public sealed record GetAllDtoFilterCampaingsQuery(
     DateTime startDate,
     DateTime endDate,
     DateTime CreateDate, DateTime EndCreateDate,
-    string keyword) : IQuery<IList<CampaignsDetailDto>>;
+    string keyword) : IQuery<IList<GetAllDtoFilterDto>>;

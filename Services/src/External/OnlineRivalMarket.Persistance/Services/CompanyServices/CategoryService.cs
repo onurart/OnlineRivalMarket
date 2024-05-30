@@ -1,8 +1,4 @@
-﻿using OnlineRivalMarket.Application.Services;
-using OnlineRivalMarket.Application.Services.CompanyServices;
-using OnlineRivalMarket.Domain;
-using OnlineRivalMarket.Domain.Dtos;
-namespace OnlineRivalMarket.Persistance.Services.CompanyServices;
+﻿namespace OnlineRivalMarket.Persistance.Services.CompanyServices;
 public sealed class CategoryService : ICategoryService
 {
     private readonly ICategoryCommandRepository _categoryCommandRepository;
@@ -34,6 +30,12 @@ public sealed class CategoryService : ICategoryService
 
         return category;
     }
+    public async Task<IList<Category>> GetAllCategoryAsync(string companyId)
+    {
+        _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
+        _categoryQueryRepository.SetDbContextInstance(_context);
+        return await _categoryQueryRepository.GetAll().AsNoTracking().ToListAsync();
+    }
     public void SendQueue(Category category, string companyId)
     {
         CategoryDto reportDto = new()
@@ -44,13 +46,6 @@ public sealed class CategoryService : ICategoryService
         };
 
         _rabbitMQService.SendQueue(reportDto);
-    }
-
-    public async Task<IList<Category>> GetAllCategoryAsync(string companyId)
-    {
-        _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
-        _categoryQueryRepository.SetDbContextInstance(_context);
-        return await _categoryQueryRepository.GetAll().AsNoTracking().ToListAsync();
     }
 
 

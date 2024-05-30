@@ -10,19 +10,20 @@ public sealed class CreateProductCommandHandler : ICommandHandler<CreateProductC
         _logService = logService;
         _apiService = apiService;
     }
+
     public async Task<CreateProductCommandResponse> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
-        Product newproduct = await _productService.CreateProductAsync(request, cancellationToken);
-        var userId = _apiService.GetUserIdByToken();
+        Product newProduct = await _productService.CreateProductAsync(request, cancellationToken);
+        string userId = _apiService.GetUserIdByToken();
         Logs log = new()
         {
             Id = Guid.NewGuid().ToString(),
             TableName = nameof(Brand),
             Progress = "Create",
             UserId = userId,
-            Data = JsonConvert.SerializeObject(newproduct)
+            Data = JsonConvert.SerializeObject(newProduct)
         };
         await _logService.AddAsync(log, request.CompanyId);
-        return new();
+        return new CreateProductCommandResponse();
     }
 }

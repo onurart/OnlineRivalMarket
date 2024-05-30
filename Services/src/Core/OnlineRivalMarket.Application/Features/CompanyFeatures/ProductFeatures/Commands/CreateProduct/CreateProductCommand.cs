@@ -1,5 +1,5 @@
 ﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.ProductFeatures.Commands.CreateProduct;
-public sealed record class CreateProductCommand
+public  record CreateProductCommand
                                                 (
                                                  string? ProductCode,
                                                  string? ProducerCode,

@@ -2,6 +2,7 @@
 global using FluentValidation;
 global using Mapster;
 global using MediatR;
+global using OnlineRivalMarket.Application.Features.CompanyFeatures.ClientIpAddresses.Commands.Create.Create;
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.EntityFrameworkCore;
@@ -39,21 +40,11 @@ global using OnlineRivalMarket.Domain.Dtos.Product;
 global using OnlineRivalMarket.Domain.Roles;
 global using System.DirectoryServices.AccountManagement;
 global using System.Net;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+global using OnlineRivalMarket.Application.Features.CompanyFeatures.ProductFeatures.Commands.CreateProduct;
+global using OnlineRivalMarket.Application.Features.CompanyFeatures.ProductFeatures.Queries;
+global using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Commands.CreateCampaign;
+global using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries.GetAllDtoAsync;
+global using OnlineRivalMarket.Domain.Dtos.Campaing;
+global using OnlineRivalMarket.Domain.Dtos.Campaing.GetAllCampaing;
+global using OnlineRivalMarket.Domain.Dtos.Campaing.GetAllDtoFilter;
+global using OnlineRivalMarket.Domain.Dtos.Campaing.HomeTopDto;

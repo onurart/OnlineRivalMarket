@@ -5,5 +5,4 @@ public interface ICampaingFileService
     IQueryable<CampaingImagesFile> GetAll(string companyId);
     Task UpdateAsync(CampaingImagesFile ticketFile);
     Task RemoveByIdAsync(string id);
-
 }

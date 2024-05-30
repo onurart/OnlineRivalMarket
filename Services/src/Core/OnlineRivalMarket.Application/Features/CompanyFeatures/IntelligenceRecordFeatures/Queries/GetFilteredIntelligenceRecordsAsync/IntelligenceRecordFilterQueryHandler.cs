@@ -8,8 +8,10 @@ public sealed class IntelligenceRecordFilterQueryHandler : IRequestHandler<Intel
     }
     public async Task<IntelligenceRecordFilterResponse> Handle(IntelligenceRecordFilterQuery request, CancellationToken cancellationToken)
     {
-        var result = await _service.GetFilteredIntelligenceRecordsAsync(request.companyId, request.competitorIds);
-        return new IntelligenceRecordFilterResponse(result);
+        //var result = await _service.GetFilteredIntelligenceRecordsAsync(request.companyId, request.competitorIds);
+        //return new IntelligenceRecordFilterResponse(result);
+        return new(null);
+
     }
 
 }

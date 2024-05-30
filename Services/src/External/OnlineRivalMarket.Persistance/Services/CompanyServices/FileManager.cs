@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using OnlineRivalMarket.Application.Services.CompanyServices;
-using System.Net;
-using System.Text.RegularExpressions;
-namespace OnlineRivalMarket.Persistance.Services.CompanyServices;
+﻿namespace OnlineRivalMarket.Persistance.Services.CompanyServices;
 public class FileManager : IFileService
 {
     public byte[] FileConvertByteArrayToDatabase(IFormFile file)
@@ -15,7 +11,6 @@ public class FileManager : IFileService
             return fileBytes;
         }
     }
-
     public void FileDeleteToFtp(string path)
     {
         try
@@ -30,7 +25,6 @@ public class FileManager : IFileService
 
         }
     }
-
     public void FileDeleteToServer(string path)
     {
         try
@@ -45,7 +39,6 @@ public class FileManager : IFileService
 
         }
     }
-
     public string FileSaveToFtp(IFormFile file)
     {
         var fileFormat = file.FileName.Substring(file.FileName.LastIndexOf('.'));
@@ -63,19 +56,6 @@ public class FileManager : IFileService
 
         return fileName;
     }
-
-    // public string FileSaveToServer(IFormFile file, string filePath)
-    // {
-    //     //var fileFormat = file.FileName.Substring(file.FileName.LastIndexOf('.'));
-    //    // fileFormat = fileFormat.ToLower();
-    //     string fileName = Guid.NewGuid().ToString() + "_" + Regex.Replace(file.FileName, @"\s+", "").Trim();//+ fileFormat;
-    //     string path = filePath  +fileName;
-    //     using (var stream = System.IO.File.Create(path))
-    //     {
-    //         file.CopyTo(stream);
-    //     }
-    //     return fileName;
-    // }
     public string FileSaveToServer(IFormFile file, string filePath)
     {
         if (file == null || file.Length == 0)

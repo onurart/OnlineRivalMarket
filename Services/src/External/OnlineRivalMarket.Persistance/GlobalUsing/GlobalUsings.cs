@@ -1,4 +1,7 @@
-﻿global using AutoMapper;
+﻿global using OnlineRivalMarket.Application.Services;
+global using AutoMapper;
+global using OnlineRivalMarket.Domain.Dtos.ForeignCurrency;
+global using OnlineRivalMarket.Application.Features.CompanyFeatures.LogFeatures.Queires.GetLogsByTableName;
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore;
@@ -51,5 +54,23 @@ global using OnlineRivalMarket.Persistance.Context;
 global using OnlineRivalMarket.Persistance.Repositories.GenericRepositories.AppDbContext;
 global using OnlineRivalMarket.Persistance.Repositories.GenericRepositories.CompanyDbContext;
 global using System.Linq.Expressions;
-
-
+global using EntityFrameworkCorePagination.Nuget.Pagination;
+global using OnlineRivalMarket.Application.Features.CompanyFeatures.CampaignFeaures.Queries.GetAllDtoAsync;
+global using OnlineRivalMarket.Application.Services.CompanyServices;
+global using OnlineRivalMarket.Domain;
+global using OnlineRivalMarket.Domain.Dtos.Campaing;
+global using OnlineRivalMarket.Domain.Dtos.Campaing.GetAllCampaing;
+global using OnlineRivalMarket.Domain.Dtos.Campaing.GetAllDtoFilter;
+global using OnlineRivalMarket.Domain.Dtos.Campaing.HomeTopDto;
+global using OnlineRivalMarket.Domain.Dtos;
+global using OnlineRivalMarket.Domain.Dtos.IntelligenceDto;
+global using OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Queries.FieldInformationDto;
+global using OnlineRivalMarket.Application.Features.CompanyFeatures.FieldInformationFeatures.Queries.FieldInformationHome;
+global using OnlineRivalMarket.Domain.Dtos.FieldInformationDtos;
+global using OnlineRivalMarket.Application.Features.CompanyFeatures.ProductFeatures.Queries;
+global using OnlineRivalMarket.Domain.Dtos.Product;
+global using Microsoft.AspNetCore.Http;
+global using System.Net;
+global using System.Text.RegularExpressions;
+global using OnlineRivalMarket.Application.Features.CompanyFeatures.ClientIpAddresses.Commands.Create.Create;
+global using OnlineRivalMarket.Domain.Repositories.CompanyDbContext.IpAddressRepositories;
