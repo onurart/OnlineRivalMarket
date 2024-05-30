@@ -3,6 +3,7 @@ public sealed class VehicleTypeConfiguration : IEntityTypeConfiguration<VehicleT
 {
     public void Configure(EntityTypeBuilder<VehicleType> builder)
     {
+        builder.Property(t => t.Name).HasMaxLength(200);
         builder.ToTable(TableNames.VehicleType);
         builder.HasKey(t => t.Id);
     }

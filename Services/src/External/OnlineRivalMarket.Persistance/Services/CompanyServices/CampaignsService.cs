@@ -344,7 +344,4 @@ public sealed class CampaignsService : ICampaignService
         _commandRepository.Update(product);
         await _companyDbUnitOfWork.SaveChangesAsync();
     }
-
-
 }
-

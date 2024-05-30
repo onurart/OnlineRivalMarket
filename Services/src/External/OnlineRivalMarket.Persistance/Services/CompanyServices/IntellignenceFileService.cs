@@ -41,6 +41,4 @@ public sealed class IntellignenceFileService : IIntellignenceFileService
         await _imagesFileCommandRepository.RemoveById(id);
         await _unitOfWork.SaveChangesAsync();
     }
-
-
 }

@@ -1,10 +1,9 @@
 ﻿namespace OnlineRivalMarket.Domain.CompanyEntities;
 public class FieldInformation : Entity
 {
-    public FieldInformation(){}
+    public FieldInformation() { }
     public FieldInformation(string? competitorId, Competitor? competitor, string? description, string? title, string? userId)
-    {CompetitorId = competitorId;Competitor = competitor;Description = description;Title = title;UserId = userId;}
-    [ForeignKey(nameof(CompetitorId))]
+    { CompetitorId = competitorId; Competitor = competitor; Description = description; Title = title; UserId = userId; }
     public string? CompetitorId { get; set; }
     public Competitor? Competitor { get; set; }
     public string? Description { get; set; }

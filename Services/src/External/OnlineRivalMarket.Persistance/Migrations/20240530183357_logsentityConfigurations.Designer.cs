@@ -9,11 +9,11 @@ using OnlineRivalMarket.Persistance.Context;
 
 #nullable disable
 
-namespace OnlineRivalMarket.Persistance.Migrations.CompanyDb
+namespace OnlineRivalMarket.Persistance.Migrations
 {
     [DbContext(typeof(CompanyDbContext))]
-    [Migration("20240527133701_refClass")]
-    partial class refClass
+    [Migration("20240530183357_logsentityConfigurations")]
+    partial class logsentityConfigurations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,7 +43,8 @@ namespace OnlineRivalMarket.Persistance.Migrations.CompanyDb
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -68,7 +69,8 @@ namespace OnlineRivalMarket.Persistance.Migrations.CompanyDb
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<DateTime?>("EndTime")
                         .HasColumnType("datetime2");
@@ -169,6 +171,46 @@ namespace OnlineRivalMarket.Persistance.Migrations.CompanyDb
                     b.ToTable("Category", (string)null);
                 });
 
+            modelBuilder.Entity("OnlineRivalMarket.Domain.CompanyEntities.ClientIpAddresses", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Latitude")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Longitude")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserLastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ClientIpAddress", (string)null);
+                });
+
             modelBuilder.Entity("OnlineRivalMarket.Domain.CompanyEntities.Competitor", b =>
                 {
                     b.Property<string>("Id")
@@ -187,7 +229,8 @@ namespace OnlineRivalMarket.Persistance.Migrations.CompanyDb
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -212,7 +255,8 @@ namespace OnlineRivalMarket.Persistance.Migrations.CompanyDb
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -224,7 +268,8 @@ namespace OnlineRivalMarket.Persistance.Migrations.CompanyDb
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -355,7 +400,8 @@ namespace OnlineRivalMarket.Persistance.Migrations.CompanyDb
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("ForeignCurrencyId")
                         .HasColumnType("nvarchar(450)");
@@ -367,12 +413,14 @@ namespace OnlineRivalMarket.Persistance.Migrations.CompanyDb
                         .HasColumnType("bit");
 
                     b.Property<decimal?>("MCurrency")
+                        .IsRequired()
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ProductId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal?>("RakipCurrency")
+                        .IsRequired()
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("RowNo")
@@ -459,13 +507,16 @@ namespace OnlineRivalMarket.Persistance.Migrations.CompanyDb
                         .HasColumnType("bit");
 
                     b.Property<string>("ProducerCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("ProductCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("ProductName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -550,7 +601,8 @@ namespace OnlineRivalMarket.Persistance.Migrations.CompanyDb
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -578,8 +630,8 @@ namespace OnlineRivalMarket.Persistance.Migrations.CompanyDb
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");

@@ -13,6 +13,7 @@ namespace OnlineRivalMarket.WebApi.Configurations
             services.AddMediatR(cfg => { cfg.RegisterServicesFromAssemblies(typeof(AssemblyReference).Assembly); });
             services.AddTransient(typeof(IPipelineBehavior<,>), (typeof(ValidationBehavior<,>)));
             services.AddValidatorsFromAssembly(typeof(AssemblyReference).Assembly);
+
         }
     }
 }

@@ -99,7 +99,5 @@ public sealed class ProductService : IProductService
         _companyDbUnitOfWork.SetDbContextInstance(_context);
         _commandRepository.Update(product);
         await _companyDbUnitOfWork.SaveChangesAsync();
-    }
-
-  
+    }  
 }

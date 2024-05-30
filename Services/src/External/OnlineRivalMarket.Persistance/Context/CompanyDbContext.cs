@@ -37,10 +37,7 @@ public sealed class CompanyDbContext : DbContext
         optionsBuilder.UseSqlServer(ConnectionString);
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder) => modelBuilder.ApplyConfigurationsFromAssembly(typeof(AssemblyReference).Assembly);
-
-
-
-    public class CompanyDbContextFactory : IDesignTimeDbContextFactory<CompanyDbContext>
+        public class CompanyDbContextFactory : IDesignTimeDbContextFactory<CompanyDbContext>
     {
         public CompanyDbContext CreateDbContext(string[] args)
         {

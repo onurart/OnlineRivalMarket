@@ -1,12 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OnlineRivalMarket.Persistance.Configurations
+﻿namespace OnlineRivalMarket.Persistance.Configurations
 {
     public sealed class ClientIpAdress : IEntityTypeConfiguration<ClientIpAddresses>
     {

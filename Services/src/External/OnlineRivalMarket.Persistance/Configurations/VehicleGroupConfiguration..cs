@@ -5,5 +5,6 @@ public sealed class VehicleGroupConfiguration : IEntityTypeConfiguration<Vehicle
     {
         builder.ToTable(TableNames.VehicleGroup);
         builder.HasKey(t => t.Id);
+        builder.Property(t => t.Name).HasMaxLength(200);
     }
 }
