@@ -6,7 +6,7 @@ public class DateTimeConverter : JsonConverter<DateTime>
 {
     private static readonly string[] Formats = new[]
     {
-        "dd-MM-yyyy HH:mm:ss",
+        //"dd-MM-yyyy HH:mm:ss",
         "dd-MM-yyyy"
     };
     public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
