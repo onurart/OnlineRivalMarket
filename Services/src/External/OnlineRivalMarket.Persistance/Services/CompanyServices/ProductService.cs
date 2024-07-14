@@ -26,33 +26,6 @@ public sealed class ProductService : IProductService
         await _companyDbUnitOfWork.SaveChangesAsync(cancellationToken);
         return product;
     }
-    public async Task<PaginationResult<ProductDto>> GetAllProductPaginationAsync(GetAllProductQuery request)
-    {
-        _context = (CompanyDbContext)_contextService.CreateDbContextInstance(request.CompanyId);
-        _queryRepository.SetDbContextInstance(_context);
-        var query = _queryRepository.GetAll(false)
-            .Include(pc => pc.VehicleType)
-            .Include(pc => pc.VehicleGrup)
-            .Include(pc => pc.Category)
-            .Include(pc => pc.Brand);
-        PaginationResult<ProductDto> paginationResult = await query.Select(pc => new ProductDto
-        {
-            Id = pc.Id,
-            ProducerCode = pc.ProducerCode,
-            ProductName = pc.ProductName,
-            ProductCode = pc.ProductCode,
-            VehicleTypeId = pc.VehicleTypeId,
-            VehicleTypeName = pc.VehicleType.Name,
-            VehicleGroupId = pc.VehicleGroupId,
-            VehicleGroupName = pc.VehicleGrup.Name,
-            BrandId = pc.BrandId,
-            BrandName = pc.Brand.Name,
-            CategoryId = pc.CategoryId,
-            CategoryName = pc.Category.Name,
-        })
-        .ToPagedListAsync(request.PageSize, request.PageNumber);
-        return paginationResult;
-    }
     public async Task<IList<ProductSelectList>> GetSelectListAsync(string companyId)
     {
         _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
@@ -100,4 +73,40 @@ public sealed class ProductService : IProductService
         _commandRepository.Update(product);
         await _companyDbUnitOfWork.SaveChangesAsync();
     }  
+    
+    
+    
+    
+    
+    public async Task<PaginationResult<ProductDto>> GetAllProductPaginationAsync(GetAllProductQuery request)
+    {
+        _context = (CompanyDbContext)_contextService.CreateDbContextInstance(request.CompanyId);
+        _queryRepository.SetDbContextInstance(_context);
+        var query = _queryRepository.GetAll(false)
+            .Include(pc => pc.VehicleType)
+            .Include(pc => pc.VehicleGrup)
+            .Include(pc => pc.Category)
+            .Include(pc => pc.Brand);
+        PaginationResult<ProductDto> paginationResult = await query.Select(pc => new ProductDto
+        {
+            Id = pc.Id,
+            ProducerCode = pc.ProducerCode,
+            ProductName = pc.ProductName,
+            ProductCode = pc.ProductCode,
+            VehicleTypeId = pc.VehicleTypeId,
+            VehicleTypeName = pc.VehicleType.Name,
+            VehicleGroupId = pc.VehicleGroupId,
+            VehicleGroupName = pc.VehicleGrup.Name,
+            BrandId = pc.BrandId,
+            BrandName = pc.Brand.Name,
+            CategoryId = pc.CategoryId,
+            CategoryName = pc.Category.Name,
+        })
+        .ToPagedListAsync(request.PageSize, request.PageNumber);
+        return paginationResult;
+    }
+
+
+
+
 }

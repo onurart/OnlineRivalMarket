@@ -1,2 +1,2 @@
 ﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.GetFilteredIntelligenceRecordsAsync;
-public sealed record IntelligenceRecordFilterResponse(IList<IntelligenceRecordDto> Data);
+public sealed record IntelligenceRecordFilterResponse(PaginationResult<IntelligenceRecordDto> Data);

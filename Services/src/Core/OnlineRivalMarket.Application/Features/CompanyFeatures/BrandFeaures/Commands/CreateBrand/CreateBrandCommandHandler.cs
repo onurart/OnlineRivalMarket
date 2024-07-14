@@ -23,7 +23,6 @@ public sealed class CreateBrandCommandHandler : ICommandHandler<CreateBrandComma
 
     public async Task<CreateBrandCOmmandResponse> Handle(CreateBrandCommand request,CancellationToken cancellationToken)
     {
-        await _brandBusinessRules.IsbrandUnique(request.Name);
         Brand createBrand = await _brandService.CreateBrandAsync(request, cancellationToken);
         string userId = _apiService.GetUserIdByToken();
         var logData = _logFactory.CreateLogData(createBrand, userId, nameof(Brand), "Create");

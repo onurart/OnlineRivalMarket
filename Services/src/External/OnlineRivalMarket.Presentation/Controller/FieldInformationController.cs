@@ -62,10 +62,11 @@ namespace OnlineRivalMarket.Presentation.Controller
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> GetCampaingDtoFilter(GetAllDtoFilterFieldInfoQuery requst, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetFieldInformationDtoFilter(GetAllDtoFilterFieldInfoQuery CompanyId)
         {
-            var reponse = await _mediator.Send(requst);
-            return Ok(reponse);
+			FieldInformationseResponse response = await _mediator.Send(CompanyId);
+
+			return Ok(response);
 
         }
 
@@ -78,6 +79,3 @@ namespace OnlineRivalMarket.Presentation.Controller
         }
     }
 }
-
-
-

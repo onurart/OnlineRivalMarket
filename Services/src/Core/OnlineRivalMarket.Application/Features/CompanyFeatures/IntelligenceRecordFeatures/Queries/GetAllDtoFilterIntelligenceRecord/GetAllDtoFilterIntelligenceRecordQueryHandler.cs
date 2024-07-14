@@ -1,21 +1,31 @@
-﻿namespace OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.GetAllDtoFilterIntelligenceRecord;
+﻿using OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.GetFilteredIntelligenceRecordsAsync;
 
-public sealed class GetAllDtoFilterIntelligenceRecordQueryHandler(IIntelligenceRecordService _service) : IQueryHandler<GetAllDtoFilterIntelligenceRecordQuery, IList<IntelligenceRecordDto>>
+namespace OnlineRivalMarket.Application.Features.CompanyFeatures.IntelligenceRecordFeatures.Queries.GetAllDtoFilterIntelligenceRecord;
+
+public sealed class GetAllDtoFilterIntelligenceRecordQueryHandler : IQueryHandler<GetAllDtoFilterIntelligenceRecordQuery, IntelligenceRecordFilterResponse>
 {
-    public async Task<IList<IntelligenceRecordDto>> Handle(GetAllDtoFilterIntelligenceRecordQuery request, CancellationToken cancellationToken)
+    private readonly IIntelligenceRecordService _service;
+
+    public GetAllDtoFilterIntelligenceRecordQueryHandler(IIntelligenceRecordService service)
     {
+        _service = service;
+    }
+
+    public async Task<IntelligenceRecordFilterResponse> Handle(GetAllDtoFilterIntelligenceRecordQuery request, CancellationToken cancellationToken)
+    {
+
         var result = await _service.GetAllIIntelligenceDtoFilterAsync
-            (
-          request.companyId,
-          request.competitorIds,
-          request.productIds,
-          request.brandIds,
-          request.categoryIds,
-          request.vehiclegroup,
-          request.vehicleype,
-          request.startDate,
-          request.endDate,
-          request.keyword);
-        return result;
+        (
+      request.companyId,
+      request.competitorIds,
+      request.productIds,
+      request.brandIds,
+      request.categoryIds,
+      request.vehiclegroup,
+      request.vehicleype,
+      request.startDate,
+      request.endDate,
+      request.keyword, request.PageNumber, request.PageSize);
+        return new IntelligenceRecordFilterResponse(result);
     }
 }

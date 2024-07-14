@@ -4,7 +4,7 @@ public class CategoryBusinessRules(ICategoryQueryRepository categoryQueryReposit
 {
 	public Task IsCategoryUnique(string name)
 	{
-		Category? category = categoryQueryRepository.GetWhere(x => x.Name.ToUpper() == name.ToUpper(), false).FirstOrDefault();
+		Category? category = categoryQueryRepository.GetWhere(x => x.Name == name).FirstOrDefault();
 		if (category == null)
 		{
 			throw new Exception("Hata");
@@ -13,7 +13,7 @@ public class CategoryBusinessRules(ICategoryQueryRepository categoryQueryReposit
 	}
 	public async Task CategoryShouleBeExists(string Id)
 	{
-		Category category = await categoryQueryRepository.GetById(Id, false);
+		Category category = await categoryQueryRepository.GetById(Id);
 		if (category == null)
 		{
 			throw new Exception("hata");

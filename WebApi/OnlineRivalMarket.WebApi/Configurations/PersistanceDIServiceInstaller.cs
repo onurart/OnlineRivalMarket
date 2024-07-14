@@ -1,4 +1,9 @@
-﻿using OnlineRivalMarket.Application.Features.CompanyFeatures.ClientIpAddresses.Commands.Create;
+﻿using OnlineRivalMarket.Application.Features.CompanyFeatures.BrandFeaures.Rules;
+using OnlineRivalMarket.Application.Features.CompanyFeatures.CategoryFeatures.Rule;
+using OnlineRivalMarket.Application.Features.CompanyFeatures.ClientIpAddresses.Commands.Create;
+using OnlineRivalMarket.Application.Features.CompanyFeatures.ProductFeatures.Rules;
+using OnlineRivalMarket.Application.Features.CompanyFeatures.VehicleGroupFeaures.Rules;
+using OnlineRivalMarket.Application.Features.CompanyFeatures.VehicleTypeFeaures.Rule;
 using OnlineRivalMarket.Application.Services.AppServices;
 using OnlineRivalMarket.Application.Services.CompanyServices;
 using OnlineRivalMarket.Domain;
@@ -172,8 +177,18 @@ namespace OnlineRivalMarket.WebApi.Configurations
             services.AddScoped<IUserAndCompanyRelationshipQueryRepository, UserAndCompanyRelationshipQueryRepository>();
             services.AddScoped<IUserRoleCommandRepository, UserRoleCommandRepository>();
             services.AddScoped<IUserRoleQueryRepository, UserRoleQueryRepository>();
-            #endregion
-            #endregion
-        }
-    }
+			#endregion
+			#endregion
+
+
+			#region rule
+			services.AddTransient<BrandBusinessRules>();
+			services.AddTransient<CategoryBusinessRules>();
+			services.AddTransient<ProductBusinessRule>();
+			services.AddTransient<VehicleGroupBusinessRule>();
+			services.AddTransient<VehicleTypeBussinesRule>();
+
+			#endregion
+		}
+	}
 }

@@ -17,67 +17,79 @@ public class IntelligenceRecordService : IIntelligenceRecordService
         _mapper = mapper;
         _queryProductRepository = queryProductRepository;
     }
-    public async Task<IList<IntelligenceRecordDto>> GetAllIIntelligenceDtoFilterAsync(string companyId, List<string> competitorIds, List<string> productIds, List<string> brandIds, List<string> categoryIds, List<string> vehiclegroup, List<string> vehicleype, DateTime startDate, DateTime endDate, string keyword)
-{
-    _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
-    _queryRepository.SetDbContextInstance(_context);
-    _queryProductRepository.SetDbContextInstance(_context);
-
-    var query = _queryRepository
-        .GetAll(false)
-        .Include(pc => pc.Competitor)
-        .Include(pc => pc.IntelligenceRecordFiles)
-        .Include(pc => pc.Product)
-        .Include(pc => pc.ForeignCurrency).Include(x=>x.Product.VehicleGrup).Include(x=>x.Product.VehicleType)
-        .Where(pc =>
-            (startDate == default || pc.CreatedDate >= startDate) &&
-            (endDate == default || pc.CreatedDate <= endDate.AddDays(1)) &&
-            (competitorIds == null || !competitorIds.Any() || competitorIds.Contains(pc.CompetitorId)) &&
-            (productIds == null || !productIds.Any() || productIds.Contains(pc.ProductId)) &&
-            (brandIds == null || !brandIds.Any() || (pc.Product != null && brandIds.Contains(pc.Product.BrandId))) &&
-            (categoryIds == null || !categoryIds.Any() || (pc.Product != null && categoryIds.Contains(pc.Product.CategoryId))) &&
-            (vehiclegroup == null || !vehiclegroup.Any() || (pc.Product != null && vehiclegroup.Contains(pc.Product.VehicleGrup.Id))) &&
-            (vehicleype == null || !vehicleype.Any() || (pc.Product != null && vehicleype.Contains(pc.Product.VehicleType.Id))) &&
-            (string.IsNullOrEmpty(keyword) ||
-                (pc.Description != null && pc.Description.Contains(keyword)) ||
-                (pc.Product.ProductName != null && pc.Product.ProductName.Contains(keyword)) ||
-                (pc.Product.Brand.Name != null && pc.Product.Brand.Name.Contains(keyword)) ||
-                (pc.Product.VehicleGrup != null && pc.Product.VehicleGrup.Name.Contains(keyword)) ||
-                (pc.Product.VehicleType != null && pc.Product.VehicleType.Name.Contains(keyword)) ||
-                (pc.Product.Category.Name != null && pc.Product.Category.Name.Contains(keyword)))
-        );
-
-    var result = await query.OrderByDescending(pc => pc.CreatedDate).ToListAsync();
-
-    var joinedData = result.Select(pc => new IntelligenceRecordDto
+    public async Task<PaginationResult<IntelligenceRecordDto>> GetAllIIntelligenceDtoFilterAsync
+        (string companyId,
+        List<string> competitorIds,
+        List<string> vehiclegroup,
+        List<string> categoryIds,
+        List<string> vehicleype,
+        List<string> productIds,
+        List<string> brandIds,
+        DateTime startDate,
+        DateTime endDate,
+        string keyword, int pageNumber,
+       int pageSize)
     {
-        Id = pc.Id,
-        CompetitorId = pc.CompetitorId,
-        CompetitorName = pc.Competitor?.Name,
-        BrandId = pc.Product?.BrandId,
-        BrandName = pc.Product?.Brand?.Name,
-        CategoryId = pc.Product?.CategoryId,
-        CategoryName = pc.Product?.Category?.Name,
-        ProductId = pc.Product?.Id,
-        ProductName = pc.Product?.ProductName,
-        VehicleGroupId = pc.Product?.VehicleGrup?.Id,
-        VehicleGroupName = pc.Product?.VehicleGrup?.Name,
-        VehicleTypeId = pc.Product?.VehicleType?.Id,
-        VehicleTypeName = pc.Product?.VehicleType?.Name,
-        Description = pc.Description,
-        MCurrency = pc.MCurrency,
-        RakipCurrency = pc.RakipCurrency,
-        ForeignCurrencyId = pc.ForeignCurrencyId,
-        ForeignCurrencyName = pc.ForeignCurrency?.CurrencyName,
-        ImageFiles = pc.IntelligenceRecordFiles.Select(x => x.FileUrls),
-        CreatedDate = pc.CreatedDate,
-        UserId = pc.UserId,
-        UserLastName = pc.UserLastName,
-        RowNo = (int)pc.RowNo,
-    }).ToList();
+        _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
+        _queryRepository.SetDbContextInstance(_context);
+        _queryProductRepository.SetDbContextInstance(_context);
 
-    return joinedData;
-}
+        var query = _queryRepository
+            .GetAll(false)
+            .Include(pc => pc.Competitor)
+            .Include(pc => pc.IntelligenceRecordFiles)
+            .Include(pc => pc.Product)
+            .Include(pc => pc.ForeignCurrency).Include(x => x.Product.VehicleGrup).Include(x => x.Product.VehicleType)
+            .Where(pc =>
+                (startDate == default || pc.CreatedDate >= startDate) &&
+                (endDate == default || pc.CreatedDate <= endDate.AddDays(1)) &&
+                (competitorIds == null || !competitorIds.Any() || competitorIds.Contains(pc.CompetitorId)) &&
+                (productIds == null || !productIds.Any() || productIds.Contains(pc.ProductId)) &&
+                (brandIds == null || !brandIds.Any() || (pc.Product != null && brandIds.Contains(pc.Product.BrandId))) &&
+                (categoryIds == null || !categoryIds.Any() || (pc.Product != null && categoryIds.Contains(pc.Product.CategoryId))) &&
+                (vehiclegroup == null || !vehiclegroup.Any() || (pc.Product != null && vehiclegroup.Contains(pc.Product.VehicleGrup.Id))) &&
+                (vehicleype == null || !vehicleype.Any() || (pc.Product != null && vehicleype.Contains(pc.Product.VehicleType.Id))) &&
+                (string.IsNullOrEmpty(keyword) ||
+                    (pc.Description != null && pc.Description.Contains(keyword)) ||
+                    (pc.Product.ProductName != null && pc.Product.ProductName.Contains(keyword)) ||
+                    (pc.Product.Brand.Name != null && pc.Product.Brand.Name.Contains(keyword)) ||
+                    (pc.Product.VehicleGrup != null && pc.Product.VehicleGrup.Name.Contains(keyword)) ||
+                    (pc.Product.VehicleType != null && pc.Product.VehicleType.Name.Contains(keyword)) ||
+                    (pc.Product.Category.Name != null && pc.Product.Category.Name.Contains(keyword)))
+            );
+        var totalCount = await query.CountAsync();
+
+        var result = await query.OrderByDescending(pc => pc.CreatedDate).ToListAsync();
+
+        var joinedData = result.Select(pc => new IntelligenceRecordDto
+        {
+            Id = pc.Id,
+            CompetitorId = pc.CompetitorId,
+            CompetitorName = pc.Competitor?.Name,
+            BrandId = pc.Product?.BrandId,
+            BrandName = pc.Product?.Brand?.Name,
+            CategoryId = pc.Product?.CategoryId,
+            CategoryName = pc.Product?.Category?.Name,
+            ProductId = pc.Product?.Id,
+            ProductName = pc.Product?.ProductName,
+            VehicleGroupId = pc.Product?.VehicleGrup?.Id,
+            VehicleGroupName = pc.Product?.VehicleGrup?.Name,
+            VehicleTypeId = pc.Product?.VehicleType?.Id,
+            VehicleTypeName = pc.Product?.VehicleType?.Name,
+            Description = pc.Description,
+            MCurrency = pc.MCurrency,
+            RakipCurrency = pc.RakipCurrency,
+            ForeignCurrencyId = pc.ForeignCurrencyId,
+            ForeignCurrencyName = pc.ForeignCurrency?.CurrencyName,
+            ImageFiles = pc.IntelligenceRecordFiles.Select(x => x.FileUrls),
+            CreatedDate = pc.CreatedDate,
+            UserId = pc.UserId,
+            UserLastName = pc.UserLastName,
+            RowNo = (int)pc.RowNo,
+        }).ToList();
+
+        return new PaginationResult<IntelligenceRecordDto>(joinedData, totalCount, pageNumber, pageSize);
+    }
     public async Task<IntelligenceRecord> CreateIntelligenceRecordAsync(CreateIntelligenceRecordCommand requset, CancellationToken cancellationToken)
     {
         _context = (CompanyDbContext)_contextService.CreateDbContextInstance(requset.CompanyId);
@@ -298,5 +310,67 @@ public class IntelligenceRecordService : IIntelligenceRecordService
 
         return joinedData.ToList();
     }
+
+    //public async Task<IList<IntelligenceRecordDto>> GetAllIIntelligenceDtoFilterAsync(string companyId, List<string> competitorIds, List<string> productIds, List<string> brandIds, List<string> categoryIds, List<string> vehiclegroup, List<string> vehicleype, DateTime startDate, DateTime endDate, string keyword)
+    //{
+    //    _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
+    //    _queryRepository.SetDbContextInstance(_context);
+    //    _queryProductRepository.SetDbContextInstance(_context);
+
+    //    var query = _queryRepository
+    //        .GetAll(false)
+    //        .Include(pc => pc.Competitor)
+    //        .Include(pc => pc.IntelligenceRecordFiles)
+    //        .Include(pc => pc.Product)
+    //        .Include(pc => pc.ForeignCurrency).Include(x => x.Product.VehicleGrup).Include(x => x.Product.VehicleType)
+    //        .Where(pc =>
+    //            (startDate == default || pc.CreatedDate >= startDate) &&
+    //            (endDate == default || pc.CreatedDate <= endDate.AddDays(1)) &&
+    //            (competitorIds == null || !competitorIds.Any() || competitorIds.Contains(pc.CompetitorId)) &&
+    //            (productIds == null || !productIds.Any() || productIds.Contains(pc.ProductId)) &&
+    //            (brandIds == null || !brandIds.Any() || (pc.Product != null && brandIds.Contains(pc.Product.BrandId))) &&
+    //            (categoryIds == null || !categoryIds.Any() || (pc.Product != null && categoryIds.Contains(pc.Product.CategoryId))) &&
+    //            (vehiclegroup == null || !vehiclegroup.Any() || (pc.Product != null && vehiclegroup.Contains(pc.Product.VehicleGrup.Id))) &&
+    //            (vehicleype == null || !vehicleype.Any() || (pc.Product != null && vehicleype.Contains(pc.Product.VehicleType.Id))) &&
+    //            (string.IsNullOrEmpty(keyword) ||
+    //                (pc.Description != null && pc.Description.Contains(keyword)) ||
+    //                (pc.Product.ProductName != null && pc.Product.ProductName.Contains(keyword)) ||
+    //                (pc.Product.Brand.Name != null && pc.Product.Brand.Name.Contains(keyword)) ||
+    //                (pc.Product.VehicleGrup != null && pc.Product.VehicleGrup.Name.Contains(keyword)) ||
+    //                (pc.Product.VehicleType != null && pc.Product.VehicleType.Name.Contains(keyword)) ||
+    //                (pc.Product.Category.Name != null && pc.Product.Category.Name.Contains(keyword)))
+    //        );
+
+    //    var result = await query.OrderByDescending(pc => pc.CreatedDate).ToListAsync();
+
+    //    var joinedData = result.Select(pc => new IntelligenceRecordDto
+    //    {
+    //        Id = pc.Id,
+    //        CompetitorId = pc.CompetitorId,
+    //        CompetitorName = pc.Competitor?.Name,
+    //        BrandId = pc.Product?.BrandId,
+    //        BrandName = pc.Product?.Brand?.Name,
+    //        CategoryId = pc.Product?.CategoryId,
+    //        CategoryName = pc.Product?.Category?.Name,
+    //        ProductId = pc.Product?.Id,
+    //        ProductName = pc.Product?.ProductName,
+    //        VehicleGroupId = pc.Product?.VehicleGrup?.Id,
+    //        VehicleGroupName = pc.Product?.VehicleGrup?.Name,
+    //        VehicleTypeId = pc.Product?.VehicleType?.Id,
+    //        VehicleTypeName = pc.Product?.VehicleType?.Name,
+    //        Description = pc.Description,
+    //        MCurrency = pc.MCurrency,
+    //        RakipCurrency = pc.RakipCurrency,
+    //        ForeignCurrencyId = pc.ForeignCurrencyId,
+    //        ForeignCurrencyName = pc.ForeignCurrency?.CurrencyName,
+    //        ImageFiles = pc.IntelligenceRecordFiles.Select(x => x.FileUrls),
+    //        CreatedDate = pc.CreatedDate,
+    //        UserId = pc.UserId,
+    //        UserLastName = pc.UserLastName,
+    //        RowNo = (int)pc.RowNo,
+    //    }).ToList();
+
+    //    return joinedData;
+    //}
 
 }
